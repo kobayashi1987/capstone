@@ -1,0 +1,2 @@
+CustomerID,FirstName,LastName,Email,PhoneNumber,PassportNumber
+1,John,Doe,ss@ss,123,F45
