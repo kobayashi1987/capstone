@@ -1,3 +1,4 @@
 /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/project01.dir
+/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/TradingAlgorithms.dir
 /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/rebuild_cache.dir

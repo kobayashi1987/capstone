@@ -1,7 +1,14 @@
 # ninja log v6
-5262	7805	1727250068138183023	project01	5d407b1de4ac5ea0
-3	5262	1727250062878779726	CMakeFiles/project01.dir/main.cpp.o	c2437f089dcf5114
-2	125	1728137647417716367	build.ninja	7dde54a977638f74
-2	765	1728137664478160202	CMakeFiles/project01.dir/Customer.cpp.o	2e9ceb8218e67aef
-3	929	1728137664479049667	CMakeFiles/project01.dir/Main.cpp.o	dd79e2f047c7bd1b
 929	3468	1728137665405265367	project01	c762f5aedfbe1c8
+3	5262	1727250062878779726	CMakeFiles/project01.dir/main.cpp.o	c2437f089dcf5114
+2	125	1728260474872954919	build.ninja	7dde54a977638f74
+3	929	1728137664479049667	CMakeFiles/project01.dir/Main.cpp.o	dd79e2f047c7bd1b
+2	765	1728137664478160202	CMakeFiles/project01.dir/Customer.cpp.o	2e9ceb8218e67aef
+7	994	1728260498140276803	CMakeFiles/project01.dir/src/TradingStrategy.cpp.o	89f23f4da41df684
+5	1038	1728260498138949509	CMakeFiles/project01.dir/Customer.cpp.o	5f4d4acba3e16b3a
+7	1080	1728260498140656762	CMakeFiles/project01.dir/src/Main.cpp.o	be0fda8f60e9086
+7	1122	1728260498140473512	CMakeFiles/project01.dir/src/MovingAverageCrossoverStrategy.cpp.o	e553d8d3bc1ea446
+6	1185	1728260498140039094	CMakeFiles/project01.dir/Main.cpp.o	361275aa685c7dd2
+4	33	1728260543799888039	CMakeFiles/project01.dir/Customer.cpp.o	5f4d4acba3e16b3a
+4	33	1728260543800316790	CMakeFiles/project01.dir/Main.cpp.o	361275aa685c7dd2
+33	74	1728260543829160798	project01	44ba4deafb0c9ed1
