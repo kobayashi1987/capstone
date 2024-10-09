@@ -8,6 +8,8 @@
 #define MOVINGAVERAGECROSSOVERSTRATEGY_H
 
 #include "TradingStrategy.h"
+#include "Order.h"
+#include <vector>
 
 class MovingAverageCrossoverStrategy : public TradingStrategy {
 public:

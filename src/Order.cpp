@@ -4,10 +4,11 @@
 
 #include "Order.h"
 
-Order::Order(OrderType type, const std::string& symbol, int quantity, double price)
-        : type_(type), symbol_(symbol), quantity_(quantity), price_(price), timestamp_(std::chrono::system_clock::now()) {}
+Order::Order(OrderType type, OrderStyle style, const std::string& symbol, int quantity, double price)
+        : type_(type), style_(style), symbol_(symbol), quantity_(quantity), price_(price), timestamp_(std::chrono::system_clock::now()) {}
 
 OrderType Order::getType() const { return type_; }
+OrderStyle Order::getStyle() const { return style_; }
 const std::string& Order::getSymbol() const { return symbol_; }
 int Order::getQuantity() const { return quantity_; }
 double Order::getPrice() const { return price_; }

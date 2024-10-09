@@ -5,9 +5,10 @@
 // src/MovingAverageCrossoverStrategy.cpp
 
 #include "MovingAverageCrossoverStrategy.h"
-#include <numeric>   // For std::accumulate
-#include <stdexcept> // For std::invalid_argument
-#include "Order.h"
+#include "Order.h" // Include this header
+#include <numeric>  // For std::accumulate
+#include <stdexcept> // F
+#include <vector>
 
 MovingAverageCrossoverStrategy::MovingAverageCrossoverStrategy(int shortWindow, int longWindow)
         : shortWindow_(shortWindow), longWindow_(longWindow) {
@@ -58,10 +59,10 @@ std::vector<Order> MovingAverageCrossoverStrategy::generateOrders(const std::vec
     for (size_t i = 0; i < signals_.size(); ++i) {
         if (signals_[i] == 1) {
             // Buy signal
-            orders.emplace_back(OrderType::Buy, symbol, /*quantity=*/100, prices[i]); // Quantity can be adjusted
+            orders.emplace_back(OrderType::Buy, OrderStyle::Market, symbol, /*quantity=*/100, prices[i]);
         } else if (signals_[i] == -1) {
             // Sell signal
-            orders.emplace_back(OrderType::Sell, symbol, /*quantity=*/100, prices[i]);
+            orders.emplace_back(OrderType::Sell, OrderStyle::Market, symbol, /*quantity=*/100, prices[i]);
         }
     }
 

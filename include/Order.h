@@ -9,13 +9,15 @@
 #include <chrono>
 
 enum class OrderType { Buy, Sell };
+enum class OrderStyle { Market, Limit };
 
 class Order {
 public:
-    Order(OrderType type, const std::string& symbol, int quantity, double price);
+    Order(OrderType type, OrderStyle style, const std::string& symbol, int quantity, double price);
 
     // Getters
     OrderType getType() const;
+    OrderStyle getStyle() const;
     const std::string& getSymbol() const;
     int getQuantity() const;
     double getPrice() const;
@@ -23,6 +25,7 @@ public:
 
 private:
     OrderType type_;
+    OrderStyle style_;
     std::string symbol_;
     int quantity_;
     double price_;

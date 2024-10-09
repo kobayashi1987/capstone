@@ -4,13 +4,51 @@
 #include "StrategyManager.h"
 #include "TradingEngine.h"
 #include <unordered_map>
+#include "MarketDataFeed.h"
 
+
+void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed);
+void placeOrder(TradingEngine& engine, MarketDataFeed& marketDataFeed);
+void viewMarketPrices(const MarketDataFeed& marketDataFeed);
+void displayMainMenu();
 
 int main() {
 
     // Initialize the trading engine with $10,000 cash :  2024 Oct 9
     TradingEngine engine(10000.0);
 
+    // Initialize the market data feed
+    MarketDataFeed marketDataFeed;
+
+    int choice;
+    do {
+        displayMainMenu();
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                viewMarketPrices(marketDataFeed);
+                break;
+            case 2:
+                placeOrder(engine, marketDataFeed);
+                break;
+            case 3:
+                viewPortfolio(engine, marketDataFeed);
+                break;
+            case 4:
+                marketDataFeed.updatePrices();
+                // Process pending limit orders
+                engine.processPendingOrders(marketDataFeed.getPrices());
+                std::cout << "Market prices updated.\n";
+                break;
+            case 0:
+                std::cout << "Exiting application.\n";
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+        }
+    } while (choice != 0);
 
     // Set a trading strategy : 2024 Oct 9
     engine.setStrategy(std::make_unique<MovingAverageCrossoverStrategy>(3, 5));
@@ -28,11 +66,8 @@ int main() {
     // Execute strategy: 2024 Oct 9
     engine.executeStrategy(prices, symbol);
 
-    // User interaction: Buy 50 shares at $105: 2024 Oct 9
-    engine.userBuy(symbol, 50, 105.0);
-
     // User interaction: Sell 30 shares at $110: 2024 Oct 9
-    engine.userSell(symbol, 30, 110.0);
+    engine.userPlaceOrder(symbol, OrderType::Sell, OrderStyle::Market, 30, 110.0, marketDataFeed.getPrices());
 
 
     // Display portfolio status: 2024 Oct 9
@@ -112,3 +147,150 @@ int main() {
     return 0;
 }
 
+
+
+// main.cpp
+//
+//#include "TradingEngine.h"
+//#include "MarketDataFeed.h"
+//// Include other necessary headers
+//#include <iostream>
+//
+//int main() {
+//    // Initialize the trading engine with $10,000 cash
+//    TradingEngine engine(10000.0);
+//
+//    // Initialize the market data feed
+//    MarketDataFeed marketDataFeed;
+//
+//    // Main application loop
+//    int choice;
+//    do {
+//        displayMainMenu();
+//        std::cin >> choice;
+//
+//        switch (choice) {
+//            case 1:
+//                viewMarketPrices(marketDataFeed);
+//                break;
+//            case 2:
+//                placeOrder(engine, marketDataFeed);
+//                break;
+//            case 3:
+//                viewPortfolio(engine, marketDataFeed);
+//                break;
+//            case 4:
+//                marketDataFeed.updatePrices();
+//                engine.processPendingOrders(marketDataFeed.getPrices());
+//                std::cout << "Market prices updated.\n";
+//                break;
+//            case 0:
+//                std::cout << "Exiting application.\n";
+//                break;
+//            default:
+//                std::cout << "Invalid choice. Please try again.\n";
+//                break;
+//        }
+//    } while (choice != 0);
+//
+//    return 0;
+//}
+// Implement functions to display menus and handle user choices: 2024 Oct 9a
+void displayMainMenu() {
+    std::cout << "\n=== Trading Application Menu ===\n";
+    std::cout << "1. View Market Prices\n";
+    std::cout << "2. Place Order\n";
+    std::cout << "3. View Portfolio\n";
+    std::cout << "4. Update Market Prices\n";
+    std::cout << "0. Exit\n";
+    std::cout << "Enter your choice: ";
+}
+
+void displayOrderMenu() {
+    std::cout << "\n=== Place Order ===\n";
+    std::cout << "Enter the following details:\n";
+}
+
+
+// Add functions to handle user actions: 2024 Oct 9a
+
+
+void viewMarketPrices(const MarketDataFeed& marketDataFeed) {
+    std::cout << "\n=== Market Prices ===\n";
+    const auto& prices = marketDataFeed.getPrices();
+    for (const auto& pair : prices) {
+        std::cout << pair.first << ": $" << pair.second << "\n";
+    }
+}
+
+void placeOrder(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
+    std::string symbol;
+    std::string orderTypeStr;
+    std::string orderStyleStr;
+    int quantity;
+    double price;
+
+    displayOrderMenu();
+    std::cout << "Stock Symbol (e.g., AAPL): ";
+    std::cin >> symbol;
+
+    std::cout << "Order Type (Buy/Sell): ";
+    std::cin >> orderTypeStr;
+    OrderType orderType;
+    if (orderTypeStr == "Buy" || orderTypeStr == "buy") {
+        orderType = OrderType::Buy;
+    } else if (orderTypeStr == "Sell" || orderTypeStr == "sell") {
+        orderType = OrderType::Sell;
+    } else {
+        std::cout << "Invalid order type.\n";
+        return;
+    }
+
+    std::cout << "Order Style (Market/Limit): ";
+    std::cin >> orderStyleStr;
+    OrderStyle orderStyle;
+    if (orderStyleStr == "Market" || orderStyleStr == "market") {
+        orderStyle = OrderStyle::Market;
+    } else if (orderStyleStr == "Limit" || orderStyleStr == "limit") {
+        orderStyle = OrderStyle::Limit;
+    } else {
+        std::cout << "Invalid order style.\n";
+        return;
+    }
+
+    std::cout << "Quantity: ";
+    std::cin >> quantity;
+
+    if (orderStyle == OrderStyle::Limit) {
+        std::cout << "Limit Price: ";
+        std::cin >> price;
+    } else {
+        // For market orders, use current market price
+        try {
+            price = marketDataFeed.getPrice(symbol);
+        } catch (const std::exception& e) {
+            std::cout << e.what() << "\n";
+            return;
+        }
+    }
+
+    engine.userPlaceOrder(symbol, orderType, orderStyle, quantity, price, marketDataFeed.getPrices());
+}
+
+void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+    std::cout << "\n=== Portfolio ===\n";
+    std::cout << "Cash Balance: $" << engine.getCashBalance() << "\n";
+
+    const auto& positions = engine.getPositions();
+    if (positions.empty()) {
+        std::cout << "No positions.\n";
+    } else {
+        std::cout << "Positions:\n";
+        for (const auto& pair : positions) {
+            std::cout << pair.first << ": " << pair.second << " shares\n";
+        }
+    }
+
+    double unrealizedPnL = engine.getUnrealizedPnL(marketDataFeed.getPrices());
+    std::cout << "Unrealized P&L: $" << unrealizedPnL << "\n";
+}
