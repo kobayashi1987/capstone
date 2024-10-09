@@ -7,6 +7,7 @@
 #include "MovingAverageCrossoverStrategy.h"
 #include <numeric>   // For std::accumulate
 #include <stdexcept> // For std::invalid_argument
+#include "Order.h"
 
 MovingAverageCrossoverStrategy::MovingAverageCrossoverStrategy(int shortWindow, int longWindow)
         : shortWindow_(shortWindow), longWindow_(longWindow) {
@@ -47,4 +48,22 @@ void MovingAverageCrossoverStrategy::generateSignals(const std::vector<double>& 
             signals_[i + longWindow_ - 1] = 0; // Hold/Neutral
         }
     }
+}
+
+// Newly added method to generate orders 2024 Oct 09
+std::vector<Order> MovingAverageCrossoverStrategy::generateOrders(const std::vector<double>& prices, const std::string& symbol) {
+    generateSignals(prices);
+    std::vector<Order> orders;
+
+    for (size_t i = 0; i < signals_.size(); ++i) {
+        if (signals_[i] == 1) {
+            // Buy signal
+            orders.emplace_back(OrderType::Buy, symbol, /*quantity=*/100, prices[i]); // Quantity can be adjusted
+        } else if (signals_[i] == -1) {
+            // Sell signal
+            orders.emplace_back(OrderType::Sell, symbol, /*quantity=*/100, prices[i]);
+        }
+    }
+
+    return orders;
 }

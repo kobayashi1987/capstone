@@ -12,7 +12,17 @@ include_directories(include)
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 # Create the executable
-add_executable(TradingApplication ${SOURCES})
+add_executable(TradingApplication ${SOURCES}
+        include/Order.h
+        src/Order.cpp
+        include/Trade.h
+        src/Trade.cpp
+        include/OrderExecutor.h
+        src/OrderExecutor.cpp
+        include/Portfolio.h
+        src/Portfolio.cpp
+        include/TradingEngine.h
+        src/TradingEngine.cpp)
 
 # Link libraries if necessary (e.g., pthread)
 find_package(Threads REQUIRED)

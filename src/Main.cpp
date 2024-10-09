@@ -2,14 +2,46 @@
 #include "MovingAverageCrossoverStrategy.h"
 #include "RSIStrategy.h" // Assuming you have implemented this strategy
 #include "StrategyManager.h"
+#include "TradingEngine.h"
+#include <unordered_map>
+
 
 int main() {
+
+    // Initialize the trading engine with $10,000 cash :  2024 Oct 9
+    TradingEngine engine(10000.0);
+
+
+    // Set a trading strategy : 2024 Oct 9
+    engine.setStrategy(std::make_unique<MovingAverageCrossoverStrategy>(3, 5));
+
+
     // Sample price data (e.g., cryptocurrency closing prices)
     std::vector<double> prices = {
             100.0, 101.5, 102.3, 103.7, 104.1,
             103.5, 102.8, 101.2, 100.5, 99.8,
             100.2, 101.0, 102.5, 103.0, 104.5
     };
+
+    std::string symbol = "AAPL"; // Example symbol : 2024 Oct 9
+
+    // Execute strategy: 2024 Oct 9
+    engine.executeStrategy(prices, symbol);
+
+    // User interaction: Buy 50 shares at $105: 2024 Oct 9
+    engine.userBuy(symbol, 50, 105.0);
+
+    // User interaction: Sell 30 shares at $110: 2024 Oct 9
+    engine.userSell(symbol, 30, 110.0);
+
+
+    // Display portfolio status: 2024 Oct 9
+    std::unordered_map<std::string, double> marketPrices = { { symbol, 108.0 } };
+    std::cout << "Cash Balance: $" << engine.getCashBalance() << "\n";
+    std::cout << "Position in " << symbol << ": " << engine.getPosition(symbol) << " shares\n";
+    std::cout << "Unrealized P&L: $" << engine.getUnrealizedPnL(marketPrices) << "\n";
+
+
 
     // Create a StrategyManager instance
     StrategyManager manager;
@@ -79,3 +111,4 @@ int main() {
 
     return 0;
 }
+
