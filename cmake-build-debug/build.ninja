@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: TradingAlgorithms
+# Project: TradingApplication
 # Configurations: Debug
 # =============================================================================
 
@@ -41,110 +41,64 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target project01
+# Object build statements for EXECUTABLE target TradingApplication
 
 
 #############################################
-# Order-only phony target for project01
+# Order-only phony target for TradingApplication
 
-build cmake_object_order_depends_target_project01: phony || .
+build cmake_object_order_depends_target_TradingApplication: phony || .
 
-build CMakeFiles/project01.dir/Customer.cpp.o: CXX_COMPILER__project01_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/Customer.cpp || cmake_object_order_depends_target_project01
-  DEP_FILE = CMakeFiles/project01.dir/Customer.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/project01.dir
-  OBJECT_FILE_DIR = CMakeFiles/project01.dir
+build CMakeFiles/TradingApplication.dir/src/Main.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/Main.cpp || cmake_object_order_depends_target_TradingApplication
+  DEP_FILE = CMakeFiles/TradingApplication.dir/src/Main.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
+  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
+  OBJECT_FILE_DIR = CMakeFiles/TradingApplication.dir/src
 
-build CMakeFiles/project01.dir/Main.cpp.o: CXX_COMPILER__project01_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/Main.cpp || cmake_object_order_depends_target_project01
-  DEP_FILE = CMakeFiles/project01.dir/Main.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/project01.dir
-  OBJECT_FILE_DIR = CMakeFiles/project01.dir
+build CMakeFiles/TradingApplication.dir/src/MovingAverageCrossoverStrategy.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/MovingAverageCrossoverStrategy.cpp || cmake_object_order_depends_target_TradingApplication
+  DEP_FILE = CMakeFiles/TradingApplication.dir/src/MovingAverageCrossoverStrategy.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
+  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
+  OBJECT_FILE_DIR = CMakeFiles/TradingApplication.dir/src
 
-build CMakeFiles/project01.dir/src/TradingStrategy.cpp.o: CXX_COMPILER__project01_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/TradingStrategy.cpp || cmake_object_order_depends_target_project01
-  DEP_FILE = CMakeFiles/project01.dir/src/TradingStrategy.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/project01.dir
-  OBJECT_FILE_DIR = CMakeFiles/project01.dir/src
+build CMakeFiles/TradingApplication.dir/src/RSIStrategy.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/RSIStrategy.cpp || cmake_object_order_depends_target_TradingApplication
+  DEP_FILE = CMakeFiles/TradingApplication.dir/src/RSIStrategy.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
+  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
+  OBJECT_FILE_DIR = CMakeFiles/TradingApplication.dir/src
 
-build CMakeFiles/project01.dir/src/MovingAverageCrossoverStrategy.cpp.o: CXX_COMPILER__project01_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/MovingAverageCrossoverStrategy.cpp || cmake_object_order_depends_target_project01
-  DEP_FILE = CMakeFiles/project01.dir/src/MovingAverageCrossoverStrategy.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/project01.dir
-  OBJECT_FILE_DIR = CMakeFiles/project01.dir/src
+build CMakeFiles/TradingApplication.dir/src/StrategyManager.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/StrategyManager.cpp || cmake_object_order_depends_target_TradingApplication
+  DEP_FILE = CMakeFiles/TradingApplication.dir/src/StrategyManager.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
+  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
+  OBJECT_FILE_DIR = CMakeFiles/TradingApplication.dir/src
 
-build CMakeFiles/project01.dir/src/Main.cpp.o: CXX_COMPILER__project01_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/Main.cpp || cmake_object_order_depends_target_project01
-  DEP_FILE = CMakeFiles/project01.dir/src/Main.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/project01.dir
-  OBJECT_FILE_DIR = CMakeFiles/project01.dir/src
+build CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/TradingStrategy.cpp || cmake_object_order_depends_target_TradingApplication
+  DEP_FILE = CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
+  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
+  OBJECT_FILE_DIR = CMakeFiles/TradingApplication.dir/src
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target project01
+# Link build statements for EXECUTABLE target TradingApplication
 
 
 #############################################
-# Link the executable project01
+# Link the executable TradingApplication
 
-build project01: CXX_EXECUTABLE_LINKER__project01_Debug CMakeFiles/project01.dir/Customer.cpp.o CMakeFiles/project01.dir/Main.cpp.o CMakeFiles/project01.dir/src/TradingStrategy.cpp.o CMakeFiles/project01.dir/src/MovingAverageCrossoverStrategy.cpp.o CMakeFiles/project01.dir/src/Main.cpp.o
+build TradingApplication: CXX_EXECUTABLE_LINKER__TradingApplication_Debug CMakeFiles/TradingApplication.dir/src/Main.cpp.o CMakeFiles/TradingApplication.dir/src/MovingAverageCrossoverStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/RSIStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/StrategyManager.cpp.o CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
-  OBJECT_DIR = CMakeFiles/project01.dir
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = project01
-  TARGET_PDB = project01.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target TradingAlgorithms
-
-
-#############################################
-# Order-only phony target for TradingAlgorithms
-
-build cmake_object_order_depends_target_TradingAlgorithms: phony || .
-
-build CMakeFiles/TradingAlgorithms.dir/src/Main.cpp.o: CXX_COMPILER__TradingAlgorithms_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/Main.cpp || cmake_object_order_depends_target_TradingAlgorithms
-  DEP_FILE = CMakeFiles/TradingAlgorithms.dir/src/Main.cpp.o.d
-  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/TradingAlgorithms.dir
-  OBJECT_FILE_DIR = CMakeFiles/TradingAlgorithms.dir/src
-
-build CMakeFiles/TradingAlgorithms.dir/src/MovingAverageCrossoverStrategy.cpp.o: CXX_COMPILER__TradingAlgorithms_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/MovingAverageCrossoverStrategy.cpp || cmake_object_order_depends_target_TradingAlgorithms
-  DEP_FILE = CMakeFiles/TradingAlgorithms.dir/src/MovingAverageCrossoverStrategy.cpp.o.d
-  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/TradingAlgorithms.dir
-  OBJECT_FILE_DIR = CMakeFiles/TradingAlgorithms.dir/src
-
-build CMakeFiles/TradingAlgorithms.dir/src/TradingStrategy.cpp.o: CXX_COMPILER__TradingAlgorithms_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/TradingStrategy.cpp || cmake_object_order_depends_target_TradingAlgorithms
-  DEP_FILE = CMakeFiles/TradingAlgorithms.dir/src/TradingStrategy.cpp.o.d
-  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include
-  OBJECT_DIR = CMakeFiles/TradingAlgorithms.dir
-  OBJECT_FILE_DIR = CMakeFiles/TradingAlgorithms.dir/src
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target TradingAlgorithms
-
-
-#############################################
-# Link the executable TradingAlgorithms
-
-build TradingAlgorithms: CXX_EXECUTABLE_LINKER__TradingAlgorithms_Debug CMakeFiles/TradingAlgorithms.dir/src/Main.cpp.o CMakeFiles/TradingAlgorithms.dir/src/MovingAverageCrossoverStrategy.cpp.o CMakeFiles/TradingAlgorithms.dir/src/TradingStrategy.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
-  OBJECT_DIR = CMakeFiles/TradingAlgorithms.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = TradingAlgorithms
-  TARGET_PDB = TradingAlgorithms.dbg
+  TARGET_FILE = TradingApplication
+  TARGET_PDB = TradingApplication.dbg
 
 
 #############################################
@@ -180,7 +134,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug
 
-build all: phony project01 TradingAlgorithms
+build all: phony TradingApplication
 
 # =============================================================================
 # Built-in targets
@@ -189,14 +143,14 @@ build all: phony project01 TradingAlgorithms
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/jack/Desktop/project/clion/cpp/project01/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeFindJavaCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakePushCheckState.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJNI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/jack/Desktop/project/clion/cpp/project01/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/jack/Desktop/project/clion/cpp/project01/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
+build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeFindJavaCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakePushCheckState.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJNI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/jack/Desktop/project/clion/cpp/project01/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
 
 
 #############################################

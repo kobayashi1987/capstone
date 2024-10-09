@@ -9,14 +9,13 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.16"
+						"string" : "3.10"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0,
-						1
+						0
 					]
 				}
 			],
@@ -28,11 +27,10 @@
 					[
 						0
 					],
-					"name" : "TradingAlgorithms",
+					"name" : "TradingApplication",
 					"targetIndexes" : 
 					[
-						0,
-						1
+						0
 					]
 				}
 			],
@@ -40,16 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "TradingAlgorithms::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-TradingAlgorithms-Debug-a49b3fce5d1382146e0b.json",
-					"name" : "TradingAlgorithms",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "project01::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-project01-Debug-520c63e052abd171efda.json",
-					"name" : "project01",
+					"id" : "TradingApplication::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TradingApplication-Debug-26d62aeb0af505e09103.json",
+					"name" : "TradingApplication",
 					"projectIndex" : 0
 				}
 			]

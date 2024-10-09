@@ -431,3 +431,73 @@ events:
       LTO support using: LLVM version 15.0.0 (static support for 29, runtime is 29)
       TAPI support using: Apple TAPI version 15.0.0 (tapi-1500.3.2.2)
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "CMakeLists.txt:18 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-kUGmoK"
+      binary: "/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-kUGmoK"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-kUGmoK'
+        
+        Run Build Command(s): /Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -v cmTC_0c029
+        [1/2] /Library/Developer/CommandLineTools/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -MD -MT CMakeFiles/cmTC_0c029.dir/src.c.o -MF CMakeFiles/cmTC_0c029.dir/src.c.o.d -o CMakeFiles/cmTC_0c029.dir/src.c.o -c /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-kUGmoK/src.c
+        [2/2] : && /Library/Developer/CommandLineTools/usr/bin/cc -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/cmTC_0c029.dir/src.c.o -o cmTC_0c029   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CheckSourceCompiles.cmake:77 (cmake_check_source_compiles)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/FindJNI.cmake:485 (check_source_compiles)"
+      - "CMakeLists.txt:22 (find_package)"
+    directories:
+      source: "/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vVMpAG"
+      binary: "/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vVMpAG"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk"
+    buildResult:
+      variable: "JNI_INCLUDE_PATH2_OPTIONAL"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vVMpAG'
+        
+        Run Build Command(s): /Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -v cmTC_f82c2
+        [1/2] /Library/Developer/CommandLineTools/usr/bin/cc -DJNI_INCLUDE_PATH2_OPTIONAL -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -MD -MT CMakeFiles/cmTC_f82c2.dir/src.c.o -MF CMakeFiles/cmTC_f82c2.dir/src.c.o.d -o CMakeFiles/cmTC_f82c2.dir/src.c.o -c /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vVMpAG/src.c
+        FAILED: CMakeFiles/cmTC_f82c2.dir/src.c.o 
+        /Library/Developer/CommandLineTools/usr/bin/cc -DJNI_INCLUDE_PATH2_OPTIONAL -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -MD -MT CMakeFiles/cmTC_f82c2.dir/src.c.o -MF CMakeFiles/cmTC_f82c2.dir/src.c.o.d -o CMakeFiles/cmTC_f82c2.dir/src.c.o -c /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vVMpAG/src.c
+        In file included from /Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-vVMpAG/src.c:2:
+        /Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/jni.h:45:10: fatal error: 'jni_md.h' file not found
+        #include "jni_md.h"
+                 ^~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...

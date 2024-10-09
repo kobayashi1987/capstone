@@ -1,14 +1,17 @@
 # ninja log v6
-929	3468	1728137665405265367	project01	c762f5aedfbe1c8
-3	5262	1727250062878779726	CMakeFiles/project01.dir/main.cpp.o	c2437f089dcf5114
-2	125	1728260474872954919	build.ninja	7dde54a977638f74
-3	929	1728137664479049667	CMakeFiles/project01.dir/Main.cpp.o	dd79e2f047c7bd1b
-2	765	1728137664478160202	CMakeFiles/project01.dir/Customer.cpp.o	2e9ceb8218e67aef
-7	994	1728260498140276803	CMakeFiles/project01.dir/src/TradingStrategy.cpp.o	89f23f4da41df684
-5	1038	1728260498138949509	CMakeFiles/project01.dir/Customer.cpp.o	5f4d4acba3e16b3a
-7	1080	1728260498140656762	CMakeFiles/project01.dir/src/Main.cpp.o	be0fda8f60e9086
+6	641	1728261321876257103	CMakeFiles/project01.dir/src/RSIStrategy.cpp.o	a65b63e552c131dc
 7	1122	1728260498140473512	CMakeFiles/project01.dir/src/MovingAverageCrossoverStrategy.cpp.o	e553d8d3bc1ea446
-6	1185	1728260498140039094	CMakeFiles/project01.dir/Main.cpp.o	361275aa685c7dd2
+5	642	1728261321875364018	CMakeFiles/project01.dir/src/Main.cpp.o	be0fda8f60e9086
+6	645	1728261321875943060	CMakeFiles/project01.dir/src/StrategyManager.cpp.o	9e04286944a50acc
 4	33	1728260543799888039	CMakeFiles/project01.dir/Customer.cpp.o	5f4d4acba3e16b3a
+3	5262	1727250062878779726	CMakeFiles/project01.dir/main.cpp.o	c2437f089dcf5114
+3	69	1728476053073267143	build.ninja	7dde54a977638f74
 4	33	1728260543800316790	CMakeFiles/project01.dir/Main.cpp.o	361275aa685c7dd2
-33	74	1728260543829160798	project01	44ba4deafb0c9ed1
+7	994	1728260498140276803	CMakeFiles/project01.dir/src/TradingStrategy.cpp.o	89f23f4da41df684
+645	692	1728261322515008191	project01	7d41eba0ef7b628d
+3	1873	1728476076318328323	CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o	83c1e586817467a4
+2	2005	1728476076317553114	CMakeFiles/TradingApplication.dir/src/RSIStrategy.cpp.o	6bc0e14ffd0555dc
+1	2041	1728476076316621779	CMakeFiles/TradingApplication.dir/src/Main.cpp.o	37ab2af5df8f9a1d
+2	2058	1728476076317082238	CMakeFiles/TradingApplication.dir/src/MovingAverageCrossoverStrategy.cpp.o	14f719eed217c536
+3	2060	1728476076318052073	CMakeFiles/TradingApplication.dir/src/StrategyManager.cpp.o	1f5a02eab25cf094
+2060	2132	1728476078375403841	TradingApplication	28c083a8aad83fd7
