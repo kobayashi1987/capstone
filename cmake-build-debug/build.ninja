@@ -49,6 +49,13 @@ cmake_ninja_workdir = /Users/jack/Desktop/project/clion/cpp/project01/cmake-buil
 
 build cmake_object_order_depends_target_TradingApplication: phony || .
 
+build CMakeFiles/TradingApplication.dir/src/BreakoutStrategy.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/BreakoutStrategy.cpp || cmake_object_order_depends_target_TradingApplication
+  DEP_FILE = CMakeFiles/TradingApplication.dir/src/BreakoutStrategy.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
+  INCLUDES = -I/Users/jack/Desktop/project/clion/cpp/project01/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include -I/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
+  OBJECT_DIR = CMakeFiles/TradingApplication.dir
+  OBJECT_FILE_DIR = CMakeFiles/TradingApplication.dir/src
+
 build CMakeFiles/TradingApplication.dir/src/Main.cpp.o: CXX_COMPILER__TradingApplication_unscanned_Debug /Users/jack/Desktop/project/clion/cpp/project01/src/Main.cpp || cmake_object_order_depends_target_TradingApplication
   DEP_FILE = CMakeFiles/TradingApplication.dir/src/Main.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -Wall -Wextra -Wpedantic
@@ -141,7 +148,7 @@ build CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o: CXX_COMPILER_
 #############################################
 # Link the executable TradingApplication
 
-build TradingApplication: CXX_EXECUTABLE_LINKER__TradingApplication_Debug CMakeFiles/TradingApplication.dir/src/Main.cpp.o CMakeFiles/TradingApplication.dir/src/MarketDataFeed.cpp.o CMakeFiles/TradingApplication.dir/src/MomentumStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/MovingAverageCrossoverStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/Order.cpp.o CMakeFiles/TradingApplication.dir/src/OrderExecutor.cpp.o CMakeFiles/TradingApplication.dir/src/Portfolio.cpp.o CMakeFiles/TradingApplication.dir/src/RSIStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/StrategyManager.cpp.o CMakeFiles/TradingApplication.dir/src/Trade.cpp.o CMakeFiles/TradingApplication.dir/src/TradingEngine.cpp.o CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o
+build TradingApplication: CXX_EXECUTABLE_LINKER__TradingApplication_Debug CMakeFiles/TradingApplication.dir/src/BreakoutStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/Main.cpp.o CMakeFiles/TradingApplication.dir/src/MarketDataFeed.cpp.o CMakeFiles/TradingApplication.dir/src/MomentumStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/MovingAverageCrossoverStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/Order.cpp.o CMakeFiles/TradingApplication.dir/src/OrderExecutor.cpp.o CMakeFiles/TradingApplication.dir/src/Portfolio.cpp.o CMakeFiles/TradingApplication.dir/src/RSIStrategy.cpp.o CMakeFiles/TradingApplication.dir/src/StrategyManager.cpp.o CMakeFiles/TradingApplication.dir/src/Trade.cpp.o CMakeFiles/TradingApplication.dir/src/TradingEngine.cpp.o CMakeFiles/TradingApplication.dir/src/TradingStrategy.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   OBJECT_DIR = CMakeFiles/TradingApplication.dir
   POST_BUILD = :
