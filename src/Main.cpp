@@ -532,7 +532,6 @@ void executeTradingStrategy(TradingEngine& engine, const MarketDataFeed& marketD
 // but will use the RSIStrategy class instead of the MovingAverageCrossoverStrategy class.
 // 2024 Oct 10
 
-
 void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     std::string symbol;
     std::cout << "Enter the stock symbol for the strategy (e.g., AAPL): ";
@@ -570,6 +569,7 @@ void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataF
         prices[i] = currentPrice + ((std::rand() % 200) - 100) / 10.0;
     }
 
+    // Generate signals
     try {
         strategy->generateSignals(prices);
     } catch (const std::exception& e) {
@@ -577,11 +577,39 @@ void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataF
         return;
     }
 
-    auto orders = strategy->generateOrders(prices, symbol);
+    // Retrieve RSI values and signals
+    const auto& rsiValues = strategy->getRSIValues();
+    const auto& signals = strategy->getSignals();
 
-    for (const auto& order : orders) {
-        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(), order.getQuantity(), order.getPrice(), marketDataFeed.getPrices());
+    // Display RSI values and signals
+    std::cout << "\n=== RSI Values and Signals ===\n";
+    for (size_t i = period + 1; i < prices.size(); ++i) {
+        std::cout << "Price: $" << prices[i]
+                  << ", RSI: " << rsiValues[i]
+                  << ", Signal: ";
+        if (signals[i] == 1) {
+            std::cout << "Buy\n";
+        } else if (signals[i] == -1) {
+            std::cout << "Sell\n";
+        } else {
+            std::cout << "Neutral\n";
+        }
     }
 
-    std::cout << "RSI strategy executed.\n";
+    // Generate orders
+    auto orders = strategy->generateOrders(prices, symbol);
+
+    // Display and place orders
+    std::cout << "\n=== Orders Placed ===\n";
+    for (const auto& order : orders) {
+        std::cout << (order.getType() == OrderType::Buy ? "Buy" : "Sell")
+                  << " " << order.getQuantity() << " shares of "
+                  << order.getSymbol() << " at $" << order.getPrice() << "\n";
+
+        // Place the order
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+                              order.getQuantity(), order.getPrice(), marketDataFeed.getPrices());
+    }
+
+    std::cout << "\nRSI strategy executed.\n";
 }

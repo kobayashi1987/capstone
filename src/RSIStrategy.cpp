@@ -68,6 +68,8 @@
 //}
 
 
+// RSIStrategy.cpp
+
 #include "RSIStrategy.h"
 #include "Order.h"
 #include <stdexcept>
@@ -88,6 +90,7 @@ void RSIStrategy::generateSignals(const std::vector<double>& prices) {
     }
 
     signals_.resize(prices.size(), 0);
+    rsiValues_.resize(prices.size(), 0.0);
     std::vector<double> gains(prices.size(), 0.0);
     std::vector<double> losses(prices.size(), 0.0);
 
@@ -121,6 +124,8 @@ void RSIStrategy::generateSignals(const std::vector<double>& prices) {
         double rs = avgLoss == 0.0 ? 100.0 : avgGain / avgLoss;
         double rsi = avgLoss == 0.0 ? 100.0 : 100.0 - (100.0 / (1.0 + rs));
 
+        rsiValues_[i] = rsi;
+
         if (rsi > overboughtThreshold_) {
             signals_[i] = -1; // Sell signal
         } else if (rsi < oversoldThreshold_) {
@@ -133,9 +138,10 @@ void RSIStrategy::generateSignals(const std::vector<double>& prices) {
 
 std::vector<Order> RSIStrategy::generateOrders(const std::vector<double>& prices, const std::string& symbol) {
     generateSignals(prices);
+
     std::vector<Order> orders;
 
-    for (size_t i = 0; i < signals_.size(); ++i) {
+    for (size_t i = period_ + 1; i < signals_.size(); ++i) {
         if (signals_[i] == 1) {
             // Buy signal
             orders.emplace_back(OrderType::Buy, OrderStyle::Market, symbol, /*quantity=*/100, prices[i]);
@@ -146,4 +152,12 @@ std::vector<Order> RSIStrategy::generateOrders(const std::vector<double>& prices
     }
 
     return orders;
+}
+
+const std::vector<double>& RSIStrategy::getRSIValues() const {
+    return rsiValues_;
+}
+
+const std::vector<int>& RSIStrategy::getSignals() const {
+    return signals_;
 }
