@@ -315,6 +315,9 @@
 #include "TradingStrategy.h"
 #include "MovingAverageCrossoverStrategy.h"
 #include "Trade.h"
+#include "RSIStrategy.h"
+#include "OrderExecutor.h"
+#include "StrategyManager.h"
 
 // Function declarations
 void displayMainMenu();
@@ -323,6 +326,7 @@ void viewMarketPrices(const MarketDataFeed& marketDataFeed);
 void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeTradingStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
+void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 
 int main() {
     // Seed the random number generator
@@ -357,6 +361,9 @@ int main() {
             case 5:
                 executeTradingStrategy(engine, marketDataFeed);
                 break;
+            case 6:
+                executeRSIStrategy(engine, marketDataFeed);
+                break;
             case 0:
                 std::cout << "Exiting application.\n";
                 break;
@@ -375,7 +382,8 @@ void displayMainMenu() {
     std::cout << "2. Place Order\n";
     std::cout << "3. View Portfolio\n";
     std::cout << "4. Update Market Prices\n";
-    std::cout << "5. Run Trading Strategy\n";
+    std::cout << "5. Run Moving Average Crossover Strategy\n";
+    std::cout << "6. Run RSI Strategy\n"; // New option
     std::cout << "0. Exit\n";
     std::cout << "Enter your choice: ";
 }
@@ -517,4 +525,63 @@ void executeTradingStrategy(TradingEngine& engine, const MarketDataFeed& marketD
     }
 
     std::cout << "Trading strategy executed.\n";
+}
+
+// Add a function to execute the RSI strategy.
+// This function will be similar to the executeTradingStrategy function,
+// but will use the RSIStrategy class instead of the MovingAverageCrossoverStrategy class.
+// 2024 Oct 10
+
+
+void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+    std::string symbol;
+    std::cout << "Enter the stock symbol for the strategy (e.g., AAPL): ";
+    std::cin >> symbol;
+
+    int period;
+    std::cout << "Enter the RSI period (e.g., 14): ";
+    std::cin >> period;
+
+    double overboughtThreshold, oversoldThreshold;
+    std::cout << "Enter the overbought threshold (default 70): ";
+    std::cin >> overboughtThreshold;
+    std::cout << "Enter the oversold threshold (default 30): ";
+    std::cin >> oversoldThreshold;
+
+    if (overboughtThreshold <= oversoldThreshold) {
+        std::cout << "Overbought threshold must be greater than oversold threshold.\n";
+        return;
+    }
+
+    auto strategy = std::make_unique<RSIStrategy>(period, overboughtThreshold, oversoldThreshold);
+
+    std::vector<double> prices;
+    double currentPrice;
+    try {
+        currentPrice = marketDataFeed.getPrice(symbol);
+    } catch (const std::exception& e) {
+        std::cout << e.what() << "\n";
+        return;
+    }
+
+    // Generate dummy historical prices around the current price
+    prices.resize(200);
+    for (size_t i = 0; i < prices.size(); ++i) {
+        prices[i] = currentPrice + ((std::rand() % 200) - 100) / 10.0;
+    }
+
+    try {
+        strategy->generateSignals(prices);
+    } catch (const std::exception& e) {
+        std::cout << "Error generating signals: " << e.what() << "\n";
+        return;
+    }
+
+    auto orders = strategy->generateOrders(prices, symbol);
+
+    for (const auto& order : orders) {
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(), order.getQuantity(), order.getPrice(), marketDataFeed.getPrices());
+    }
+
+    std::cout << "RSI strategy executed.\n";
 }
