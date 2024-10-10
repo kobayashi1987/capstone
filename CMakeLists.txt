@@ -25,7 +25,9 @@ add_executable(TradingApplication ${SOURCES}
         src/TradingEngine.cpp
         include/MarketDataFeed.h
         src/MarketDataFeed.cpp
-        src/main.cpp)
+        src/main.cpp
+        include/MomentumStrategy.h
+        src/MomentumStrategy.cpp)
 
 # Link libraries if necessary (e.g., pthread)
 find_package(Threads REQUIRED)

@@ -1,302 +1,3 @@
-//#include <iostream>
-//#include "MovingAverageCrossoverStrategy.h"
-//#include "RSIStrategy.h" // Assuming you have implemented this strategy
-//#include "StrategyManager.h"
-//#include "TradingEngine.h"
-//#include <unordered_map>
-//#include "MarketDataFeed.h"
-//
-//
-//void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed);
-//void placeOrder(TradingEngine& engine, MarketDataFeed& marketDataFeed);
-//void viewMarketPrices(const MarketDataFeed& marketDataFeed);
-//void displayMainMenu();
-//
-//int main() {
-//
-//    // Initialize the trading engine with $10,000 cash :  2024 Oct 9
-//    TradingEngine engine(10000.0);
-//
-//    // Initialize the market data feed
-//    MarketDataFeed marketDataFeed;
-//
-//    int choice;
-//    do {
-//        displayMainMenu();
-//        std::cin >> choice;
-//
-//        switch (choice) {
-//            case 1:
-//                viewMarketPrices(marketDataFeed);
-//                break;
-//            case 2:
-//                placeOrder(engine, marketDataFeed);
-//                break;
-//            case 3:
-//                viewPortfolio(engine, marketDataFeed);
-//                break;
-//            case 4:
-//                marketDataFeed.updatePrices();
-//                // Process pending limit orders
-//                engine.processPendingOrders(marketDataFeed.getPrices());
-//                std::cout << "Market prices updated.\n";
-//                break;
-//            case 0:
-//                std::cout << "Exiting application.\n";
-//                break;
-//            default:
-//                std::cout << "Invalid choice. Please try again.\n";
-//                break;
-//        }
-//    } while (choice != 0);
-//
-//    // Set a trading strategy : 2024 Oct 9
-//    engine.setStrategy(std::make_unique<MovingAverageCrossoverStrategy>(3, 5));
-//
-//
-//    // Sample price data (e.g., cryptocurrency closing prices)
-//    std::vector<double> prices = {
-//            100.0, 101.5, 102.3, 103.7, 104.1,
-//            103.5, 102.8, 101.2, 100.5, 99.8,
-//            100.2, 101.0, 102.5, 103.0, 104.5
-//    };
-//
-//    std::string symbol = "AAPL"; // Example symbol : 2024 Oct 9
-//
-//    // Execute strategy: 2024 Oct 9
-//    engine.executeStrategy(prices, symbol);
-//
-//    // User interaction: Sell 30 shares at $110: 2024 Oct 9
-//    engine.userPlaceOrder(symbol, OrderType::Sell, OrderStyle::Market, 30, 110.0, marketDataFeed.getPrices());
-//
-//
-//    // Display portfolio status: 2024 Oct 9
-//    std::unordered_map<std::string, double> marketPrices = { { symbol, 108.0 } };
-//    std::cout << "Cash Balance: $" << engine.getCashBalance() << "\n";
-//    std::cout << "Position in " << symbol << ": " << engine.getPosition(symbol) << " shares\n";
-//    std::cout << "Unrealized P&L: $" << engine.getUnrealizedPnL(marketPrices) << "\n";
-//
-//
-//
-//    // Create a StrategyManager instance
-//    StrategyManager manager;
-//
-//    // **Option 1: Using a Single Strategy**
-//
-//    // Instantiate a Moving Average Crossover Strategy
-//    auto macStrategy = std::make_unique<MovingAverageCrossoverStrategy>(3, 5);
-//
-//    // Set the strategy in the manager
-//    manager.setStrategy(std::move(macStrategy));
-//
-//    // Execute the strategy
-//    manager.executeStrategy(prices);
-//
-//    // Retrieve and display the signals
-//    const std::vector<int>& signals = manager.getSignals();
-//
-//    std::cout << "Single Strategy (Moving Average Crossover) Signals:\n";
-//    std::cout << "Date\tPrice\tSignal\n";
-//    for (size_t i = 0; i < prices.size(); ++i) {
-//        std::string signalText;
-//        if (signals[i] == 1) {
-//            signalText = "Buy";
-//        } else if (signals[i] == -1) {
-//            signalText = "Sell";
-//        } else {
-//            signalText = "Hold";
-//        }
-//        std::cout << i + 1 << "\t" << prices[i] << "\t" << signalText << "\n";
-//    }
-//
-//    // **Option 2: Using Multiple Strategies**
-//
-//    // Clear the previous strategy
-//    manager.clearStrategies();
-//
-//    // Add multiple strategies
-//    manager.addStrategy(std::make_unique<MovingAverageCrossoverStrategy>(3, 5));
-//    manager.addStrategy(std::make_unique<RSIStrategy>(14)); // Example RSI strategy
-//
-//    // Execute all strategies
-//    manager.executeStrategy(prices);
-//
-//    // Retrieve and display the signals from all strategies
-//    const auto& allSignals = manager.getAllSignals();
-//
-//    std::cout << "\nMultiple Strategies Signals:\n";
-//
-//    for (size_t stratIndex = 0; stratIndex < allSignals.size(); ++stratIndex) {
-//        std::cout << "Strategy " << stratIndex + 1 << " Signals:\n";
-//        std::cout << "Date\tPrice\tSignal\n";
-//        for (size_t i = 0; i < prices.size(); ++i) {
-//            std::string signalText;
-//            int signal = allSignals[stratIndex][i];
-//            if (signal == 1) {
-//                signalText = "Buy";
-//            } else if (signal == -1) {
-//                signalText = "Sell";
-//            } else {
-//                signalText = "Hold";
-//            }
-//            std::cout << i + 1 << "\t" << prices[i] << "\t" << signalText << "\n";
-//        }
-//        std::cout << "\n";
-//    }
-//
-//    return 0;
-//}
-//
-//
-//
-//// main.cpp
-////
-////#include "TradingEngine.h"
-////#include "MarketDataFeed.h"
-////// Include other necessary headers
-////#include <iostream>
-////
-////int main() {
-////    // Initialize the trading engine with $10,000 cash
-////    TradingEngine engine(10000.0);
-////
-////    // Initialize the market data feed
-////    MarketDataFeed marketDataFeed;
-////
-////    // Main application loop
-////    int choice;
-////    do {
-////        displayMainMenu();
-////        std::cin >> choice;
-////
-////        switch (choice) {
-////            case 1:
-////                viewMarketPrices(marketDataFeed);
-////                break;
-////            case 2:
-////                placeOrder(engine, marketDataFeed);
-////                break;
-////            case 3:
-////                viewPortfolio(engine, marketDataFeed);
-////                break;
-////            case 4:
-////                marketDataFeed.updatePrices();
-////                engine.processPendingOrders(marketDataFeed.getPrices());
-////                std::cout << "Market prices updated.\n";
-////                break;
-////            case 0:
-////                std::cout << "Exiting application.\n";
-////                break;
-////            default:
-////                std::cout << "Invalid choice. Please try again.\n";
-////                break;
-////        }
-////    } while (choice != 0);
-////
-////    return 0;
-////}
-//// Implement functions to display menus and handle user choices: 2024 Oct 9a
-//void displayMainMenu() {
-//    std::cout << "\n=== Trading Application Menu ===\n";
-//    std::cout << "1. View Market Prices\n";
-//    std::cout << "2. Place Order\n";
-//    std::cout << "3. View Portfolio\n";
-//    std::cout << "4. Update Market Prices\n";
-//    std::cout << "0. Exit\n";
-//    std::cout << "Enter your choice: ";
-//}
-//
-//void displayOrderMenu() {
-//    std::cout << "\n=== Place Order ===\n";
-//    std::cout << "Enter the following details:\n";
-//}
-//
-//
-//// Add functions to handle user actions: 2024 Oct 9a
-//
-//
-//void viewMarketPrices(const MarketDataFeed& marketDataFeed) {
-//    std::cout << "\n=== Market Prices ===\n";
-//    const auto& prices = marketDataFeed.getPrices();
-//    for (const auto& pair : prices) {
-//        std::cout << pair.first << ": $" << pair.second << "\n";
-//    }
-//}
-//
-//void placeOrder(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
-//    std::string symbol;
-//    std::string orderTypeStr;
-//    std::string orderStyleStr;
-//    int quantity;
-//    double price;
-//
-//    displayOrderMenu();
-//    std::cout << "Stock Symbol (e.g., AAPL): ";
-//    std::cin >> symbol;
-//
-//    std::cout << "Order Type (Buy/Sell): ";
-//    std::cin >> orderTypeStr;
-//    OrderType orderType;
-//    if (orderTypeStr == "Buy" || orderTypeStr == "buy") {
-//        orderType = OrderType::Buy;
-//    } else if (orderTypeStr == "Sell" || orderTypeStr == "sell") {
-//        orderType = OrderType::Sell;
-//    } else {
-//        std::cout << "Invalid order type.\n";
-//        return;
-//    }
-//
-//    std::cout << "Order Style (Market/Limit): ";
-//    std::cin >> orderStyleStr;
-//    OrderStyle orderStyle;
-//    if (orderStyleStr == "Market" || orderStyleStr == "market") {
-//        orderStyle = OrderStyle::Market;
-//    } else if (orderStyleStr == "Limit" || orderStyleStr == "limit") {
-//        orderStyle = OrderStyle::Limit;
-//    } else {
-//        std::cout << "Invalid order style.\n";
-//        return;
-//    }
-//
-//    std::cout << "Quantity: ";
-//    std::cin >> quantity;
-//
-//    if (orderStyle == OrderStyle::Limit) {
-//        std::cout << "Limit Price: ";
-//        std::cin >> price;
-//    } else {
-//        // For market orders, use current market price
-//        try {
-//            price = marketDataFeed.getPrice(symbol);
-//        } catch (const std::exception& e) {
-//            std::cout << e.what() << "\n";
-//            return;
-//        }
-//    }
-//
-//    engine.userPlaceOrder(symbol, orderType, orderStyle, quantity, price, marketDataFeed.getPrices());
-//}
-//
-//void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
-//    std::cout << "\n=== Portfolio ===\n";
-//    std::cout << "Cash Balance: $" << engine.getCashBalance() << "\n";
-//
-//    const auto& positions = engine.getPositions();
-//    if (positions.empty()) {
-//        std::cout << "No positions.\n";
-//    } else {
-//        std::cout << "Positions:\n";
-//        for (const auto& pair : positions) {
-//            std::cout << pair.first << ": " << pair.second << " shares\n";
-//        }
-//    }
-//
-//    double unrealizedPnL = engine.getUnrealizedPnL(marketDataFeed.getPrices());
-//    std::cout << "Unrealized P&L: $" << unrealizedPnL << "\n";
-//}
-
-
-
 // main.cpp
 
 #include <iostream>
@@ -306,6 +7,7 @@
 #include <memory>
 #include <cstdlib>  // For std::rand(), std::srand()
 #include <ctime>    // For std::time()
+#include <stdexcept> // For std::exception
 
 // Include all the necessary headers
 #include "TradingEngine.h"
@@ -318,6 +20,7 @@
 #include "RSIStrategy.h"
 #include "OrderExecutor.h"
 #include "StrategyManager.h"
+#include "MomentumStrategy.h"
 
 // Function declarations
 void displayMainMenu();
@@ -327,6 +30,7 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeTradingStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
+void executeMomentumStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 
 int main() {
     // Seed the random number generator
@@ -364,6 +68,9 @@ int main() {
             case 6:
                 executeRSIStrategy(engine, marketDataFeed);
                 break;
+            case 7:
+                executeMomentumStrategy(engine, marketDataFeed);
+                break;
             case 0:
                 std::cout << "Exiting application.\n";
                 break;
@@ -383,11 +90,11 @@ void displayMainMenu() {
     std::cout << "3. View Portfolio\n";
     std::cout << "4. Update Market Prices\n";
     std::cout << "5. Run Moving Average Crossover Strategy\n";
-    std::cout << "6. Run RSI Strategy\n"; // New option
+    std::cout << "6. Run RSI Strategy\n";
+    std::cout << "7. Run Momentum Strategy\n"; // New option
     std::cout << "0. Exit\n";
     std::cout << "Enter your choice: ";
 }
-
 void displayOrderMenu() {
     std::cout << "\n=== Place Order ===\n";
     std::cout << "Enter the following details:\n";
@@ -612,4 +319,92 @@ void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataF
     }
 
     std::cout << "\nRSI strategy executed.\n";
+}
+
+
+
+// Add a function to execute the Momentum strategy. This function will be similar to the executeTradingStrategy function
+// but will use the MomentumStrategy class instead of the MovingAverageCrossoverStrategy class. 2024 Oct 10
+
+void executeMomentumStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+    std::string symbol;
+    std::cout << "Enter the stock symbol for the strategy (e.g., AAPL): ";
+    std::cin >> symbol;
+
+    int lookbackPeriod;
+    std::cout << "Enter the look-back period for momentum calculation: ";
+    std::cin >> lookbackPeriod;
+
+    double buyThreshold, sellThreshold;
+    std::cout << "Enter the buy threshold (e.g., 0.05 for 5%): ";
+    std::cin >> buyThreshold;
+    std::cout << "Enter the sell threshold (e.g., -0.05 for -5%): ";
+    std::cin >> sellThreshold;
+
+    if (buyThreshold <= sellThreshold) {
+        std::cout << "Buy threshold must be greater than sell threshold.\n";
+        return;
+    }
+
+    auto strategy = std::make_unique<MomentumStrategy>(lookbackPeriod, buyThreshold, sellThreshold);
+
+    std::vector<double> prices;
+    double currentPrice;
+    try {
+        currentPrice = marketDataFeed.getPrice(symbol);
+    } catch (const std::exception& e) {
+        std::cout << e.what() << "\n";
+        return;
+    }
+
+    // Generate dummy historical prices around the current price
+    prices.resize(200);
+    prices[0] = currentPrice;
+    for (size_t i = 1; i < prices.size(); ++i) {
+        prices[i] = prices[i - 1] + ((std::rand() % 200) - 100) / 10.0;
+    }
+
+    // Generate signals
+    try {
+        strategy->generateSignals(prices);
+    } catch (const std::exception& e) {
+        std::cout << "Error generating signals: " << e.what() << "\n";
+        return;
+    }
+
+    // Retrieve momentum values and signals
+    const auto& momentumValues = strategy->getMomentumValues();
+    const auto& signals = strategy->getSignals();
+
+    // Display momentum values and signals
+    std::cout << "\n=== Momentum Values and Signals ===\n";
+    for (size_t i = lookbackPeriod; i < prices.size(); ++i) {
+        std::cout << "Price: $" << prices[i]
+                  << ", Momentum: " << momentumValues[i]
+                  << ", Signal: ";
+        if (signals[i] == 1) {
+            std::cout << "Buy\n";
+        } else if (signals[i] == -1) {
+            std::cout << "Sell\n";
+        } else {
+            std::cout << "Neutral\n";
+        }
+    }
+
+    // Generate orders
+    auto orders = strategy->generateOrders(prices, symbol);
+
+    // Display and place orders
+    std::cout << "\n=== Orders Placed ===\n";
+    for (const auto& order : orders) {
+        std::cout << (order.getType() == OrderType::Buy ? "Buy" : "Sell")
+                  << " " << order.getQuantity() << " shares of "
+                  << order.getSymbol() << " at $" << order.getPrice() << "\n";
+
+        // Place the order
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+                              order.getQuantity(), order.getPrice(), marketDataFeed.getPrices());
+    }
+
+    std::cout << "\nMomentum strategy executed.\n";
 }
