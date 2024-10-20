@@ -29,7 +29,9 @@ add_executable(TradingApplication ${SOURCES}
         include/MomentumStrategy.h
         src/MomentumStrategy.cpp
         include/BreakoutStrategy.h
-        src/BreakoutStrategy.cpp)
+        src/BreakoutStrategy.cpp
+        include/MeanReversionStrategy.h
+        src/MeanReversionStrategy.cpp)
 
 # Link libraries if necessary (e.g., pthread)
 find_package(Threads REQUIRED)

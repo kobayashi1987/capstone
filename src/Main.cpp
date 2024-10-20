@@ -22,6 +22,7 @@
 #include "StrategyManager.h"
 #include "MomentumStrategy.h"
 #include "BreakoutStrategy.h"
+#include "MeanReversionStrategy.h"
 
 // Function declarations
 void displayMainMenu();
@@ -33,6 +34,7 @@ void executeTradingStrategy(TradingEngine& engine, const MarketDataFeed& marketD
 void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeMomentumStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeBreakoutStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
+void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 
 int main() {
     // Seed the random number generator
@@ -76,6 +78,9 @@ int main() {
             case 8:
                 executeBreakoutStrategy(engine, marketDataFeed);
                 break;
+            case 9:
+                executeMeanReversionStrategy(engine, marketDataFeed);
+                break;
             case 0:
                 std::cout << "Exiting application.\n";
                 break;
@@ -97,7 +102,8 @@ void displayMainMenu() {
     std::cout << "5. Run Moving Average Crossover Strategy\n";
     std::cout << "6. Run RSI Strategy\n";
     std::cout << "7. Run Momentum Strategy\n";
-    std::cout << "8. Run Breakout Strategy\n"; // New option
+    std::cout << "8. Run Breakout Strategy\n";
+    std::cout << "9. Run Mean Reversion Strategy\n"; // New option
     std::cout << "0. Exit\n";
     std::cout << "Enter your choice: ";
 }
@@ -496,4 +502,89 @@ void executeBreakoutStrategy(TradingEngine& engine, const MarketDataFeed& market
     }
 
     std::cout << "\nBreakout strategy executed.\n";
+}
+
+
+void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+    std::string symbol;
+    std::cout << "Enter the stock symbol for the strategy (e.g., AAPL): ";
+    std::cin >> symbol;
+
+    int lookbackPeriod;
+    std::cout << "Enter the look-back period for mean calculation: ";
+    std::cin >> lookbackPeriod;
+
+    double deviationThreshold;
+    std::cout << "Enter the deviation threshold (e.g., 0.05 for 5%): ";
+    std::cin >> deviationThreshold;
+
+    if (lookbackPeriod <= 0 || deviationThreshold <= 0) {
+        std::cout << "Look-back period and deviation threshold must be positive numbers.\n";
+        return;
+    }
+
+    auto strategy = std::make_unique<MeanReversionStrategy>(lookbackPeriod, deviationThreshold);
+
+    std::vector<double> prices;
+    double currentPrice;
+    try {
+        currentPrice = marketDataFeed.getPrice(symbol);
+    } catch (const std::exception& e) {
+        std::cout << e.what() << "\n";
+        return;
+    }
+
+    // Generate dummy historical prices simulating mean reversion
+    prices.resize(200);
+    prices[0] = currentPrice;
+    for (size_t i = 1; i < prices.size(); ++i) {
+        double randomNoise = ((std::rand() % 200) - 100) / 50.0; // Random noise
+        prices[i] = prices[i - 1] + randomNoise;
+    }
+
+    // Generate signals
+    try {
+        strategy->generateSignals(prices);
+    } catch (const std::exception& e) {
+        std::cout << "Error generating signals: " << e.what() << "\n";
+        return;
+    }
+
+    // Retrieve signals and mean values
+    const auto& signals = strategy->getSignals();
+    const auto& meanValues = strategy->getMeanValues();
+
+    // Display signals and mean values
+    std::cout << "\n=== Mean Reversion Signals ===\n";
+    for (size_t i = lookbackPeriod; i < prices.size(); ++i) {
+        double deviation = (prices[i] - meanValues[i]) / meanValues[i];
+        std::cout << "Price: $" << prices[i]
+                  << ", Mean: $" << meanValues[i]
+                  << ", Deviation: " << deviation * 100 << "%"
+                  << ", Signal: ";
+        if (signals[i] == 1) {
+            std::cout << "Buy\n";
+        } else if (signals[i] == -1) {
+            std::cout << "Sell\n";
+        } else {
+            std::cout << "Neutral\n";
+        }
+    }
+
+    // Generate orders
+    auto orders = strategy->generateOrders(prices, symbol);
+
+    // Display and place orders
+    std::cout << "\n=== Orders Placed ===\n";
+    for (const auto& order : orders) {
+        std::cout << (order.getType() == OrderType::Buy ? "Buy" : "Sell")
+                  << " " << order.getQuantity() << " shares of "
+                  << order.getSymbol() << " at $" << order.getPrice() << "\n";
+
+        // Place the order
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+                              order.getQuantity(), order.getPrice(), marketDataFeed.getPrices());
+    }
+
+    std::cout << "\nMean Reversion strategy executed.\n";
 }
