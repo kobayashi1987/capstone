@@ -6,6 +6,7 @@
 #define TRADE_H
 
 #include "Order.h"
+#include <chrono>
 
 class Trade {
 public:
@@ -18,12 +19,20 @@ public:
     double getPrice() const;
     std::chrono::system_clock::time_point getTimestamp() const;
 
+    // New methods to access stop-loss and take-profit prices
+    double getStopLoss() const;
+    double getTakeProfit() const;
+
 private:
     OrderType type_;
     std::string symbol_;
     int quantity_;
     double price_;
     std::chrono::system_clock::time_point timestamp_;
+
+    // Add stop-loss and take-profit prices as member variables
+    double stopLoss_;
+    double takeProfit_;
 };
 
 #endif // TRADE_H
