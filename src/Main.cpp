@@ -12,7 +12,6 @@
 #include <atomic>
 #include <chrono>
 #include <mutex>
-#include <atomic>
 #include <limits>  // For std::numeric_limits
 
 // Include all the necessary headers
@@ -56,10 +55,10 @@ void displayMainMenu() {
 
 // Forward declarations of strategy execution functions
 // Function to display live prices every 1 seconds
-void viewLivePrices(MarketDataFeed& marketDataFeed);
+void viewLivePrices(TradingEngine& engine, MarketDataFeed& marketDataFeed);
 
 void viewMarketPrices(const MarketDataFeed& marketDataFeed);
-void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
+void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType orderType);
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeMovingAverageCrossoverStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
@@ -92,6 +91,9 @@ int main() {
         displayMainMenu();
         std::cin >> choice;
 
+        // Clear input buffer
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         switch (choice) {
             case 1:
                 // View Market Prices
@@ -105,7 +107,7 @@ int main() {
                 break;
             case 2:
                 // Place Order
-                placeOrder(engine, marketDataFeed);
+                placeOrder(engine, marketDataFeed, OrderType::Buy);
                 break;
             case 3:
                 // View Portfolio
@@ -113,7 +115,7 @@ int main() {
                 break;
             case 4:
                 // View Live Price Feed
-                viewLivePrices(marketDataFeed);
+                viewLivePrices(engine, marketDataFeed);
                 break;
             case 5:
                 executeMovingAverageCrossoverStrategy(engine, marketDataFeed);
@@ -145,17 +147,28 @@ int main() {
 
 
 
-// Function to place an order
-// Function to place an order
-void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType orderType = OrderType::Buy) {
     std::string symbol;
     std::cout << "Enter the stock symbol: ";
     std::cin >> symbol;
 
-    std::string orderTypeStr;
-    std::cout << "Order Type (Buy/Sell): ";
-    std::cin >> orderTypeStr;
-    OrderType orderType = (orderTypeStr == "Buy") ? OrderType::Buy : OrderType::Sell;
+    // Clear input buffer
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    // If orderType is not specified, prompt the user
+    if (orderType != OrderType::Buy && orderType != OrderType::Sell) {
+        std::string orderTypeStr;
+        std::cout << "Order Type (Buy/Sell): ";
+        std::getline(std::cin, orderTypeStr);
+        if (orderTypeStr == "Buy" || orderTypeStr == "buy") {
+            orderType = OrderType::Buy;
+        } else if (orderTypeStr == "Sell" || orderTypeStr == "sell") {
+            orderType = OrderType::Sell;
+        } else {
+            std::cout << "Invalid order type.\n";
+            return;
+        }
+    }
 
     double stopLossPrice = 0.0;
     double takeProfitPrice = 0.0;
@@ -166,13 +179,14 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     std::cout << "Take-Profit Price (enter 0 for no take-profit): ";
     std::cin >> takeProfitPrice;
 
+    // Clear input buffer
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     double entryPrice;
     try {
         entryPrice = marketDataFeed.getPrice(symbol);
     } catch (const std::exception& e) {
         std::cout << e.what() << "\n";
-        // Clear input buffer
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return;
     }
 
@@ -183,12 +197,7 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     } catch (const std::exception& e) {
         std::cout << "Error placing order: " << e.what() << "\n";
     }
-
-    // Clear input buffer
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-
-
 
 // Function to view the current portfolio
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
@@ -635,65 +644,60 @@ void executeBreakoutStrategy(TradingEngine& engine, const MarketDataFeed& market
     std::cout << "\nBreakout strategy executed.\n";
 }
 
-// Function to display live prices until the user decides to exit
-void viewLivePrices(MarketDataFeed& marketDataFeed) {
+// Function to display live prices and allow buying/selling
+void viewLivePrices(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
     std::cout << "\nEntering Live Price Feed mode.\n";
-    // std::cout << "Press 'q' + Enter to return to the main menu.\n";
+    std::cout << "Type 'buy' to buy, 'sell' to sell, 'view' to view your portfolio, or 'quit' to return to the main menu.\n";
+    std::cout << "Press Enter to continue viewing live prices.\n";
 
     // Start live price updates
     marketDataFeed.startPriceUpdates();
 
-    // Atomic flag to control the display thread
-    std::atomic<bool> stopDisplay(false);
+    bool exitLiveFeed = false;
 
-    // Mutex to synchronize console output
-    std::mutex consoleMutex;
+    while (!exitLiveFeed) {
+        // Clear the console (optional)
+        // std::system("clear"); // For Unix/Linux systems
+        // std::system("cls");   // For Windows systems
 
-    // Start the display thread
-    std::thread displayThread([&]() {
-        while (!stopDisplay.load()) {
-            {
-                std::lock_guard<std::mutex> lock(consoleMutex);
-                // Clear the console (optional)
-                // std::system("clear"); // For Unix/Linux systems
-                // std::system("cls");   // For Windows systems
-
-                // Display live prices
-                const auto& prices = marketDataFeed.getPrices();
-                std::cout << "\n=== Live Market Prices ===\n";
-                for (const auto& pair : prices) {
-                    std::cout << pair.first << ": $" << pair.second << "\n";
-                }
-                std::cout << "--------------------------\n";
-                std::cout << "Press 'q' + Enter to return to the main menu.\n";
-            }
-            std::this_thread::sleep_for(std::chrono::seconds(2));
+        // Display live prices
+        const auto& prices = marketDataFeed.getPrices();
+        std::cout << "\n=== Live Market Prices ===\n";
+        for (const auto& pair : prices) {
+            std::cout << pair.first << ": $" << pair.second << "\n";
         }
-    });
+        std::cout << "--------------------------\n";
 
-    // Wait for user input to exit
-    std::string userInput;
-    while (true) {
-        {
-            std::lock_guard<std::mutex> lock(consoleMutex);
-            //std::cout << "Press 'q' + Enter to return to the main menu.\n";
+        std::cout << "Press Enter to continue, or type a command ('buy', 'sell', 'view', 'quit'): ";
+        std::string command;
+        std::getline(std::cin, command);
+
+        // Trim whitespace from command
+        command.erase(0, command.find_first_not_of(" \t\n\r"));
+        command.erase(command.find_last_not_of(" \t\n\r") + 1);
+
+        if (command.empty()) {
+            // User pressed Enter, continue displaying live prices
+            // Sleep for 5 seconds before next price update
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+            continue;
         }
-        std::getline(std::cin, userInput);
-        if (userInput == "q") {
-            break;
+
+        if (command == "buy") {
+            placeOrder(engine, marketDataFeed, OrderType::Buy);
+        } else if (command == "sell") {
+            placeOrder(engine, marketDataFeed, OrderType::Sell);
+        } else if (command == "view") {
+            viewPortfolio(engine, marketDataFeed);
+        } else if (command == "quit" || command == "q") {
+            exitLiveFeed = true;
+        } else {
+            std::cout << "Invalid command. Please try again.\n";
         }
     }
-
-    // Signal the display thread to stop
-    stopDisplay.store(true);
 
     // Stop live price updates
     marketDataFeed.stopPriceUpdates();
-
-    // Join the display thread
-    if (displayThread.joinable()) {
-        displayThread.join();
-    }
 
     std::cout << "\nExiting Live Price Feed mode.\n";
 }
