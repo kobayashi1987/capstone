@@ -14,13 +14,20 @@ Trade::Trade(const Order& order)
           price_(order.getPrice()),
           timestamp_(std::chrono::system_clock::now()),
           stopLoss_(order.getStopLoss()),       // Initialize stop-loss price
-          takeProfit_(order.getTakeProfit())    // Initialize take-profit price
+          takeProfit_(order.getTakeProfit()),   // Initialize take-profit price
+          order_(order)
 {
 }
+
 
 // Getters
 OrderType Trade::getType() const {
     return type_;
+}
+
+// Getter for the associated Order
+const Order& Trade::getOrder() const {
+    return order_;
 }
 
 const std::string& Trade::getSymbol() const {

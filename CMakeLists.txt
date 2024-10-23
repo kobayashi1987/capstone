@@ -81,6 +81,11 @@ set(SOURCE_FILES
         src/MomentumStrategy.cpp
         src/BreakoutStrategy.cpp
         src/MeanReversionStrategy.cpp
+        src/DataPersistence.cpp
+        src/StrategyManager.cpp
+        src/StrategyManager.cpp
+        src/Utils.cpp
+
 )
 
 # Create variables for header files (optional, for IDEs)
@@ -97,10 +102,17 @@ set(HEADER_FILES
         include/MomentumStrategy.h
         include/BreakoutStrategy.h
         include/MeanReversionStrategy.h
+        include/DataPersistence.h
+        include/StrategyManager.h
+        include/Utils.h
+        include/Utils.h
+
 )
 
 # Add the executable target
-add_executable(TradingApplication ${SOURCE_FILES} ${HEADER_FILES})
+add_executable(TradingApplication ${SOURCE_FILES} ${HEADER_FILES}
+        src/DataPersistence.cpp
+        src/StrategyManager.cpp)
 
 # Set include directories for the target
 target_include_directories(TradingApplication PRIVATE include)

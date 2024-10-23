@@ -144,10 +144,10 @@ std::vector<Order> RSIStrategy::generateOrders(const std::vector<double>& prices
     for (size_t i = period_ + 1; i < signals_.size(); ++i) {
         if (signals_[i] == 1) {
             // Buy signal
-            orders.emplace_back(OrderType::Buy, OrderStyle::Market, symbol, /*quantity=*/100, prices[i]);
+            orders.emplace_back(Order(OrderType::Buy, OrderStyle::Market, symbol, 100, prices[i], 0.0, 0.0));
         } else if (signals_[i] == -1) {
             // Sell signal
-            orders.emplace_back(OrderType::Sell, OrderStyle::Market, symbol, /*quantity=*/100, prices[i]);
+            orders.emplace_back(Order(OrderType::Sell, OrderStyle::Market, symbol, 100, prices[i], 0.0, 0.0));
         }
     }
 

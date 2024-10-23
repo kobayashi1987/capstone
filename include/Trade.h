@@ -19,6 +19,10 @@ public:
     double getPrice() const;
     std::chrono::system_clock::time_point getTimestamp() const;
 
+    // Getter for the associated Order
+    const Order& getOrder() const;
+
+
     // New methods to access stop-loss and take-profit prices
     double getStopLoss() const;
     double getTakeProfit() const;
@@ -29,6 +33,7 @@ private:
     int quantity_;
     double price_;
     std::chrono::system_clock::time_point timestamp_;
+    Order order_;  // Add order as a member variable
 
     // Add stop-loss and take-profit prices as member variables
     double stopLoss_;

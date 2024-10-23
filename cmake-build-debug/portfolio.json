@@ -1,0 +1,51 @@
+{
+    "cashBalance": 995574.5762977462,
+    "drawdown": 7.594733083737083e-06,
+    "peakValue": 1000000.0,
+    "pendingOrders": [
+        {
+            "price": 151.41077729245532,
+            "quantity": 10,
+            "stopLossPrice": 135.0,
+            "style": "Market",
+            "symbol": "AAPL",
+            "takeProfitPrice": 180.0,
+            "timestamp": "2024-10-24 02:29:39",
+            "type": "Buy"
+        }
+    ],
+    "positions": [
+        {
+            "averagePrice": 291.1315929329284,
+            "quantity": 10,
+            "symbol": "MSFT"
+        },
+        {
+            "averagePrice": 151.41077729245532,
+            "quantity": 10,
+            "symbol": "AAPL"
+        }
+    ],
+    "tradeHistory": [
+        {
+            "price": 151.41077729245532,
+            "quantity": 10,
+            "stopLossPrice": 135.0,
+            "style": "Market",
+            "symbol": "AAPL",
+            "takeProfitPrice": 180.0,
+            "timestamp": "2024-10-24 02:29:39",
+            "type": "Buy"
+        },
+        {
+            "price": 291.1315929329284,
+            "quantity": 10,
+            "stopLossPrice": 280.0,
+            "style": "Market",
+            "symbol": "MSFT",
+            "takeProfitPrice": 400.0,
+            "timestamp": "2024-10-24 02:31:27",
+            "type": "Buy"
+        }
+    ]
+}

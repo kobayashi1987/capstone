@@ -54,7 +54,7 @@
 
 // code added on 2024.10.23
 
-// include/MarketDataFeed.h
+
 
 #ifndef MARKETDATAFEED_H
 #define MARKETDATAFEED_H
@@ -71,6 +71,13 @@
 
 class MarketDataFeed {
 public:
+
+    // Default Constructor
+    MarketDataFeed();
+
+    // Parameterized Constructor
+    MarketDataFeed(const std::string& apiKey, const std::string& dataSource);
+
     // Constructor: Initializes the MarketDataFeed with a list of stock symbols and their initial prices.
     MarketDataFeed(const std::vector<std::string>& symbols, const std::unordered_map<std::string, double>& initialPrices);
 
