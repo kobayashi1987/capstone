@@ -81,6 +81,12 @@ Implementation Tips
 
 3. Incorporate Risk Management Tools
 
+   1. Position Sizing Based on Risk Percentage: Calculate the position size based on the percentage of capital at risk.
+   2. Stop-Loss Orders: Automatically sell a position when it reaches a certain price.
+   3. Take-Profit Orders: Automatically sell a position when it reaches a certain profit level.
+   4. Risk-Reward Ratio: Evaluate the potential return of a trade relative to the risk taken.
+   5. Maximum Drawdown: Measure the largest peak-to-trough decline in a portfolio.
+
 Objective: Implement features that help users manage risk and protect their portfolios.
 
 3.1. Risk Metrics

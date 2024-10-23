@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.10"
+						"string" : "3.14"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "TradingApplication::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-TradingApplication-Debug-7da338652a7a9cda6ae3.json",
+					"jsonFile" : "target-TradingApplication-Debug-026aad56fe911d4a2173.json",
 					"name" : "TradingApplication",
 					"projectIndex" : 0
 				}
