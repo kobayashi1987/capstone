@@ -550,3 +550,31 @@ void Portfolio::updatePosition(const std::string& symbol, int quantity, double a
         positions_[symbol] = pos;
     }
 }
+
+
+
+// Setters
+void Portfolio::setCashBalance(double cash) {
+    cashBalance_ = cash;
+}
+
+
+
+void Portfolio::setDrawdown(double drawdown) {
+    drawdown_ = drawdown;
+}
+
+// Add or update a position
+void Portfolio::addPosition(const std::string& symbol, int quantity, double price) {
+    auto it = positions_.find(symbol);
+    if (it != positions_.end()) {
+        // Update existing position
+        double totalCost = it->second.averagePrice * it->second.quantity + price * quantity;
+        it->second.quantity += quantity;
+        it->second.averagePrice = totalCost / it->second.quantity;
+    }
+    else {
+        // Add new position
+        positions_[symbol] = Position{ quantity, price };
+    }
+}

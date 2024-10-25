@@ -147,6 +147,16 @@ public:
     // Getter for positions
     const std::unordered_map<std::string, Position>& getPositions() const;
 
+
+    // Setters
+    void setCashBalance(double cash);
+    void setDrawdown(double drawdown);
+
+    // Add or update a position
+    void addPosition(const std::string& symbol, int quantity, double price);
+
+
+
     // Calculate total portfolio value
     double getPortfolioValue(const std::unordered_map<std::string, double>& marketPrices) const;
 

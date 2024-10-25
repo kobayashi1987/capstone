@@ -96,6 +96,10 @@ public:
     // Method to stop live price updates.
     void stopPriceUpdates();
 
+    // Update a single market price
+    void updatePrice(const std::string& symbol, double price);
+
+
 private:
     // Method to update market prices (simulates price changes by adding random fluctuations).
     void updatePrices();

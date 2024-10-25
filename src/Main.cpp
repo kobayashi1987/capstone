@@ -20,6 +20,8 @@
 #include "json.hpp"
 using json = nlohmann::json;
 
+namespace fs = std::filesystem;
+
 
 // Include all the necessary headers
 #include "Utils.h"
@@ -87,30 +89,25 @@ void initializeRandomGenerator() {
 
 
 // Function to display the main menu
+
 void displayMainMenu() {
-    std::cout << "\n=== Trading Application Menu ===\n";
-    std::cout << "1. View Market Prices\n";
-    std::cout << "2. Place Order\n";
-    std::cout << "3. View Portfolio\n";
-    std::cout << "4. Start Live Price Feed\n";
-    std::cout << "5. Run Moving Average Crossover Strategy\n";
-    std::cout << "6. Run RSI Strategy\n";
-    std::cout << "7. Run Momentum Strategy\n";
-    std::cout << "8. Run Breakout Strategy\n";
-    std::cout << "9. Run Mean Reversion Strategy\n";
-    std::cout << "10. Execute Trading Strategies\n";
-    std::cout << "11. Save and Exit\n";
-    std::cout << "12. View Pending Orders\n";
-    std::cout << "13. Update Market Prices\n";
-    std::cout << "14. View Trade History\n";
-    std::cout << "0. Exit\n";
+    std::cout << "\n=== Trading Engine Menu ===\n";
+    std::cout << "1. Place a New Order\n";
+    std::cout << "2. View Portfolio\n";
+    std::cout << "3. View Trade History\n";
+    std::cout << "4. View Pending Orders\n";
+    std::cout << "5. Update Market Prices\n";
+    std::cout << "6. View Live Prices\n";
+    std::cout << "7. View Market Prices\n";
+    std::cout << "8. Execute Trading Strategies\n";
+    std::cout << "9. Save and Exit\n";
     std::cout << "Enter your choice: ";
 }
 
 // Forward declarations of strategy execution functions
 // Function to display live prices every 1 seconds
 void viewLivePrices(TradingEngine& engine, MarketDataFeed& marketDataFeed);
-
+void viewPendingOrders(const TradingEngine& engine);
 void viewMarketPrices(const MarketDataFeed& marketDataFeed);
 void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType);
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed);
@@ -120,195 +117,10 @@ void executeMomentumStrategy(TradingEngine& engine, const MarketDataFeed& market
 void executeBreakoutStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 void viewTradeHistory(const TradingEngine& engine);
-void viewTradeHistory(const TradingEngine& engine);
-void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataFeed);
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine);
+void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataFeed);
 
-
-int main() {
-
-    // Initialize file paths for data persistence
-    std::string portfolioFile = "portfolio.json";
-    std::string ordersFile = "orders.json";
-
-    // Initialize DataPersistence
-    DataPersistence dataPersistence(portfolioFile, ordersFile);
-
-    // Initialize random number generator
-    initializeRandomGenerator();
-
-    // List of stock symbols to track
-    std::vector<std::string> symbols = {"AAPL", "GOOGL", "MSFT", "AMZN"};
-
-    // Initialize the market data feed with initial prices
-    std::unordered_map<std::string, double> initialPrices = {
-            {"AAPL", 150.0},
-            {"GOOGL", 2800.0},
-            {"MSFT", 300.0},
-            {"AMZN", 3500.0}
-    };
-    MarketDataFeed marketDataFeed(symbols, initialPrices);
-
-    // Initialize TradingEngine with initial capital (e.g., $100,000)
-    double initialCapital = 1000000.0;
-    TradingEngine engine(initialCapital);
-
-    // MarketDataFeed marketDataFeed;
-
-    // Load existing portfolio if available
-    Portfolio loadedPortfolio(initialCapital);
-    if (dataPersistence.loadPortfolio(loadedPortfolio)) {
-        engine.setPortfolio(loadedPortfolio);
-        std::cout << "Portfolio loaded successfully from " << portfolioFile << ".\n";
-    } else {
-        std::cout << "Portfolio file not found or corrupted. Starting with a new portfolio.\n";
-    }
-
-    // Load existing orders if available
-    std::vector<Order> loadedOrders;
-    if (dataPersistence.loadOrders(loadedOrders)) {
-        std::cout << "Orders loaded successfully from " << ordersFile << ".\n";
-        // Add loaded orders to the portfolio's pending orders
-        for (const auto &order: loadedOrders) {
-            engine.getPortfolio().addPendingOrder(order);
-        }
-    } else {
-        std::cout << "Orders file not found or corrupted. Starting with no pending orders.\n";
-    }
-
-    // Initialize market prices before placing loaded orders
-    std::unordered_map<std::string, double> marketPrices = marketDataFeed.getPrices();
-
-    bool exitProgram = false;
-    while (!exitProgram) {
-        displayMainMenu();
-        int choice = getInput<int>("");
-
-        switch (choice) {
-            case 1:
-                // View Market Prices
-            {
-                const auto &prices = marketDataFeed.getPrices();
-                std::cout << "\n=== Current Market Prices ===\n";
-                for (const auto &pair: prices) {
-                    std::cout << pair.first << ": $" << pair.second << "\n";
-                }
-            }
-                break;
-            case 2:
-                // Place Order
-                placeOrder(engine, marketDataFeed, OrderType::Buy);
-                break;
-            case 3:
-                // View Portfolio
-                viewPortfolio(engine, marketDataFeed);
-                break;
-            case 4:
-                // View Live Price Feed
-                viewLivePrices(engine, marketDataFeed);
-                break;
-            case 5:
-                executeMovingAverageCrossoverStrategy(engine, marketDataFeed);
-                break;
-            case 6:
-                executeRSIStrategy(engine, marketDataFeed);
-                break;
-            case 7:
-                executeMomentumStrategy(engine, marketDataFeed);
-                break;
-            case 8:
-                executeBreakoutStrategy(engine, marketDataFeed);
-                break;
-            case 9:
-                executeMeanReversionStrategy(engine, marketDataFeed);
-                break;
-            case 0:
-                std::cout << "Exiting application.\n";
-                exitProgram = true;
-                break;
-            case 11: { // Save and Exit
-                // Save Portfolio
-                if (dataPersistence.savePortfolio(engine.getPortfolio())) {
-                    std::cout << "Portfolio saved successfully to " << portfolioFile << ".\n";
-                } else {
-                    std::cout << "Failed to save portfolio to " << portfolioFile << ".\n";
-                }
-
-                // Save Orders
-                std::vector<Order> allOrders = engine.getAllOrders();
-                if (dataPersistence.saveOrders(allOrders)) {
-                    std::cout << "Orders saved successfully to " << ordersFile << ".\n";
-                } else {
-                    std::cout << "Failed to save orders to " << ordersFile << ".\n";
-                }
-
-                std::cout << "Exiting the program.\n";
-                exitProgram = true;
-                break;
-            }
-            default:
-                std::cout << "Invalid choice. Please select a valid option.\n";
-        }
-    }
-
-    return 0;
-
-}
-
-
-void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType orderType) {
-    std::string symbol;
-    std::cout << "Enter the stock symbol: ";
-    std::cin >> symbol;
-
-    // Clear input buffer
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    // If orderType is not specified, prompt the user
-    if (orderType != OrderType::Buy && orderType != OrderType::Sell) {
-        std::string orderTypeStr;
-        std::cout << "Order Type (Buy/Sell): ";
-        std::getline(std::cin, orderTypeStr);
-        if (orderTypeStr == "Buy" || orderTypeStr == "buy") {
-            orderType = OrderType::Buy;
-        } else if (orderTypeStr == "Sell" || orderTypeStr == "sell") {
-            orderType = OrderType::Sell;
-        } else {
-            std::cout << "Invalid order type.\n";
-            return;
-        }
-    }
-
-    double stopLossPrice = 0.0;
-    double takeProfitPrice = 0.0;
-
-    std::cout << "Stop-Loss Price (enter 0 for no stop-loss): ";
-    std::cin >> stopLossPrice;
-
-    std::cout << "Take-Profit Price (enter 0 for no take-profit): ";
-    std::cin >> takeProfitPrice;
-
-    // Clear input buffer
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    double entryPrice;
-    try {
-        entryPrice = marketDataFeed.getPrice(symbol);
-    } catch (const std::exception& e) {
-        std::cout << e.what() << "\n";
-        return;
-    }
-
-    // Place the order
-    try {
-        engine.userPlaceOrder(symbol, orderType, OrderStyle::Market, entryPrice, stopLossPrice, takeProfitPrice, marketDataFeed.getPrices());
-        std::cout << "Order placed successfully.\n";
-    } catch (const std::exception& e) {
-        std::cout << "Error placing order: " << e.what() << "\n";
-    }
-}
-
-
+// BELOW IS NEWLY MOVED functions from main.cpp
 // Function to view the portfolio
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     std::cout << "\n=== Portfolio ===\n";
@@ -354,7 +166,6 @@ void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketData
     std::cout << "Peak Value: $" << peakValue << "\n";
     std::cout << "Current Drawdown: " << drawdown << "%\n";
 }
-
 
 // Function to execute the Mean Reversion Strategy
 void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
@@ -834,7 +645,6 @@ void viewLivePrices(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
     std::cout << "\nExiting Live Price Feed mode.\n";
 }
 
-
 // Function to view trade history
 void viewTradeHistory(const TradingEngine& engine) {
     const auto& tradeHistory = engine.getPortfolio().getTradeHistory();
@@ -911,7 +721,6 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     }
 }
 
-
 // Function to update market prices
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
     std::cout << "\n--- Update Market Prices ---\n";
@@ -945,9 +754,233 @@ void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, M
         }
 
         marketPrices[inputSymbol] = newPrice;
+        marketDataFeed.updatePrice(inputSymbol, newPrice); // Update MarketDataFeed
         std::cout << "Updated " << inputSymbol << " to $" << newPrice << ".\n";
     }
 
     // After updating market prices, process orders
     engine.updateMarketData(marketPrices);
 }
+
+// Function to place a new order
+void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, OrderType orderType) {
+    std::string symbol = getStringInput("Enter stock symbol: ");
+
+    // Validate symbol
+    auto prices = marketDataFeed.getPrices();
+    if (prices.find(symbol) == prices.end()) {
+        std::cout << "Symbol not found in market prices. Please update market data first.\n";
+        return;
+    }
+
+    OrderStyle style;
+    double entryPrice = 0.0;
+    if (orderType == OrderType::Buy) {
+        style = OrderStyle::Market;
+        entryPrice = prices.at(symbol);
+        std::cout << "Market order will be executed at current market price: $" << entryPrice << "\n";
+    } else {
+        style = OrderStyle::Limit;
+        entryPrice = getInput<double>("Enter entry price: ");
+    }
+
+    double stopLossPrice = getInput<double>("Enter stop-loss price: ");
+    double takeProfitPrice = getInput<double>("Enter take-profit price: ");
+
+    try {
+        engine.userPlaceOrder(symbol, orderType, style, entryPrice, stopLossPrice, takeProfitPrice,
+                              marketDataFeed.getPrices());
+        std::cout << "Order placed successfully.\n";
+    } catch (const std::exception &e) {
+        std::cout << "Error placing order: " << e.what() << "\n";
+    }
+}
+
+
+
+int main() {
+
+    // Initialize file paths for data persistence
+    std::string portfolioFile = "../data/portfolio.json";
+    std::string ordersFile = "../data/orders.json";
+
+    // Initialize DataPersistence
+    DataPersistence dataPersistence(portfolioFile, ordersFile);
+
+    // Initialize random number generator
+    initializeRandomGenerator();
+
+    // List of stock symbols to track
+    std::vector<std::string> symbols = {"AAPL", "GOOGL", "MSFT", "AMZN"};
+
+    // Initialize the market data feed with initial prices
+    std::unordered_map<std::string, double> initialPrices = {
+            {"AAPL",  150.0},
+            {"GOOGL", 280.0},
+            {"MSFT",  300.0},
+            {"AMZN",  350.0}
+    };
+
+    // Initialize MarketDataFeed with symbols and initial prices
+    MarketDataFeed marketDataFeed(symbols, initialPrices);
+
+    // Initialize TradingEngine with initial capital (e.g., $100,000)
+    double initialCapital = 1000000.0;
+    TradingEngine engine(initialCapital);
+
+    // MarketDataFeed marketDataFeed;
+
+    // Load existing portfolio if available
+    Portfolio loadedPortfolio(initialCapital);
+    if (dataPersistence.loadPortfolio(loadedPortfolio)) {
+        engine.setPortfolio(loadedPortfolio);
+        std::cout << "Portfolio loaded successfully from " << portfolioFile << ".\n";
+    } else {
+        std::cout << "Portfolio file not found or corrupted. Starting with a new portfolio.\n";
+    }
+
+    // Load existing orders if available
+    std::vector<Order> loadedOrders;
+    if (dataPersistence.loadOrders(loadedOrders)) {
+        std::cout << "Orders loaded successfully from " << ordersFile << ".\n";
+        // Add loaded orders to the portfolio's pending orders
+        for (const auto &order: loadedOrders) {
+            engine.getPortfolio().addPendingOrder(order);
+        }
+    } else {
+        std::cout << "Orders file not found or corrupted. Starting with no pending orders.\n";
+    }
+
+    // Initialize market prices before placing loaded orders
+    std::unordered_map<std::string, double> marketPrices = marketDataFeed.getPrices();
+
+    int choice;
+    do {
+        displayMainMenu();
+        std::cin >> choice;
+        switch (choice) {
+            case 1: { // Place a New Order
+                std::cout << "\nSelect Order Type:\n1. Buy\n2. Sell\nEnter your choice: ";
+                int orderTypeChoice = getInput<int>("");
+                if (orderTypeChoice == 1) {
+                    placeOrder(engine, marketDataFeed, OrderType::Buy);
+                } else if (orderTypeChoice == 2) {
+                    placeOrder(engine, marketDataFeed, OrderType::Sell);
+                } else {
+                    std::cout << "Invalid Order Type selection.\n";
+                }
+                break;
+            }
+            case 2: { // View Portfolio
+                viewPortfolio(engine, marketDataFeed);
+                break;
+            }
+            case 3: { // View Trade History
+                viewTradeHistory(engine);
+                break;
+            }
+            case 4: { // View Pending Orders
+                viewPendingOrders(engine);
+                break;
+            }
+            case 5: { // Update Market Prices
+                updateMarketPrices(marketPrices, marketDataFeed, engine);
+                break;
+            }
+            case 6: { // View Live Prices
+                viewLivePrices(engine, marketDataFeed);
+                break;
+            }
+            case 7: { // View Market Prices
+                viewMarketPrices(marketDataFeed);
+                break;
+            }
+            case 8: { // Execute Trading Strategies
+                executeTradingStrategies(engine, marketDataFeed);
+                break;
+            }
+            case 9: { // Save and Exit
+                // Save Portfolio
+                if (dataPersistence.savePortfolio(engine.getPortfolio())) {
+                    std::cout << "Portfolio saved successfully to " << portfolioFile << ".\n";
+                } else {
+                    std::cout << "Failed to save portfolio to " << portfolioFile << ".\n";
+                }
+
+                // Save Orders
+                std::vector<Order> allOrders = engine.getAllOrders();
+                if (dataPersistence.saveOrders(allOrders)) {
+                    std::cout << "Orders saved successfully to " << ordersFile << ".\n";
+                } else {
+                    std::cout << "Failed to save orders to " << ordersFile << ".\n";
+                }
+
+                std::cout << "Exiting the program.\n";
+                break;
+            }
+            case 0:
+                std::cout << "Exiting application.\n";
+                break;
+
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+        }
+
+    } while (choice != 0);
+
+        return 0;
+}
+
+// Previous version of placeOrder function
+//void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType orderType) {
+//    std::string symbol;
+//    std::cout << "Enter the stock symbol: ";
+//    std::cin >> symbol;
+//
+//    // Clear input buffer
+//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//    // If orderType is not specified, prompt the user
+//    if (orderType != OrderType::Buy && orderType != OrderType::Sell) {
+//        std::string orderTypeStr;
+//        std::cout << "Order Type (Buy/Sell): ";
+//        std::getline(std::cin, orderTypeStr);
+//        if (orderTypeStr == "Buy" || orderTypeStr == "buy") {
+//            orderType = OrderType::Buy;
+//        } else if (orderTypeStr == "Sell" || orderTypeStr == "sell") {
+//            orderType = OrderType::Sell;
+//        } else {
+//            std::cout << "Invalid order type.\n";
+//            return;
+//        }
+//    }
+//
+//    double stopLossPrice = 0.0;
+//    double takeProfitPrice = 0.0;
+//
+//    std::cout << "Stop-Loss Price (enter 0 for no stop-loss): ";
+//    std::cin >> stopLossPrice;
+//
+//    std::cout << "Take-Profit Price (enter 0 for no take-profit): ";
+//    std::cin >> takeProfitPrice;
+//
+//    // Clear input buffer
+//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//    double entryPrice;
+//    try {
+//        entryPrice = marketDataFeed.getPrice(symbol);
+//    } catch (const std::exception& e) {
+//        std::cout << e.what() << "\n";
+//        return;
+//    }
+//
+//    // Place the order
+//    try {
+//        engine.userPlaceOrder(symbol, orderType, OrderStyle::Market, entryPrice, stopLossPrice, takeProfitPrice, marketDataFeed.getPrices());
+//        std::cout << "Order placed successfully.\n";
+//    } catch (const std::exception& e) {
+//        std::cout << "Error placing order: " << e.what() << "\n";
+//    }
+//}

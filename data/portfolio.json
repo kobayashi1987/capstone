@@ -1,0 +1,19 @@
+{
+    "cash_balance": 92450.35783853263,
+    "current_drawdown": 0.0,
+    "peak_value": 114575.77077241785,
+    "positions": {
+        "AAPL": {
+            "average_price": 150.0,
+            "quantity": 100
+        },
+        "GOOGL": {
+            "average_price": 277.1835754988997,
+            "quantity": 10
+        },
+        "MSFT": {
+            "average_price": 307.78064064783814,
+            "quantity": 10
+        }
+    }
+}

@@ -119,3 +119,8 @@ void MarketDataFeed::updatePrices() {
         }
     }
 }
+
+void MarketDataFeed::updatePrice(const std::string& symbol, double price) { // Ensure correct spelling and casing
+    prices_[symbol] = price;
+}
+
