@@ -721,6 +721,47 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     }
 }
 
+//// Function to update market prices
+//void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
+//    std::cout << "\n--- Update Market Prices ---\n";
+//    std::cout << "Current Market Prices:\n";
+//    for (const auto& [symbol, price] : marketPrices) {
+//        std::cout << symbol << ": $" << price << "\n";
+//    }
+//
+//    std::cout << "\nEnter new market prices. Type 'done' when finished.\n";
+//    while (true) {
+//        std::string inputSymbol;
+//        std::cout << "Enter symbol (or 'done'): ";
+//        std::cin >> inputSymbol;
+//        if (inputSymbol == "done") {
+//            // Clear remaining input
+//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//            break;
+//        }
+//
+//        if (marketPrices.find(inputSymbol) == marketPrices.end()) {
+//            std::cout << "Symbol not recognized. Please try again.\n";
+//            // Clear remaining input
+//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//            continue;
+//        }
+//
+//        double newPrice = getInput<double>("Enter new price for " + inputSymbol + ": ");
+//        if (newPrice <= 0.0) {
+//            std::cout << "Price must be greater than zero. Please try again.\n";
+//            continue;
+//        }
+//
+//        marketPrices[inputSymbol] = newPrice;
+//        marketDataFeed.updatePrice(inputSymbol, newPrice); // Update MarketDataFeed
+//        std::cout << "Updated " << inputSymbol << " to $" << newPrice << ".\n";
+//    }
+//
+//    // After updating market prices, process orders
+//    engine.updateMarketData(marketPrices);
+//}
+
 // Function to update market prices
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
     std::cout << "\n--- Update Market Prices ---\n";
@@ -758,11 +799,11 @@ void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, M
         std::cout << "Updated " << inputSymbol << " to $" << newPrice << ".\n";
     }
 
-    // After updating market prices, process orders
-    engine.updateMarketData(marketPrices);
+    // After updating market prices, process pending orders
+    engine.updateMarketData(marketPrices); // <-- Newly Modified Part
 }
-
 // Function to place a new order
+
 void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, OrderType orderType) {
     std::string symbol = getStringInput("Enter stock symbol: ");
 
@@ -931,56 +972,3 @@ int main() {
 
         return 0;
 }
-
-// Previous version of placeOrder function
-//void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType orderType) {
-//    std::string symbol;
-//    std::cout << "Enter the stock symbol: ";
-//    std::cin >> symbol;
-//
-//    // Clear input buffer
-//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//    // If orderType is not specified, prompt the user
-//    if (orderType != OrderType::Buy && orderType != OrderType::Sell) {
-//        std::string orderTypeStr;
-//        std::cout << "Order Type (Buy/Sell): ";
-//        std::getline(std::cin, orderTypeStr);
-//        if (orderTypeStr == "Buy" || orderTypeStr == "buy") {
-//            orderType = OrderType::Buy;
-//        } else if (orderTypeStr == "Sell" || orderTypeStr == "sell") {
-//            orderType = OrderType::Sell;
-//        } else {
-//            std::cout << "Invalid order type.\n";
-//            return;
-//        }
-//    }
-//
-//    double stopLossPrice = 0.0;
-//    double takeProfitPrice = 0.0;
-//
-//    std::cout << "Stop-Loss Price (enter 0 for no stop-loss): ";
-//    std::cin >> stopLossPrice;
-//
-//    std::cout << "Take-Profit Price (enter 0 for no take-profit): ";
-//    std::cin >> takeProfitPrice;
-//
-//    // Clear input buffer
-//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//    double entryPrice;
-//    try {
-//        entryPrice = marketDataFeed.getPrice(symbol);
-//    } catch (const std::exception& e) {
-//        std::cout << e.what() << "\n";
-//        return;
-//    }
-//
-//    // Place the order
-//    try {
-//        engine.userPlaceOrder(symbol, orderType, OrderStyle::Market, entryPrice, stopLossPrice, takeProfitPrice, marketDataFeed.getPrices());
-//        std::cout << "Order placed successfully.\n";
-//    } catch (const std::exception& e) {
-//        std::cout << "Error placing order: " << e.what() << "\n";
-//    }
-//}

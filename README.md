@@ -79,7 +79,7 @@ Implementation Tips
 	•	Slippage and Commission: Factor in transaction costs and slippage for realistic results.
 	•	Data Preprocessing: Handle missing data, adjust for splits/dividends, and normalize data if necessary.
 
-3. Incorporate Risk Management Tools
+3. Incorporate Risk Management Tools: Done
 
    1. Position Sizing Based on Risk Percentage: Calculate the position size based on the percentage of capital at risk.
    2. Stop-Loss Orders: Automatically sell a position when it reaches a certain price.
@@ -448,3 +448,14 @@ As you continue to develop the project, consider the following enhancements:
 	2.	Enhanced Strategy Parameters: Allow users to fine-tune strategy parameters for more customized trading approaches.
 	3.	Logging: Incorporate logging mechanisms to track application activities, orders placed, and strategy performances.
 	4.	GUI Integration: Transition from a console-based interface to a graphical user interface (GUI) for improved user experience.
+
+2024.10.28
+
+Modification:
+
+1. in Portfolio.cpp:
+    - Modified processOrders() function, in the end of the code.
+2. in TradingEngine.cpp: 
+    - Modified userPlaceOrder() function, in the end of the code.
+3. in main.cpp:
+    - Modified updateMarketPrices() function, inside the main.cpp code.
