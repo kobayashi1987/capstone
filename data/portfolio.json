@@ -1,6 +1,6 @@
 {
-    "cash_balance": 122253.39769455085,
-    "current_drawdown": 0.029554868671274357,
+    "cash_balance": 92031.10434897557,
+    "current_drawdown": 0.06895982248335285,
     "peak_value": 393379.68255027174,
     "positions": {
         "AAPL": {
@@ -12,8 +12,8 @@
             "quantity": 120
         },
         "MSFT": {
-            "average_price": 300.2719200072896,
-            "quantity": 210
+            "average_price": 300.9012791842132,
+            "quantity": 310
         }
     }
 }
