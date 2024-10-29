@@ -459,3 +459,10 @@ Modification:
     - Modified userPlaceOrder() function, in the end of the code.
 3. in main.cpp:
     - Modified updateMarketPrices() function, inside the main.cpp code.
+
+2024.10.29:
+
+Modification: NA
+
+writing ppt for the project
+adjust some parameters in the code

@@ -622,7 +622,7 @@ void viewLivePrices(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
         if (command.empty()) {
             // User pressed Enter, continue displaying live prices
             // Sleep for 5 seconds before next price update
-            std::this_thread::sleep_for(std::chrono::seconds(5));
+            std::this_thread::sleep_for(std::chrono::seconds(3));
             continue;
         }
 
@@ -721,47 +721,6 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     }
 }
 
-//// Function to update market prices
-//void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
-//    std::cout << "\n--- Update Market Prices ---\n";
-//    std::cout << "Current Market Prices:\n";
-//    for (const auto& [symbol, price] : marketPrices) {
-//        std::cout << symbol << ": $" << price << "\n";
-//    }
-//
-//    std::cout << "\nEnter new market prices. Type 'done' when finished.\n";
-//    while (true) {
-//        std::string inputSymbol;
-//        std::cout << "Enter symbol (or 'done'): ";
-//        std::cin >> inputSymbol;
-//        if (inputSymbol == "done") {
-//            // Clear remaining input
-//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//            break;
-//        }
-//
-//        if (marketPrices.find(inputSymbol) == marketPrices.end()) {
-//            std::cout << "Symbol not recognized. Please try again.\n";
-//            // Clear remaining input
-//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//            continue;
-//        }
-//
-//        double newPrice = getInput<double>("Enter new price for " + inputSymbol + ": ");
-//        if (newPrice <= 0.0) {
-//            std::cout << "Price must be greater than zero. Please try again.\n";
-//            continue;
-//        }
-//
-//        marketPrices[inputSymbol] = newPrice;
-//        marketDataFeed.updatePrice(inputSymbol, newPrice); // Update MarketDataFeed
-//        std::cout << "Updated " << inputSymbol << " to $" << newPrice << ".\n";
-//    }
-//
-//    // After updating market prices, process orders
-//    engine.updateMarketData(marketPrices);
-//}
-
 // Function to update market prices
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
     std::cout << "\n--- Update Market Prices ---\n";
@@ -836,7 +795,6 @@ void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, Ord
         std::cout << "Error placing order: " << e.what() << "\n";
     }
 }
-
 
 
 int main() {

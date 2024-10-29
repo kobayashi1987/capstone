@@ -86,12 +86,6 @@ void Portfolio::executeTrade(const Order& order, const std::unordered_map<std::s
               << " at $" << order.getPrice() << "\n";
 }
 
-//// Method to process all orders based on updated market data
-//void Portfolio::processOrders(const std::unordered_map<std::string, double>& marketPrices) {
-//    processPendingOrders(marketPrices);
-//    processStopOrders(marketPrices);
-//}
-
 // Method to process pending limit orders
 void Portfolio::processPendingOrders(const std::unordered_map<std::string, double>& marketPrices) {
     std::vector<Order> executedOrders;
@@ -335,12 +329,6 @@ void Portfolio::addPosition(const std::string& symbol, int quantity, double pric
 }
 
 
-//
-//// Method to process all orders based on updated market data
-//void Portfolio::processOrders(const std::unordered_map<std::string, double>& marketPrices) {
-//    processPendingOrders(marketPrices);
-//    processStopOrders(marketPrices);
-//}
 
 
 // new code added on 2024.10.28
