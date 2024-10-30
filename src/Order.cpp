@@ -54,45 +54,37 @@ Order::Order(OrderType type, OrderStyle style, const std::string& symbol, int qu
           takeProfit_(takeProfit),
           timestamp_(timestamp) {}
 
+// new constructor added on 2024.10.30
+
+// Setters
+void Order::setPrice(double price) { price_ = price; }
+// new constructor added on 2024.10.30
+
+
 // Getter for Order Type
-OrderType Order::getType() const {
-    return type_;
-}
+OrderType Order::getType() const { return type_;}
 
 // Getter for Order Style
-OrderStyle Order::getStyle() const {
-    return style_;
-}
+OrderStyle Order::getStyle() const { return style_; }
 
 // Getter for Symbol
-const std::string& Order::getSymbol() const { // Must match the declaration in Order.h
-    return symbol_;
-}
+// Must match the declaration in Order.h
+const std::string& Order::getSymbol() const { return symbol_; }
 
 // Getter for Quantity
-int Order::getQuantity() const {
-    return quantity_;
-}
+int Order::getQuantity() const { return quantity_; }
 
 // Getter for Price
-double Order::getPrice() const {
-    return price_;
-}
+double Order::getPrice() const { return price_; }
 
 // Getter for Stop-Loss Price
-double Order::getStopLoss() const {
-    return stopLoss_;
-}
+double Order::getStopLoss() const { return stopLoss_; }
 
 // Getter for Take-Profit Price
-double Order::getTakeProfit() const {
-    return takeProfit_;
-}
+double Order::getTakeProfit() const { return takeProfit_; }
 
 // Getter for Timestamp
-std::chrono::system_clock::time_point Order::getTimestamp() const {
-    return timestamp_;
-}
+std::chrono::system_clock::time_point Order::getTimestamp() const { return timestamp_; }
 
 // ================== Equality Operator Implementation ==================
 

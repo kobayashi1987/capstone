@@ -1,7 +1,7 @@
+////
+//// Created by jack on 9/10/24.
+////
 //
-// Created by jack on 9/10/24.
-//
-
 #ifndef TRADE_H
 #define TRADE_H
 
@@ -41,3 +41,4 @@ private:
 };
 
 #endif // TRADE_H
+

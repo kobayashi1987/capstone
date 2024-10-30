@@ -1,9 +1,9 @@
+////
+//// Created by jack on 9/10/24.
+////
 //
-// Created by jack on 9/10/24.
 //
-
-
-
+//
 #include "Trade.h"
 
 // Constructor: Initializes a Trade from an Order
@@ -54,3 +54,4 @@ double Trade::getStopLoss() const {
 double Trade::getTakeProfit() const {
     return takeProfit_;
 }
+

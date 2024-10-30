@@ -21,6 +21,14 @@ public:
           const std::chrono::system_clock::time_point& timestamp = std::chrono::system_clock::now());
 
 
+    // code added on 2024.10.30
+    // Setters
+    void setPrice(double price);
+    // code added on 2024.10.30
+
+
+
+
     // Getters
     OrderType getType() const;
     OrderStyle getStyle() const;
@@ -31,9 +39,11 @@ public:
     double getTakeProfit() const;
     std::chrono::system_clock::time_point getTimestamp() const;
 
+
     // code added on 2024.10.23
     // Equality operator
     bool operator==(const Order& other) const;
+
 
 private:
     OrderType type_;

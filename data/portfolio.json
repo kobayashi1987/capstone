@@ -1,19 +1,23 @@
 {
-    "cash_balance": 92031.10434897557,
-    "current_drawdown": 0.06895982248335285,
-    "peak_value": 393379.68255027174,
+    "cash_balance": 153570.07710513283,
+    "current_drawdown": 0.4224843559737063,
+    "peak_value": 997670.0771051329,
     "positions": {
         "AAPL": {
-            "average_price": 150.24453840111977,
-            "quantity": 990
+            "average_price": 141.83351889216263,
+            "quantity": 1300
+        },
+        "AMZN": {
+            "average_price": 350.6167574794758,
+            "quantity": 300
         },
         "GOOGL": {
-            "average_price": 279.7439614089909,
-            "quantity": 120
+            "average_price": 279.8603425867223,
+            "quantity": 220
         },
         "MSFT": {
-            "average_price": 300.9012791842132,
-            "quantity": 310
+            "average_price": 300.6652298740621,
+            "quantity": 420
         }
     }
 }

@@ -721,7 +721,87 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     }
 }
 
-// Function to update market prices
+//// Function to update market prices
+//void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
+//    std::cout << "\n--- Update Market Prices ---\n";
+//    std::cout << "Current Market Prices:\n";
+//    for (const auto& [symbol, price] : marketPrices) {
+//        std::cout << symbol << ": $" << price << "\n";
+//    }
+//
+//    std::cout << "\nEnter new market prices. Type 'done' when finished.\n";
+//    while (true) {
+//        std::string inputSymbol;
+//        std::cout << "Enter symbol (or 'done'): ";
+//        std::cin >> inputSymbol;
+//        if (inputSymbol == "done") {
+//            // Clear remaining input
+//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//            break;
+//        }
+//
+//        if (marketPrices.find(inputSymbol) == marketPrices.end()) {
+//            std::cout << "Symbol not recognized. Please try again.\n";
+//            // Clear remaining input
+//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//            continue;
+//        }
+//
+//        double newPrice = getInput<double>("Enter new price for " + inputSymbol + ": ");
+//        if (newPrice <= 0.0) {
+//            std::cout << "Price must be greater than zero. Please try again.\n";
+//            continue;
+//        }
+//
+//        marketPrices[inputSymbol] = newPrice;
+//        marketDataFeed.updatePrice(inputSymbol, newPrice); // Update MarketDataFeed
+//        std::cout << "Updated " << inputSymbol << " to $" << newPrice << ".\n";
+//    }
+//
+//    // After updating market prices, process pending orders
+//    engine.updateMarketData(marketPrices); // <-- Newly Modified Part
+//}
+//// Function to place a new order
+//
+//void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, OrderType orderType) {
+//    std::string symbol = getStringInput("Enter stock symbol: ");
+//
+//    // Validate symbol
+//    auto prices = marketDataFeed.getPrices();
+//    if (prices.find(symbol) == prices.end()) {
+//        std::cout << "Symbol not found in market prices. Please update market data first.\n";
+//        return;
+//    }
+//
+//    OrderStyle style;
+//    double entryPrice = 0.0;
+//    if (orderType == OrderType::Buy) {
+//        style = OrderStyle::Market;
+//        entryPrice = prices.at(symbol);
+//        std::cout << "Market order will be executed at current market price: $" << entryPrice << "\n";
+//    } else {
+//        style = OrderStyle::Limit;
+//        entryPrice = getInput<double>("Enter entry price: ");
+//    }
+//
+//    double stopLossPrice = getInput<double>("Enter stop-loss price: ");
+//    double takeProfitPrice = getInput<double>("Enter take-profit price: ");
+//
+//    try {
+//        engine.userPlaceOrder(symbol, orderType, style, entryPrice, stopLossPrice, takeProfitPrice,
+//                              marketDataFeed.getPrices());
+//        std::cout << "Order placed successfully.\n";
+//    } catch (const std::exception &e) {
+//        std::cout << "Error placing order: " << e.what() << "\n";
+//    }
+//}
+
+
+
+
+
+
+// Function to update market prices (updated to process pending orders)
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
     std::cout << "\n--- Update Market Prices ---\n";
     std::cout << "Current Market Prices:\n";
@@ -761,9 +841,9 @@ void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, M
     // After updating market prices, process pending orders
     engine.updateMarketData(marketPrices); // <-- Newly Modified Part
 }
-// Function to place a new order
 
-void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, OrderType orderType) {
+// Function to place a new order (modified to handle 4 types: buy/market, buy/limit, sell/market, sell/limit)
+void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType defaultType) {
     std::string symbol = getStringInput("Enter stock symbol: ");
 
     // Validate symbol
@@ -773,28 +853,45 @@ void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, Ord
         return;
     }
 
+    // Select Order Style: Market or Limit
+    std::cout << "Select Order Style:\n1. Market\n2. Limit\nEnter your choice: ";
+    int styleChoice = getInput<int>("");
+
     OrderStyle style;
     double entryPrice = 0.0;
-    if (orderType == OrderType::Buy) {
+
+    if (styleChoice == 1) {
         style = OrderStyle::Market;
         entryPrice = prices.at(symbol);
         std::cout << "Market order will be executed at current market price: $" << entryPrice << "\n";
-    } else {
+    }
+    else if (styleChoice == 2) {
         style = OrderStyle::Limit;
-        entryPrice = getInput<double>("Enter entry price: ");
+        entryPrice = getInput<double>("Enter limit price: ");
+        if (entryPrice <= 0.0) {
+            std::cout << "Limit price must be greater than zero.\n";
+            return;
+        }
+    }
+    else {
+        std::cout << "Invalid Order Style selection.\n";
+        return;
     }
 
+    // Enter Stop-Loss and Take-Profit Prices
     double stopLossPrice = getInput<double>("Enter stop-loss price: ");
     double takeProfitPrice = getInput<double>("Enter take-profit price: ");
 
+    // Place the order based on Order Type and Style
     try {
-        engine.userPlaceOrder(symbol, orderType, style, entryPrice, stopLossPrice, takeProfitPrice,
-                              marketDataFeed.getPrices());
-        std::cout << "Order placed successfully.\n";
-    } catch (const std::exception &e) {
+        engine.userPlaceOrder(symbol, defaultType, style, entryPrice, stopLossPrice, takeProfitPrice, prices);
+    }
+    catch (const std::exception& e) {
         std::cout << "Error placing order: " << e.what() << "\n";
     }
 }
+
+
 
 
 int main() {

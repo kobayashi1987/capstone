@@ -1,9 +1,9 @@
+////
+//// Created by jack on 9/10/24.
+////
 //
-// Created by jack on 9/10/24.
+//// File: src/Portfolio.h
 //
-
-// File: src/Portfolio.h
-
 #ifndef PORTFOLIO_H
 #define PORTFOLIO_H
 
@@ -95,14 +95,5 @@ private:
 };
 
 #endif // PORTFOLIO_H
-
-
-
-
-
-
-
-
-
 
 
