@@ -1,11 +1,11 @@
 {
-    "cash_balance": 153570.07710513283,
-    "current_drawdown": 0.4224843559737063,
+    "cash_balance": 1212349.9228948668,
+    "current_drawdown": 0.4382911846657709,
     "peak_value": 997670.0771051329,
     "positions": {
         "AAPL": {
-            "average_price": 141.83351889216263,
-            "quantity": 1300
+            "average_price": 138.67268194462937,
+            "quantity": 3201
         },
         "AMZN": {
             "average_price": 350.6167574794758,

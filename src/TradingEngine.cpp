@@ -116,11 +116,12 @@ void TradingEngine::placeOrder(const std::string& symbol, OrderType type, OrderS
     portfolio_.executeTrade(order, marketPrices);
 }
 
-// User Place Order (modified function)
-void TradingEngine::userPlaceOrder(const std::string& symbol, OrderType type, OrderStyle style, double price,
+// User Place Order (modified function to accept quantity)
+void TradingEngine::userPlaceOrder(const std::string& symbol, OrderType type, OrderStyle style, int quantity, double price,
                                    double stopLossPrice, double takeProfitPrice,
                                    const std::unordered_map<std::string, double>& marketPrices) {
-    Order order(type, style, symbol, 100, price, stopLossPrice, takeProfitPrice);
+    // Create the Order object with specified quantity
+    Order order(type, style, symbol, quantity, price, stopLossPrice, takeProfitPrice);
 
     if (style == OrderStyle::Market) {
         // Execute Market Order Immediately
@@ -138,7 +139,6 @@ void TradingEngine::userPlaceOrder(const std::string& symbol, OrderType type, Or
         std::cout << "Limit Order added to pending orders.\n";
     }
 }
-
 // Update market data and process orders
 void TradingEngine::updateMarketData(const std::unordered_map<std::string, double>& marketPrices) {
     // Process Pending Orders

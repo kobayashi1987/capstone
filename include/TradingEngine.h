@@ -27,8 +27,8 @@ public:
                     double stopLossPrice, double takeProfitPrice,
                     const std::unordered_map<std::string, double>& marketPrices);
 
-    // User Place Order (new function)
-    void userPlaceOrder(const std::string& symbol, OrderType type, OrderStyle style, double price,
+    // User Place Order (new function) 2024.10.31
+    void userPlaceOrder(const std::string& symbol, OrderType type, OrderStyle style, int quantity, double price,
                         double stopLossPrice, double takeProfitPrice,
                         const std::unordered_map<std::string, double>& marketPrices);
 

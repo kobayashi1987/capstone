@@ -460,10 +460,7 @@ Modification:
 3. in main.cpp:
     - Modified updateMarketPrices() function, inside the main.cpp code.
 
-2024.10.29:
+week 3:
+2024.10.31:
 
-Modification: NA
-
-writing ppt for the project
-adjust some parameters in the code
-// test github 
+1. add stock quantity in placeOderr() function in main.cpp : 

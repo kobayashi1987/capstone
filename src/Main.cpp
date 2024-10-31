@@ -167,7 +167,95 @@ void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketData
     std::cout << "Current Drawdown: " << drawdown << "%\n";
 }
 
-// Function to execute the Mean Reversion Strategy
+//// Function to execute the Mean Reversion Strategy
+//void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+//    std::string symbol;
+//    int lookbackPeriod;
+//    double deviationThreshold;
+//    std::cout << "Enter the stock symbol for the strategy (e.g., AAPL): ";
+//    std::cin >> symbol;
+//    std::cout << "Enter the look-back period for mean calculation: ";
+//    std::cin >> lookbackPeriod;
+//    std::cout << "Enter the deviation threshold (e.g., 0.05 for 5%): ";
+//    std::cin >> deviationThreshold;
+//
+//    if (lookbackPeriod <= 0 || deviationThreshold <= 0) {
+//        std::cout << "Look-back period and deviation threshold must be positive numbers.\n";
+//        return;
+//    }
+//
+//    auto strategy = std::make_unique<MeanReversionStrategy>(lookbackPeriod, deviationThreshold);
+//
+//    // Generate dummy historical prices simulating mean reversion
+//    std::vector<double> prices(200);
+//    double currentPrice;
+//    try {
+//        currentPrice = marketDataFeed.getPrice(symbol);
+//    } catch (const std::exception& e) {
+//        std::cout << e.what() << "\n";
+//        return;
+//    }
+//    prices[0] = currentPrice;
+//    double meanPrice = currentPrice;
+//    for (size_t i = 1; i < prices.size(); ++i) {
+//        double randomNoise = ((std::rand() % 200) - 100) / 50.0; // Random noise
+//        prices[i] = prices[i - 1] + randomNoise;
+//        // Gradually pull prices back towards the mean
+//        prices[i] += (meanPrice - prices[i]) * 0.1;
+//        if (prices[i] < 0) {
+//            prices[i] = 0.01;
+//        }
+//    }
+//
+//    // Generate signals
+//    try {
+//        strategy->generateSignals(prices);
+//    } catch (const std::exception& e) {
+//        std::cout << "Error generating signals: " << e.what() << "\n";
+//        return;
+//    }
+//
+//    // Retrieve signals and mean values
+//    const auto& signals = strategy->getSignals();
+//    const auto& meanValues = strategy->getMeanValues();
+//
+//    // Display signals and mean values
+//    std::cout << "\n=== Mean Reversion Signals ===\n";
+//    for (size_t i = lookbackPeriod; i < prices.size(); ++i) {
+//        double deviation = (prices[i] - meanValues[i]) / meanValues[i];
+//        std::cout << "Price: $" << prices[i]
+//                  << ", Mean: $" << meanValues[i]
+//                  << ", Deviation: " << deviation * 100 << "%"
+//                  << ", Signal: ";
+//        if (signals[i] == 1) {
+//            std::cout << "Buy\n";
+//        } else if (signals[i] == -1) {
+//            std::cout << "Sell\n";
+//        } else {
+//            std::cout << "Neutral\n";
+//        }
+//    }
+//
+//    // Generate orders
+//    auto orders = strategy->generateOrders(prices, symbol);
+//
+//    // Display and place orders
+//    std::cout << "\n=== Orders Placed ===\n";
+//    for (const auto& order : orders) {
+//        std::cout << (order.getType() == OrderType::Buy ? "Buy" : "Sell")
+//                  << " " << order.getQuantity() << " shares of "
+//                  << order.getSymbol() << " at $" << order.getPrice() << "\n";
+//
+//        // Place the order with risk management (using default stop-loss and take-profit)
+//        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+//                              order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
+//                              marketDataFeed.getPrices());
+//    }
+//
+//    std::cout << "\nMean Reversion strategy executed.\n";
+//}
+
+// New Function to execute Mean Reversion Strategy
 void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     std::string symbol;
     int lookbackPeriod;
@@ -198,7 +286,7 @@ void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& m
     prices[0] = currentPrice;
     double meanPrice = currentPrice;
     for (size_t i = 1; i < prices.size(); ++i) {
-        double randomNoise = ((std::rand() % 200) - 100) / 50.0; // Random noise
+        double randomNoise = ((std::rand() % 200) - 100) / 50.0; // Random noise between -2 and +2
         prices[i] = prices[i - 1] + randomNoise;
         // Gradually pull prices back towards the mean
         prices[i] += (meanPrice - prices[i]) * 0.1;
@@ -236,7 +324,7 @@ void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& m
         }
     }
 
-    // Generate orders
+    // Generate orders based on signals
     auto orders = strategy->generateOrders(prices, symbol);
 
     // Display and place orders
@@ -247,13 +335,22 @@ void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& m
                   << order.getSymbol() << " at $" << order.getPrice() << "\n";
 
         // Place the order with risk management (using default stop-loss and take-profit)
-        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
-                              order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
-                              marketDataFeed.getPrices());
+        try {
+            engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+                                  order.getQuantity(), order.getPrice(),
+                    /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
+                                  marketDataFeed.getPrices());
+            std::cout << "Order placed successfully.\n";
+        }
+        catch (const std::exception& e) {
+            std::cout << "Error placing order: " << e.what() << "\n";
+        }
     }
 
     std::cout << "\nMean Reversion strategy executed.\n";
 }
+
+
 
 // Function to view current market prices
 void viewMarketPrices(const MarketDataFeed& marketDataFeed) {
@@ -335,7 +432,7 @@ void executeMovingAverageCrossoverStrategy(TradingEngine& engine, const MarketDa
                   << order.getSymbol() << " at $" << order.getPrice() << "\n";
 
         // Place the order with risk management (using default stop-loss and take-profit)
-        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),order.getQuantity(),
                               order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
                               marketDataFeed.getPrices());
     }
@@ -420,7 +517,7 @@ void executeRSIStrategy(TradingEngine& engine, const MarketDataFeed& marketDataF
                   << order.getSymbol() << " at $" << order.getPrice() << "\n";
 
         // Place the order with risk management (using default stop-loss and take-profit)
-        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),order.getQuantity(),
                               order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
                               marketDataFeed.getPrices());
     }
@@ -497,7 +594,7 @@ void executeMomentumStrategy(TradingEngine& engine, const MarketDataFeed& market
                   << order.getSymbol() << " at $" << order.getPrice() << "\n";
 
         // Place the order with risk management (using default stop-loss and take-profit)
-        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),order.getQuantity(),
                               order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
                               marketDataFeed.getPrices());
     }
@@ -579,7 +676,7 @@ void executeBreakoutStrategy(TradingEngine& engine, const MarketDataFeed& market
                   << order.getSymbol() << " at $" << order.getPrice() << "\n";
 
         // Place the order with risk management (using default stop-loss and take-profit)
-        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),order.getQuantity(),
                               order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
                               marketDataFeed.getPrices());
     }
@@ -721,85 +818,6 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     }
 }
 
-//// Function to update market prices
-//void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
-//    std::cout << "\n--- Update Market Prices ---\n";
-//    std::cout << "Current Market Prices:\n";
-//    for (const auto& [symbol, price] : marketPrices) {
-//        std::cout << symbol << ": $" << price << "\n";
-//    }
-//
-//    std::cout << "\nEnter new market prices. Type 'done' when finished.\n";
-//    while (true) {
-//        std::string inputSymbol;
-//        std::cout << "Enter symbol (or 'done'): ";
-//        std::cin >> inputSymbol;
-//        if (inputSymbol == "done") {
-//            // Clear remaining input
-//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//            break;
-//        }
-//
-//        if (marketPrices.find(inputSymbol) == marketPrices.end()) {
-//            std::cout << "Symbol not recognized. Please try again.\n";
-//            // Clear remaining input
-//            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//            continue;
-//        }
-//
-//        double newPrice = getInput<double>("Enter new price for " + inputSymbol + ": ");
-//        if (newPrice <= 0.0) {
-//            std::cout << "Price must be greater than zero. Please try again.\n";
-//            continue;
-//        }
-//
-//        marketPrices[inputSymbol] = newPrice;
-//        marketDataFeed.updatePrice(inputSymbol, newPrice); // Update MarketDataFeed
-//        std::cout << "Updated " << inputSymbol << " to $" << newPrice << ".\n";
-//    }
-//
-//    // After updating market prices, process pending orders
-//    engine.updateMarketData(marketPrices); // <-- Newly Modified Part
-//}
-//// Function to place a new order
-//
-//void placeOrder(TradingEngine &engine, const MarketDataFeed &marketDataFeed, OrderType orderType) {
-//    std::string symbol = getStringInput("Enter stock symbol: ");
-//
-//    // Validate symbol
-//    auto prices = marketDataFeed.getPrices();
-//    if (prices.find(symbol) == prices.end()) {
-//        std::cout << "Symbol not found in market prices. Please update market data first.\n";
-//        return;
-//    }
-//
-//    OrderStyle style;
-//    double entryPrice = 0.0;
-//    if (orderType == OrderType::Buy) {
-//        style = OrderStyle::Market;
-//        entryPrice = prices.at(symbol);
-//        std::cout << "Market order will be executed at current market price: $" << entryPrice << "\n";
-//    } else {
-//        style = OrderStyle::Limit;
-//        entryPrice = getInput<double>("Enter entry price: ");
-//    }
-//
-//    double stopLossPrice = getInput<double>("Enter stop-loss price: ");
-//    double takeProfitPrice = getInput<double>("Enter take-profit price: ");
-//
-//    try {
-//        engine.userPlaceOrder(symbol, orderType, style, entryPrice, stopLossPrice, takeProfitPrice,
-//                              marketDataFeed.getPrices());
-//        std::cout << "Order placed successfully.\n";
-//    } catch (const std::exception &e) {
-//        std::cout << "Error placing order: " << e.what() << "\n";
-//    }
-//}
-
-
-
-
-
 
 // Function to update market prices (updated to process pending orders)
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
@@ -841,8 +859,58 @@ void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, M
     // After updating market prices, process pending orders
     engine.updateMarketData(marketPrices); // <-- Newly Modified Part
 }
+//
+//// Function to place a new order (modified to handle 4 types: buy/market, buy/limit, sell/market, sell/limit)
+//void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType defaultType) {
+//    std::string symbol = getStringInput("Enter stock symbol: ");
+//
+//    // Validate symbol
+//    auto prices = marketDataFeed.getPrices();
+//    if (prices.find(symbol) == prices.end()) {
+//        std::cout << "Symbol not found in market prices. Please update market data first.\n";
+//        return;
+//    }
+//
+//    // Select Order Style: Market or Limit
+//    std::cout << "Select Order Style:\n1. Market\n2. Limit\nEnter your choice: ";
+//    int styleChoice = getInput<int>("");
+//
+//    OrderStyle style;
+//    double entryPrice = 0.0;
+//
+//    if (styleChoice == 1) {
+//        style = OrderStyle::Market;
+//        entryPrice = prices.at(symbol);
+//        std::cout << "Market order will be executed at current market price: $" << entryPrice << "\n";
+//    }
+//    else if (styleChoice == 2) {
+//        style = OrderStyle::Limit;
+//        entryPrice = getInput<double>("Enter limit price: ");
+//        if (entryPrice <= 0.0) {
+//            std::cout << "Limit price must be greater than zero.\n";
+//            return;
+//        }
+//    }
+//    else {
+//        std::cout << "Invalid Order Style selection.\n";
+//        return;
+//    }
+//
+//    // Enter Stop-Loss and Take-Profit Prices
+//    double stopLossPrice = getInput<double>("Enter stop-loss price: ");
+//    double takeProfitPrice = getInput<double>("Enter take-profit price: ");
+//
+//    // Place the order based on Order Type and Style
+//    try {
+//        engine.userPlaceOrder(symbol, defaultType, style, entryPrice, stopLossPrice, takeProfitPrice, prices);
+//    }
+//    catch (const std::exception& e) {
+//        std::cout << "Error placing order: " << e.what() << "\n";
+//    }
+//}
 
-// Function to place a new order (modified to handle 4 types: buy/market, buy/limit, sell/market, sell/limit)
+
+// Function to place a new order (modified to handle quantity)
 void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType defaultType) {
     std::string symbol = getStringInput("Enter stock symbol: ");
 
@@ -850,6 +918,13 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, Ord
     auto prices = marketDataFeed.getPrices();
     if (prices.find(symbol) == prices.end()) {
         std::cout << "Symbol not found in market prices. Please update market data first.\n";
+        return;
+    }
+
+    // Enter Quantity
+    int quantity = getInput<int>("Enter quantity: ");
+    if (quantity <= 0) {
+        std::cout << "Quantity must be greater than zero.\n";
         return;
     }
 
@@ -884,15 +959,12 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, Ord
 
     // Place the order based on Order Type and Style
     try {
-        engine.userPlaceOrder(symbol, defaultType, style, entryPrice, stopLossPrice, takeProfitPrice, prices);
+        engine.userPlaceOrder(symbol, defaultType, style, quantity, entryPrice, stopLossPrice, takeProfitPrice, prices);
     }
     catch (const std::exception& e) {
         std::cout << "Error placing order: " << e.what() << "\n";
     }
 }
-
-
-
 
 int main() {
 
