@@ -149,9 +149,7 @@ void TradingEngine::updateMarketData(const std::unordered_map<std::string, doubl
 Portfolio& TradingEngine::getPortfolio() { return portfolio_; }
 const Portfolio& TradingEngine::getPortfolio() const { return portfolio_; }
 
-std::vector<Order> TradingEngine::getAllOrders() const {
-    return portfolio_.getPendingOrders();
-}
+std::vector<Order> TradingEngine::getAllOrders() const { return portfolio_.getPendingOrders(); }
 
 double TradingEngine::getCashBalance() const {
     return portfolio_.getCashBalance();

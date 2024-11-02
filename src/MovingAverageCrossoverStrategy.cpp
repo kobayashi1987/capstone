@@ -5,6 +5,7 @@
 // src/MovingAverageCrossoverStrategy.cpp
 
 #include "MovingAverageCrossoverStrategy.h"
+#include "Portfolio.h" // Include this header , added 2024.11.02
 #include "Order.h" // Include this header
 #include <numeric>  // For std::accumulate
 #include <stdexcept> // F
@@ -59,10 +60,10 @@ std::vector<Order> MovingAverageCrossoverStrategy::generateOrders(const std::vec
     for (size_t i = 0; i < signals_.size(); ++i) {
         if (signals_[i] == 1) {
             // Buy signal
-            orders.emplace_back(Order(OrderType::Buy, OrderStyle::Market, symbol, 100, prices[i], 0.0, 0.0));
+            orders.emplace_back(Order(OrderType::Buy, OrderStyle::Market, symbol, 1, prices[i], 0.0, 0.0));
         } else if (signals_[i] == -1) {
             // Sell signal
-            orders.emplace_back(Order(OrderType::Sell, OrderStyle::Market, symbol, 100, prices[i], 0.0, 0.0));
+            orders.emplace_back(Order(OrderType::Sell, OrderStyle::Market, symbol, 1, prices[i], 0.0, 0.0));
         }
     }
 

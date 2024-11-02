@@ -106,6 +106,7 @@ set(HEADER_FILES
         include/StrategyManager.h
         include/Utils.h
         include/Utils.h
+        include/ProfitLoss.h
 
 )
 

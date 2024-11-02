@@ -1,32 +1,12 @@
 [
     {
-        "price": 277.1835754988997,
-        "quantity": 10,
-        "stop_loss": 280.0,
-        "style": "Market",
-        "symbol": "GOOGL",
-        "take_profit": 380.0,
-        "timestamp": "2024-10-26 01:19:00",
-        "type": "Buy"
-    },
-    {
-        "price": 292.0123273026861,
+        "price": 100.0,
         "quantity": 100,
-        "stop_loss": 290.0,
-        "style": "Market",
-        "symbol": "MSFT",
-        "take_profit": 390.0,
-        "timestamp": "2024-10-29 22:50:42",
-        "type": "Buy"
-    },
-    {
-        "price": 300.0,
-        "quantity": 100,
-        "stop_loss": 270.0,
+        "stopLossPrice": 50.0,
         "style": "Limit",
-        "symbol": "GOOGL",
-        "take_profit": 360.0,
-        "timestamp": "2024-10-29 22:59:11",
-        "type": "Sell"
+        "symbol": "AAPL",
+        "takeProfitPrice": 200.0,
+        "timestamp": "2024-11-02 16:16:06",
+        "type": "Buy"
     }
 ]

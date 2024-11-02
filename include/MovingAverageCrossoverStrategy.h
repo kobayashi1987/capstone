@@ -19,6 +19,7 @@ public:
     // Override generateOrders
     std::vector<Order> generateOrders(const std::vector<double>& prices, const std::string& symbol) override;
 
+
 private:
     int shortWindow_;
     int longWindow_;

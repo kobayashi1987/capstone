@@ -1,9 +1,7 @@
-////
-//// Created by jack on 9/10/24.
-////
 //
+// Created by jack on 9/10/24.
 //
-//
+
 #include "Trade.h"
 
 // Constructor: Initializes a Trade from an Order
@@ -13,12 +11,12 @@ Trade::Trade(const Order& order)
           quantity_(order.getQuantity()),
           price_(order.getPrice()),
           timestamp_(std::chrono::system_clock::now()),
+          order_(order),                       // Initialize order_ first
           stopLoss_(order.getStopLoss()),       // Initialize stop-loss price
-          takeProfit_(order.getTakeProfit()),   // Initialize take-profit price
-          order_(order)
+          takeProfit_(order.getTakeProfit())  // Initialize take-profit price
+
 {
 }
-
 
 // Getters
 OrderType Trade::getType() const {

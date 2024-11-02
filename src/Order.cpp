@@ -113,6 +113,7 @@ void to_json(json& j, const Order& order) {
             {"stopLossPrice", order.getStopLoss()},
             {"takeProfitPrice", order.getTakeProfit()},
             {"timestamp", timePointToString(order.getTimestamp())}
+
     };
 }
 

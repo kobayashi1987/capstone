@@ -26,19 +26,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 113,
+				"line" : 114,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 126,
+				"line" : 127,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 118,
+				"line" : 119,
 				"parent" : 0
 			}
 		]
@@ -166,7 +166,8 @@
 				27,
 				28,
 				29,
-				30
+				30,
+				31
 			]
 		}
 	],
@@ -341,6 +342,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/Utils.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/ProfitLoss.h",
 			"sourceGroupIndex" : 1
 		}
 	],

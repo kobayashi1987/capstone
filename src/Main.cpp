@@ -16,6 +16,10 @@
 #include <limits>  // For std::numeric_limits
 #include <iomanip> // For std::setprecision
 
+// added 2024.11.02
+#include <unistd.h>     // For getcwd
+#include <limits.h>     // For PATH_MAX
+
 // For JSON parsing
 #include "json.hpp"
 using json = nlohmann::json;
@@ -39,6 +43,7 @@ namespace fs = std::filesystem;
 #include "BreakoutStrategy.h"
 #include "MeanReversionStrategy.h"
 #include "DataPersistence.h" // Assumed to handle JSON serialization
+#include "ProfitLoss.h" // Newly added
 
 
 // Template function to safely capture user input of various types
@@ -167,94 +172,6 @@ void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketData
     std::cout << "Current Drawdown: " << drawdown << "%\n";
 }
 
-//// Function to execute the Mean Reversion Strategy
-//void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
-//    std::string symbol;
-//    int lookbackPeriod;
-//    double deviationThreshold;
-//    std::cout << "Enter the stock symbol for the strategy (e.g., AAPL): ";
-//    std::cin >> symbol;
-//    std::cout << "Enter the look-back period for mean calculation: ";
-//    std::cin >> lookbackPeriod;
-//    std::cout << "Enter the deviation threshold (e.g., 0.05 for 5%): ";
-//    std::cin >> deviationThreshold;
-//
-//    if (lookbackPeriod <= 0 || deviationThreshold <= 0) {
-//        std::cout << "Look-back period and deviation threshold must be positive numbers.\n";
-//        return;
-//    }
-//
-//    auto strategy = std::make_unique<MeanReversionStrategy>(lookbackPeriod, deviationThreshold);
-//
-//    // Generate dummy historical prices simulating mean reversion
-//    std::vector<double> prices(200);
-//    double currentPrice;
-//    try {
-//        currentPrice = marketDataFeed.getPrice(symbol);
-//    } catch (const std::exception& e) {
-//        std::cout << e.what() << "\n";
-//        return;
-//    }
-//    prices[0] = currentPrice;
-//    double meanPrice = currentPrice;
-//    for (size_t i = 1; i < prices.size(); ++i) {
-//        double randomNoise = ((std::rand() % 200) - 100) / 50.0; // Random noise
-//        prices[i] = prices[i - 1] + randomNoise;
-//        // Gradually pull prices back towards the mean
-//        prices[i] += (meanPrice - prices[i]) * 0.1;
-//        if (prices[i] < 0) {
-//            prices[i] = 0.01;
-//        }
-//    }
-//
-//    // Generate signals
-//    try {
-//        strategy->generateSignals(prices);
-//    } catch (const std::exception& e) {
-//        std::cout << "Error generating signals: " << e.what() << "\n";
-//        return;
-//    }
-//
-//    // Retrieve signals and mean values
-//    const auto& signals = strategy->getSignals();
-//    const auto& meanValues = strategy->getMeanValues();
-//
-//    // Display signals and mean values
-//    std::cout << "\n=== Mean Reversion Signals ===\n";
-//    for (size_t i = lookbackPeriod; i < prices.size(); ++i) {
-//        double deviation = (prices[i] - meanValues[i]) / meanValues[i];
-//        std::cout << "Price: $" << prices[i]
-//                  << ", Mean: $" << meanValues[i]
-//                  << ", Deviation: " << deviation * 100 << "%"
-//                  << ", Signal: ";
-//        if (signals[i] == 1) {
-//            std::cout << "Buy\n";
-//        } else if (signals[i] == -1) {
-//            std::cout << "Sell\n";
-//        } else {
-//            std::cout << "Neutral\n";
-//        }
-//    }
-//
-//    // Generate orders
-//    auto orders = strategy->generateOrders(prices, symbol);
-//
-//    // Display and place orders
-//    std::cout << "\n=== Orders Placed ===\n";
-//    for (const auto& order : orders) {
-//        std::cout << (order.getType() == OrderType::Buy ? "Buy" : "Sell")
-//                  << " " << order.getQuantity() << " shares of "
-//                  << order.getSymbol() << " at $" << order.getPrice() << "\n";
-//
-//        // Place the order with risk management (using default stop-loss and take-profit)
-//        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
-//                              order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
-//                              marketDataFeed.getPrices());
-//    }
-//
-//    std::cout << "\nMean Reversion strategy executed.\n";
-//}
-
 // New Function to execute Mean Reversion Strategy
 void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     std::string symbol;
@@ -349,8 +266,6 @@ void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& m
 
     std::cout << "\nMean Reversion strategy executed.\n";
 }
-
-
 
 // Function to view current market prices
 void viewMarketPrices(const MarketDataFeed& marketDataFeed) {
@@ -818,7 +733,6 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     }
 }
 
-
 // Function to update market prices (updated to process pending orders)
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine) {
     std::cout << "\n--- Update Market Prices ---\n";
@@ -859,56 +773,6 @@ void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, M
     // After updating market prices, process pending orders
     engine.updateMarketData(marketPrices); // <-- Newly Modified Part
 }
-//
-//// Function to place a new order (modified to handle 4 types: buy/market, buy/limit, sell/market, sell/limit)
-//void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType defaultType) {
-//    std::string symbol = getStringInput("Enter stock symbol: ");
-//
-//    // Validate symbol
-//    auto prices = marketDataFeed.getPrices();
-//    if (prices.find(symbol) == prices.end()) {
-//        std::cout << "Symbol not found in market prices. Please update market data first.\n";
-//        return;
-//    }
-//
-//    // Select Order Style: Market or Limit
-//    std::cout << "Select Order Style:\n1. Market\n2. Limit\nEnter your choice: ";
-//    int styleChoice = getInput<int>("");
-//
-//    OrderStyle style;
-//    double entryPrice = 0.0;
-//
-//    if (styleChoice == 1) {
-//        style = OrderStyle::Market;
-//        entryPrice = prices.at(symbol);
-//        std::cout << "Market order will be executed at current market price: $" << entryPrice << "\n";
-//    }
-//    else if (styleChoice == 2) {
-//        style = OrderStyle::Limit;
-//        entryPrice = getInput<double>("Enter limit price: ");
-//        if (entryPrice <= 0.0) {
-//            std::cout << "Limit price must be greater than zero.\n";
-//            return;
-//        }
-//    }
-//    else {
-//        std::cout << "Invalid Order Style selection.\n";
-//        return;
-//    }
-//
-//    // Enter Stop-Loss and Take-Profit Prices
-//    double stopLossPrice = getInput<double>("Enter stop-loss price: ");
-//    double takeProfitPrice = getInput<double>("Enter take-profit price: ");
-//
-//    // Place the order based on Order Type and Style
-//    try {
-//        engine.userPlaceOrder(symbol, defaultType, style, entryPrice, stopLossPrice, takeProfitPrice, prices);
-//    }
-//    catch (const std::exception& e) {
-//        std::cout << "Error placing order: " << e.what() << "\n";
-//    }
-//}
-
 
 // Function to place a new order (modified to handle quantity)
 void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, OrderType defaultType) {
@@ -968,12 +832,22 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, Ord
 
 int main() {
 
+    char cwd[PATH_MAX];
+    if (getcwd(cwd, sizeof(cwd)) != nullptr) {
+        std::cout << "Current Working Directory: " << cwd << "\n";
+    } else {
+        perror("getcwd() error");
+    }
+
     // Initialize file paths for data persistence
     std::string portfolioFile = "../data/portfolio.json";
     std::string ordersFile = "../data/orders.json";
+    std::string plFile = "../data/pl.json"; // Newly added
+    // Example: Using Absolute Path (Adjust accordingly)
+    // std::string plFile = "/Users/jack/Desktop/project/clion/cpp/project01/data/pl.json";
 
     // Initialize DataPersistence
-    DataPersistence dataPersistence(portfolioFile, ordersFile);
+    DataPersistence dataPersistence(portfolioFile, ordersFile, plFile); // newly added
 
     // Initialize random number generator
     initializeRandomGenerator();
@@ -1018,6 +892,17 @@ int main() {
     } else {
         std::cout << "Orders file not found or corrupted. Starting with no pending orders.\n";
     }
+
+    // Load existing Profit & Loss records if available
+    std::vector<ProfitLoss> loadedPL;
+    if (dataPersistence.loadProfitLoss(loadedPL)) {
+        engine.getPortfolio().setProfitLossList(loadedPL);
+        std::cout << "Profit & Loss records loaded successfully from " << plFile << ".\n";
+    }
+    else {
+        std::cout << "Starting with no Profit & Loss records.\n";
+    }
+
 
     // Initialize market prices before placing loaded orders
     std::unordered_map<std::string, double> marketPrices = marketDataFeed.getPrices();
@@ -1071,7 +956,8 @@ int main() {
                 // Save Portfolio
                 if (dataPersistence.savePortfolio(engine.getPortfolio())) {
                     std::cout << "Portfolio saved successfully to " << portfolioFile << ".\n";
-                } else {
+                }
+                else {
                     std::cout << "Failed to save portfolio to " << portfolioFile << ".\n";
                 }
 
@@ -1079,8 +965,18 @@ int main() {
                 std::vector<Order> allOrders = engine.getAllOrders();
                 if (dataPersistence.saveOrders(allOrders)) {
                     std::cout << "Orders saved successfully to " << ordersFile << ".\n";
-                } else {
+                }
+                else {
                     std::cout << "Failed to save orders to " << ordersFile << ".\n";
+                }
+
+                // Save Profit & Loss
+                const auto& plList = engine.getPortfolio().getProfitLossList();
+                if (dataPersistence.saveProfitLoss(plList)) {
+                    std::cout << "Profit & Loss records saved successfully to " << plFile << ".\n";
+                }
+                else {
+                    std::cout << "Failed to save Profit & Loss records to " << plFile << ".\n";
                 }
 
                 std::cout << "Exiting the program.\n";
