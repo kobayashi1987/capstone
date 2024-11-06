@@ -470,3 +470,6 @@ week 3:
 1. Add pl.json file in the project folder Data, and successfully read and write data from/to the file.
 2. Solve the issue of "selling non-existing positions " when executing trading strategies by adjusting Portfolio.cpp.
    and the relevant trading strategy function.
+
+2024.11.03:
+1. trying to use python to start ML model training and prediction

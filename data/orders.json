@@ -8,5 +8,15 @@
         "takeProfitPrice": 200.0,
         "timestamp": "2024-11-02 16:16:06",
         "type": "Buy"
+    },
+    {
+        "price": 270.0,
+        "quantity": 50,
+        "stopLossPrice": 260.0,
+        "style": "Limit",
+        "symbol": "GOOGL",
+        "takeProfitPrice": 360.0,
+        "timestamp": "2024-11-05 22:29:11",
+        "type": "Buy"
     }
 ]
