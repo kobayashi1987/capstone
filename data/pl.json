@@ -3070,5 +3070,677 @@
         "sell_price": 198.70000000000007,
         "symbol": "AAPL",
         "timestamp": "2024-11-02T23:29:41"
+    },
+    {
+        "average_buy_price": 152.23436777542005,
+        "profit_loss": 2.465632224579906,
+        "quantity": 1,
+        "sell_price": 154.69999999999996,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23436777542005,
+        "profit_loss": 3.8656322245799117,
+        "quantity": 1,
+        "sell_price": 156.09999999999997,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23436777542005,
+        "profit_loss": 5.465632224579906,
+        "quantity": 1,
+        "sell_price": 157.69999999999996,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23436777542005,
+        "profit_loss": 1.965632224579906,
+        "quantity": 1,
+        "sell_price": 154.19999999999996,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 1.7608388387169782,
+        "quantity": 1,
+        "sell_price": 153.9999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": -0.6391611612830275,
+        "quantity": 1,
+        "sell_price": 151.59999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": -2.239161161283022,
+        "quantity": 1,
+        "sell_price": 149.9999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": -4.93916116128301,
+        "quantity": 1,
+        "sell_price": 147.2999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": -3.239161161283022,
+        "quantity": 1,
+        "sell_price": 148.9999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 1.160838838716984,
+        "quantity": 1,
+        "sell_price": 153.3999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": -0.03916116128300473,
+        "quantity": 1,
+        "sell_price": 152.1999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 4.860838838717001,
+        "quantity": 1,
+        "sell_price": 157.0999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 8.760838838717007,
+        "quantity": 1,
+        "sell_price": 160.99999999999991,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 8.860838838717001,
+        "quantity": 1,
+        "sell_price": 161.0999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 7.360838838717001,
+        "quantity": 1,
+        "sell_price": 159.5999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 10.56083883871699,
+        "quantity": 1,
+        "sell_price": 162.7999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.2391611612829,
+        "profit_loss": 7.06083883871699,
+        "quantity": 1,
+        "sell_price": 159.2999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": 0.16060335901343592,
+        "quantity": 1,
+        "sell_price": 152.3999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": 4.960603359013447,
+        "quantity": 1,
+        "sell_price": 157.1999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": 1.160603359013436,
+        "quantity": 1,
+        "sell_price": 153.3999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": 0.26060335901343024,
+        "quantity": 1,
+        "sell_price": 152.4999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": -2.039396640986581,
+        "quantity": 1,
+        "sell_price": 150.19999999999987,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": -0.23939664098656976,
+        "quantity": 1,
+        "sell_price": 151.9999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": -0.13939664098657545,
+        "quantity": 1,
+        "sell_price": 152.09999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": -2.839396640986564,
+        "quantity": 1,
+        "sell_price": 149.3999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": -2.839396640986564,
+        "quantity": 1,
+        "sell_price": 149.3999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": 1.3606033590134246,
+        "quantity": 1,
+        "sell_price": 153.59999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": -0.03939664098658113,
+        "quantity": 1,
+        "sell_price": 152.19999999999987,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23939664098646,
+        "profit_loss": 0.36060335901342455,
+        "quantity": 1,
+        "sell_price": 152.59999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23940154120382,
+        "profit_loss": 2.7605984587960677,
+        "quantity": 1,
+        "sell_price": 154.9999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23940154120382,
+        "profit_loss": 5.660598458796073,
+        "quantity": 1,
+        "sell_price": 157.8999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.23940154120382,
+        "profit_loss": 2.360598458796062,
+        "quantity": 1,
+        "sell_price": 154.59999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 1.1567622540565026,
+        "quantity": 1,
+        "sell_price": 153.39999999999986,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": -2.043237745943486,
+        "quantity": 1,
+        "sell_price": 150.19999999999987,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": -2.6432377459434804,
+        "quantity": 1,
+        "sell_price": 149.59999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 0.2567622540565253,
+        "quantity": 1,
+        "sell_price": 152.4999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 2.2567622540565253,
+        "quantity": 1,
+        "sell_price": 154.4999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 3.3567622540565196,
+        "quantity": 1,
+        "sell_price": 155.59999999999988,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 0.2567622540565253,
+        "quantity": 1,
+        "sell_price": 152.4999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 3.656762254056531,
+        "quantity": 1,
+        "sell_price": 155.8999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 4.656762254056531,
+        "quantity": 1,
+        "sell_price": 156.8999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 7.956762254056542,
+        "quantity": 1,
+        "sell_price": 160.1999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 9.056762254056537,
+        "quantity": 1,
+        "sell_price": 161.2999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 12.056762254056537,
+        "quantity": 1,
+        "sell_price": 164.2999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24323774594336,
+        "profit_loss": 10.956762254056542,
+        "quantity": 1,
+        "sell_price": 163.1999999999999,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 1.8563194828846008,
+        "quantity": 1,
+        "sell_price": 154.09999999999985,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 3.0563194828845894,
+        "quantity": 1,
+        "sell_price": 155.29999999999984,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 5.256319482884578,
+        "quantity": 1,
+        "sell_price": 157.49999999999983,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 3.0563194828845894,
+        "quantity": 1,
+        "sell_price": 155.29999999999984,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 1.256319482884578,
+        "quantity": 1,
+        "sell_price": 153.49999999999983,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": -2.0436805171154333,
+        "quantity": 1,
+        "sell_price": 150.19999999999982,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 1.6563194828845553,
+        "quantity": 1,
+        "sell_price": 153.8999999999998,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 6.356319482884544,
+        "quantity": 1,
+        "sell_price": 158.5999999999998,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 3.7563194828845496,
+        "quantity": 1,
+        "sell_price": 155.9999999999998,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24368051711525,
+        "profit_loss": 0.35631948288454396,
+        "quantity": 1,
+        "sell_price": 152.5999999999998,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24376747314037,
+        "profit_loss": 5.056232526859418,
+        "quantity": 1,
+        "sell_price": 157.29999999999978,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24376747314037,
+        "profit_loss": 4.256232526859407,
+        "quantity": 1,
+        "sell_price": 156.49999999999977,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24376747314037,
+        "profit_loss": 7.556232526859418,
+        "quantity": 1,
+        "sell_price": 159.79999999999978,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 1.2543907303972617,
+        "quantity": 1,
+        "sell_price": 153.49999999999974,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 1.6543907303972674,
+        "quantity": 1,
+        "sell_price": 153.89999999999975,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 5.354390730397256,
+        "quantity": 1,
+        "sell_price": 157.59999999999974,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 0.4543907303972503,
+        "quantity": 1,
+        "sell_price": 152.69999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 2.2543907303972617,
+        "quantity": 1,
+        "sell_price": 154.49999999999974,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 3.6543907303972674,
+        "quantity": 1,
+        "sell_price": 155.89999999999975,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 0.054390730397273046,
+        "quantity": 1,
+        "sell_price": 152.29999999999976,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 2.7543907303972617,
+        "quantity": 1,
+        "sell_price": 154.99999999999974,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": 0.9543907303972503,
+        "quantity": 1,
+        "sell_price": 153.19999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -3.845609269602761,
+        "quantity": 1,
+        "sell_price": 148.39999999999972,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -1.4456092696027554,
+        "quantity": 1,
+        "sell_price": 150.79999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -6.445609269602755,
+        "quantity": 1,
+        "sell_price": 145.79999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -9.345609269602761,
+        "quantity": 1,
+        "sell_price": 142.89999999999972,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -7.445609269602755,
+        "quantity": 1,
+        "sell_price": 144.79999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -7.445609269602755,
+        "quantity": 1,
+        "sell_price": 144.79999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -11.745609269602767,
+        "quantity": 1,
+        "sell_price": 140.49999999999972,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -7.245609269602767,
+        "quantity": 1,
+        "sell_price": 144.99999999999972,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -5.445609269602755,
+        "quantity": 1,
+        "sell_price": 146.79999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -9.145609269602744,
+        "quantity": 1,
+        "sell_price": 143.09999999999974,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -9.445609269602755,
+        "quantity": 1,
+        "sell_price": 142.79999999999973,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -13.245609269602767,
+        "quantity": 1,
+        "sell_price": 138.99999999999972,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -12.145609269602772,
+        "quantity": 1,
+        "sell_price": 140.0999999999997,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -8.445609269602784,
+        "quantity": 1,
+        "sell_price": 143.7999999999997,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -4.245609269602795,
+        "quantity": 1,
+        "sell_price": 147.9999999999997,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -2.645609269602801,
+        "quantity": 1,
+        "sell_price": 149.59999999999968,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
+    },
+    {
+        "average_buy_price": 152.24560926960248,
+        "profit_loss": -6.5456092696028065,
+        "quantity": 1,
+        "sell_price": 145.69999999999968,
+        "symbol": "AAPL",
+        "timestamp": "2024-11-07T21:37:03"
     }
 ]

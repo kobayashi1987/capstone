@@ -4,4 +4,4 @@
 // Build a basic analysis programme using Python in colab
 
 2. 2024.11.07:
-// small adjustment to the python code
+// some adjustment to the python code
