@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "29"
+			"value" : "30"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "6"
+			"value" : "5"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -875,7 +875,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29"
+			"value" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1130,18 +1130,6 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_JNI",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Details about finding JNI"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "[/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include][/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin][cfound components: AWT JVM ][v()]"
-		},
-		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Threads",
 			"properties" : 
 			[
@@ -1152,134 +1140,6 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "[TRUE][v()]"
-		},
-		{
-			"name" : "JAVA_AWT_INCLUDE_PATH",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Java AWT Native Interface include directory"
-				}
-			],
-			"type" : "PATH",
-			"value" : "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include"
-		},
-		{
-			"name" : "JAVA_AWT_LIBRARY",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Java AWT Native Interface library"
-				}
-			],
-			"type" : "FILEPATH",
-			"value" : "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib/libjawt.dylib"
-		},
-		{
-			"name" : "JAVA_INCLUDE_PATH",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "JNI include directory"
-				}
-			],
-			"type" : "PATH",
-			"value" : "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include"
-		},
-		{
-			"name" : "JAVA_INCLUDE_PATH2",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "jni_md.h jniport.h include directory"
-				}
-			],
-			"type" : "PATH",
-			"value" : "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin"
-		},
-		{
-			"name" : "JAVA_JVM_LIBRARY",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Java Virtual Machine library"
-				}
-			],
-			"type" : "FILEPATH",
-			"value" : "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib/server/libjvm.dylib"
-		},
-		{
-			"name" : "JNI_INCLUDE_PATH2_OPTIONAL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Test JNI_INCLUDE_PATH2_OPTIONAL"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : ""
-		},
-		{
-			"name" : "TradingAlgorithms_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug"
-		},
-		{
-			"name" : "TradingAlgorithms_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "TradingAlgorithms_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/Users/jack/Desktop/project/clion/cpp/project01"
 		},
 		{
 			"name" : "TradingApplication_BINARY_DIR",
@@ -1307,42 +1167,6 @@
 		},
 		{
 			"name" : "TradingApplication_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/Users/jack/Desktop/project/clion/cpp/project01"
-		},
-		{
-			"name" : "project01_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug"
-		},
-		{
-			"name" : "project01_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "project01_SOURCE_DIR",
 			"properties" : 
 			[
 				{

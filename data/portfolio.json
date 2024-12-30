@@ -1,11 +1,11 @@
 {
-    "cashBalance": 1370617.7993808019,
-    "drawdown": 0.028130846136623543,
-    "peakValue": 9654301.468549136,
+    "cashBalance": 1339143.108219249,
+    "drawdown": 0.011162145011402466,
+    "peakValue": 9788145.33453945,
     "positions": {
         "AAPL": {
-            "averagePrice": 152.24612179959357,
-            "quantity": 53190
+            "averagePrice": 152.26247700327644,
+            "quantity": 53391
         },
         "GOOGL": {
             "averagePrice": 651.9530738577085,

@@ -213,30 +213,6 @@ CMAKE_TAPI:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/tapi
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//Java AWT Native Interface include directory
-JAVA_AWT_INCLUDE_PATH:PATH=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include
-
-//Java AWT Native Interface library
-JAVA_AWT_LIBRARY:FILEPATH=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib/libjawt.dylib
-
-//JNI include directory
-JAVA_INCLUDE_PATH:PATH=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include
-
-//jni_md.h jniport.h include directory
-JAVA_INCLUDE_PATH2:PATH=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin
-
-//Java Virtual Machine library
-JAVA_JVM_LIBRARY:FILEPATH=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib/server/libjvm.dylib
-
-//Value Computed by CMake
-TradingAlgorithms_BINARY_DIR:STATIC=/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug
-
-//Value Computed by CMake
-TradingAlgorithms_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-TradingAlgorithms_SOURCE_DIR:STATIC=/Users/jack/Desktop/project/clion/cpp/project01
-
 //Value Computed by CMake
 TradingApplication_BINARY_DIR:STATIC=/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug
 
@@ -245,15 +221,6 @@ TradingApplication_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 TradingApplication_SOURCE_DIR:STATIC=/Users/jack/Desktop/project/clion/cpp/project01
-
-//Value Computed by CMake
-project01_BINARY_DIR:STATIC=/Users/jack/Desktop/project/clion/cpp/project01/cmake-build-debug
-
-//Value Computed by CMake
-project01_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-project01_SOURCE_DIR:STATIC=/Users/jack/Desktop/project/clion/cpp/project01
 
 
 ########################
@@ -269,9 +236,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=/Users/jack/Desktop/project/clion/cpp/project01/cma
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=29
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=30
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=6
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=5
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake
 //Path to cpack program executable.
@@ -362,7 +329,7 @@ CMAKE_RANLIB-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_READELF
 CMAKE_READELF-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29
+CMAKE_ROOT:INTERNAL=/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
@@ -395,20 +362,6 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//Details about finding JNI
-FIND_PACKAGE_MESSAGE_DETAILS_JNI:INTERNAL=[/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include][/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/include/darwin][cfound components: AWT JVM ][v()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
-//ADVANCED property for variable: JAVA_AWT_INCLUDE_PATH
-JAVA_AWT_INCLUDE_PATH-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: JAVA_AWT_LIBRARY
-JAVA_AWT_LIBRARY-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: JAVA_INCLUDE_PATH
-JAVA_INCLUDE_PATH-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: JAVA_INCLUDE_PATH2
-JAVA_INCLUDE_PATH2-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: JAVA_JVM_LIBRARY
-JAVA_JVM_LIBRARY-ADVANCED:INTERNAL=1
-//Test JNI_INCLUDE_PATH2_OPTIONAL
-JNI_INCLUDE_PATH2_OPTIONAL:INTERNAL=
 
