@@ -108,6 +108,7 @@ void displayMainMenu() {
     std::cout << "7. View Market Prices\n";
     std::cout << "8. Execute Trading Strategies\n";
     std::cout << "9. Save and Exit\n";
+    std::cout << "10. Generate P&L Report\n";
     std::cout << "Enter your choice: ";
 }
 
@@ -126,6 +127,7 @@ void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& m
 void viewTradeHistory(const TradingEngine& engine);
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine);
 void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataFeed);
+void generatePLReport(const Portfolio& portfolio);
 
 // BELOW IS NEWLY MOVED functions from main.cpp
 // Function to view the portfolio
@@ -832,6 +834,51 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, Ord
     }
 }
 
+
+// Function to generate and display the Profit & Loss (P&L) report
+void generatePLReport(const Portfolio& portfolio) {
+    const auto& plList = portfolio.getProfitLossList();
+    if (plList.empty()) {
+        std::cout << "No Profit & Loss records available.\n";
+        return;
+    }
+
+    // Print header for the detailed report
+    std::cout << "\n=== Profit & Loss Report ===\n";
+    std::cout << std::left
+              << std::setw(10) << "Symbol"
+              << std::setw(10) << "Quantity"
+              << std::setw(15) << "Sell Price"
+              << std::setw(20) << "Avg Buy Price"
+              << std::setw(15) << "P/L"
+              << "Timestamp" << "\n";
+    std::cout << std::string(80, '-') << "\n";
+
+    double overallPL = 0.0;
+    std::unordered_map<std::string, double> symbolPL;
+
+    // Loop through each ProfitLoss record and print details
+    for (const auto& pl : plList) {
+        std::cout << std::left
+                  << std::setw(10) << pl.symbol
+                  << std::setw(10) << pl.quantity
+                  << std::setw(15) << std::fixed << std::setprecision(2) << pl.sell_price
+                  << std::setw(20) << std::fixed << std::setprecision(2) << pl.average_buy_price
+                  << std::setw(15) << std::fixed << std::setprecision(2) << pl.profit_loss
+                  << pl.timestamp << "\n";
+        overallPL += pl.profit_loss;
+        symbolPL[pl.symbol] += pl.profit_loss;
+    }
+
+    // Print aggregated totals by symbol
+    std::cout << "\nAggregate Profit & Loss by Symbol:\n";
+    for (const auto& [symbol, pl_total] : symbolPL) {
+        std::cout << "Symbol: " << symbol << " -> Total P/L: " << std::fixed << std::setprecision(2) << pl_total << "\n";
+    }
+
+    std::cout << "\nOverall Profit & Loss: " << std::fixed << std::setprecision(2) << overallPL << "\n";
+}
+
 int main() {
 
     char cwd[PATH_MAX];
@@ -984,6 +1031,12 @@ int main() {
                 std::cout << "Exiting the program.\n";
                 break;
             }
+
+            case 10: { // Generate P&L Report
+                generatePLReport(engine.getPortfolio());
+                break;
+            }
+
             case 0:
                 std::cout << "Exiting application.\n";
                 break;
