@@ -835,48 +835,129 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, Ord
 }
 
 
-// Function to generate and display the Profit & Loss (P&L) report
-void generatePLReport(const Portfolio& portfolio) {
-    const auto& plList = portfolio.getProfitLossList();
-    if (plList.empty()) {
-        std::cout << "No Profit & Loss records available.\n";
+#include <filesystem>  // For filesystem operations (C++17)
+#include <sstream>
+namespace fs = std::filesystem;
+
+// Enhanced function to generate a Profit & Loss (P&L) report.
+// It reads P&L data from the specified JSON file and writes a detailed CSV report.
+void generatePLReportFromFile(const std::string& plJsonPath, const std::string& csvFilePath) {
+    // Check if the P/L JSON file exists; if not, create it with an empty array.
+    if (!fs::exists(plJsonPath)) {
+        std::cout << "P/L JSON file not found at: " << plJsonPath << ". Creating a new file with empty records.\n";
+        std::string plDirectory = plJsonPath.substr(0, plJsonPath.find_last_of("/\\"));
+        if (!plDirectory.empty() && !fs::exists(plDirectory)) {
+            try {
+                fs::create_directories(plDirectory);
+                std::cout << "Created directory: " << plDirectory << "\n";
+            } catch (const fs::filesystem_error& e) {
+                std::cerr << "Error creating directory " << plDirectory << ": " << e.what() << "\n";
+                return;
+            }
+        }
+        std::ofstream initFile(plJsonPath);
+        if (!initFile.is_open()) {
+            std::cerr << "Error: Unable to create " << plJsonPath << "\n";
+            return;
+        }
+        initFile << "[]";
+        initFile.close();
+        // Continue with an empty record list.
+    }
+
+    // Open the P/L JSON file for reading.
+    std::ifstream inFile(plJsonPath);
+    if (!inFile.is_open()) {
+        std::cerr << "Error: Unable to open " << plJsonPath << " for reading.\n";
         return;
     }
 
-    // Print header for the detailed report
-    std::cout << "\n=== Profit & Loss Report ===\n";
-    std::cout << std::left
-              << std::setw(10) << "Symbol"
-              << std::setw(10) << "Quantity"
-              << std::setw(15) << "Sell Price"
-              << std::setw(20) << "Avg Buy Price"
-              << std::setw(15) << "P/L"
-              << "Timestamp" << "\n";
-    std::cout << std::string(80, '-') << "\n";
+    nlohmann::json j;
+    try {
+        inFile >> j;
+    } catch (const nlohmann::json::parse_error& e) {
+        std::cerr << "Error parsing " << plJsonPath << ": " << e.what() << "\n";
+        inFile.close();
+        return;
+    }
+    inFile.close();
 
+    // Verify that the JSON content is an array.
+    if (!j.is_array()) {
+        std::cerr << "Error: " << plJsonPath << " is not a valid JSON array.\n";
+        return;
+    }
+
+    // Deserialize the JSON array into a vector of ProfitLoss records.
+    std::vector<ProfitLoss> plList;
+    try {
+        plList = j.get<std::vector<ProfitLoss>>();
+    } catch (const nlohmann::json::type_error& e) {
+        std::cerr << "Error deserializing P/L data from " << plJsonPath << ": " << e.what() << "\n";
+        return;
+    }
+
+    // For additional clarity, sort the records by symbol.
+    std::sort(plList.begin(), plList.end(), [](const ProfitLoss& a, const ProfitLoss& b) {
+        return a.symbol < b.symbol;
+    });
+
+    // Prepare aggregated statistics.
     double overallPL = 0.0;
     std::unordered_map<std::string, double> symbolPL;
-
-    // Loop through each ProfitLoss record and print details
     for (const auto& pl : plList) {
-        std::cout << std::left
-                  << std::setw(10) << pl.symbol
-                  << std::setw(10) << pl.quantity
-                  << std::setw(15) << std::fixed << std::setprecision(2) << pl.sell_price
-                  << std::setw(20) << std::fixed << std::setprecision(2) << pl.average_buy_price
-                  << std::setw(15) << std::fixed << std::setprecision(2) << pl.profit_loss
-                  << pl.timestamp << "\n";
         overallPL += pl.profit_loss;
         symbolPL[pl.symbol] += pl.profit_loss;
     }
 
-    // Print aggregated totals by symbol
-    std::cout << "\nAggregate Profit & Loss by Symbol:\n";
-    for (const auto& [symbol, pl_total] : symbolPL) {
-        std::cout << "Symbol: " << symbol << " -> Total P/L: " << std::fixed << std::setprecision(2) << pl_total << "\n";
+    // --- Generate CSV Report ---
+
+    // Ensure the directory for the CSV file exists.
+    std::string csvDir = csvFilePath.substr(0, csvFilePath.find_last_of("/\\"));
+    if (!csvDir.empty() && !fs::exists(csvDir)) {
+        try {
+            fs::create_directories(csvDir);
+            std::cout << "Created directory: " << csvDir << "\n";
+        } catch (const fs::filesystem_error& e) {
+            std::cerr << "Error creating directory " << csvDir << ": " << e.what() << "\n";
+            return;
+        }
     }
 
-    std::cout << "\nOverall Profit & Loss: " << std::fixed << std::setprecision(2) << overallPL << "\n";
+    // Open the CSV file for writing.
+    std::ofstream csvFile(csvFilePath);
+    if (!csvFile.is_open()) {
+        std::cerr << "Error: Unable to open CSV file for writing: " << csvFilePath << "\n";
+        return;
+    }
+
+    // Write CSV header.
+    csvFile << "Symbol,Quantity,Sell Price,Average Buy Price,Profit/Loss,Timestamp\n";
+
+    // Write each ProfitLoss record.
+    for (const auto& pl : plList) {
+        csvFile << pl.symbol << ","
+                << pl.quantity << ","
+                << std::fixed << std::setprecision(2) << pl.sell_price << ","
+                << std::fixed << std::setprecision(2) << pl.average_buy_price << ","
+                << std::fixed << std::setprecision(2) << pl.profit_loss << ","
+                << pl.timestamp << "\n";
+    }
+
+    // Write a section for aggregated totals by symbol.
+    csvFile << "\nAggregate Profit & Loss by Symbol\n";
+    csvFile << "Symbol,Total P/L\n";
+    for (const auto& [symbol, total] : symbolPL) {
+        csvFile << symbol << "," << std::fixed << std::setprecision(2) << total << "\n";
+    }
+    csvFile << "\nOverall Profit & Loss," << std::fixed << std::setprecision(2) << overallPL << "\n";
+
+    csvFile.close();
+
+    // Optionally, print a summary to the console.
+    std::cout << "Profit & Loss Report:\n";
+    std::cout << "Overall Profit & Loss: " << std::fixed << std::setprecision(2) << overallPL << "\n";
+    std::cout << "CSV report saved to: " << csvFilePath << "\n";
 }
 
 int main() {
@@ -1032,8 +1113,8 @@ int main() {
                 break;
             }
 
-            case 10: { // Generate P&L Report
-                generatePLReport(engine.getPortfolio());
+            case 10: { // Generate P&L Report from pl.json and Export to CSV
+                generatePLReportFromFile("../data/pl.json", "../data/pl_report.csv");
                 break;
             }
 
