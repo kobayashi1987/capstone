@@ -1,11 +1,11 @@
 {
-    "cashBalance": 1060765.6297404768,
-    "drawdown": 0.0276385051051863,
+    "cashBalance": 1094365.6297404768,
+    "drawdown": 0.027270713263426793,
     "peakValue": 9788145.33453945,
     "positions": {
         "AAPL": {
             "averagePrice": 149.8019096759636,
-            "quantity": 56001
+            "quantity": 55801
         },
         "GOOGL": {
             "averagePrice": 651.9530738577085,
@@ -4616,6 +4616,22 @@
             "sell_price": 269.80000000000035,
             "symbol": "MSFT",
             "timestamp": "2025-02-15T23:57:27"
+        },
+        {
+            "average_buy_price": 149.8019096759636,
+            "profit_loss": 569.80903240364,
+            "quantity": 100,
+            "sell_price": 155.5,
+            "symbol": "AAPL",
+            "timestamp": "2025-02-19T22:32:36"
+        },
+        {
+            "average_buy_price": 149.8019096759636,
+            "profit_loss": 3069.8090324036402,
+            "quantity": 100,
+            "sell_price": 180.5,
+            "symbol": "AAPL",
+            "timestamp": "2025-02-19T22:32:36"
         }
     ]
 }

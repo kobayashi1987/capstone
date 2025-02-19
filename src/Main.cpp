@@ -46,6 +46,7 @@ namespace fs = std::filesystem;
 #include "MeanReversionStrategy.h"
 #include "DataPersistence.h" // Assumed to handle JSON serialization
 #include "ProfitLoss.h" // Newly added
+#include "BollingerBandsStrategy.h" // Newly added
 
 
 // Template function to safely capture user input of various types
@@ -127,7 +128,8 @@ void executeMeanReversionStrategy(TradingEngine& engine, const MarketDataFeed& m
 void viewTradeHistory(const TradingEngine& engine);
 void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, MarketDataFeed& marketDataFeed, TradingEngine& engine);
 void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataFeed);
-void generatePLReport(const Portfolio& portfolio);
+void generatePLReportFromFile(const std::string& plJsonPath, const std::string& csvFilePath);
+void executeBollingerBandsStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 
 // BELOW IS NEWLY MOVED functions from main.cpp
 // Function to view the portfolio
@@ -703,6 +705,40 @@ void viewPendingOrders(const TradingEngine& engine) {
     }
 }
 
+
+void executeBollingerBandsStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+    std::string symbol = "AAPL";
+
+    // Simulated historical prices for AAPL.
+    std::vector<double> historicalPrices = {
+            139.0, 149.5, 149.0, 150.5, 151.0, 150.0, 140.0, 148.5, 149.0, 150.0,
+            151.5, 152.0, 151.0, 150.5, 150.0, 149.5, 149.0, 148.5, 148.0, 147.5,
+            148.0, 148.5, 149.0, 149.5, 150.0, 155.5, 151.0, 151.5, 152.0, 180.5
+    };
+
+    // Create a BollingerBandsStrategy instance (adjust parameters as needed)
+    BollingerBandsStrategy bbStrategy(10, 2.5);
+
+    // Generate orders
+    std::vector<Order> orders = bbStrategy.generateOrders(historicalPrices, symbol);
+
+    std::cout << "Generated " << orders.size() << " orders.\n";
+    for (size_t i = 0; i < orders.size(); ++i) {
+        std::cout << "Order " << i+1 << ": "
+                  << (orders[i].getType() == OrderType::Buy ? "Buy" : "Sell")
+                  << " " << orders[i].getQuantity() << " shares at $"
+                  << orders[i].getPrice() << "\n";
+    }
+
+    // Process each order via the trading engine
+    for (const auto& order : orders) {
+        engine.userPlaceOrder(order.getSymbol(), order.getType(), order.getStyle(),
+                              order.getQuantity(), order.getPrice(),
+                              order.getStopLoss(), order.getTakeProfit(),
+                              marketDataFeed.getPrices());
+    }
+}
+
 // Function to execute trading strategies
 void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
     std::cout << "\n--- Execute Trading Strategies ---\n";
@@ -731,6 +767,9 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
             break;
         case 5:
             executeMeanReversionStrategy(engine, marketDataFeed);
+            break;
+        case 6:
+            executeBollingerBandsStrategy(engine, marketDataFeed);
             break;
         default:
             std::cout << "Invalid strategy selection.\n";
@@ -835,6 +874,8 @@ void placeOrder(TradingEngine& engine, const MarketDataFeed& marketDataFeed, Ord
 }
 
 
+
+// Function to generate a Profit & Loss (P&L) report
 #include <filesystem>  // For filesystem operations (C++17)
 #include <sstream>
 namespace fs = std::filesystem;

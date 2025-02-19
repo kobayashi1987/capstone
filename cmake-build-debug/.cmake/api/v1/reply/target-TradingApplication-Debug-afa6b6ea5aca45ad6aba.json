@@ -26,19 +26,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 114,
+				"line" : 117,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 127,
+				"line" : 130,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 119,
+				"line" : 122,
 				"parent" : 0
 			}
 		]
@@ -97,7 +97,8 @@
 				12,
 				13,
 				14,
-				15
+				15,
+				16
 			]
 		}
 	],
@@ -145,14 +146,14 @@
 				12,
 				13,
 				14,
-				15
+				15,
+				16
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				16,
 				17,
 				18,
 				19,
@@ -167,7 +168,9 @@
 				28,
 				29,
 				30,
-				31
+				31,
+				32,
+				33
 			]
 		}
 	],
@@ -271,6 +274,12 @@
 		},
 		{
 			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/BollingerBandsStrategy.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "include/Order.h",
 			"sourceGroupIndex" : 1
 		},
@@ -347,6 +356,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/ProfitLoss.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/BollingerBandsStrategy.h",
 			"sourceGroupIndex" : 1
 		}
 	],

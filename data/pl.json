@@ -4598,5 +4598,21 @@
         "sell_price": 269.80000000000035,
         "symbol": "MSFT",
         "timestamp": "2025-02-15T23:57:27"
+    },
+    {
+        "average_buy_price": 149.8019096759636,
+        "profit_loss": 569.80903240364,
+        "quantity": 100,
+        "sell_price": 155.5,
+        "symbol": "AAPL",
+        "timestamp": "2025-02-19T22:32:36"
+    },
+    {
+        "average_buy_price": 149.8019096759636,
+        "profit_loss": 3069.8090324036402,
+        "quantity": 100,
+        "sell_price": 180.5,
+        "symbol": "AAPL",
+        "timestamp": "2025-02-19T22:32:36"
     }
 ]

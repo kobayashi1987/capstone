@@ -85,6 +85,7 @@ set(SOURCE_FILES
         src/StrategyManager.cpp
         src/StrategyManager.cpp
         src/Utils.cpp
+        src/BollingerBandsStrategy.cpp
 
 )
 
@@ -107,6 +108,8 @@ set(HEADER_FILES
         include/Utils.h
         include/Utils.h
         include/ProfitLoss.h
+        include/BollingerBandsStrategy.h
+        include/BollingerBandsStrategy.h
 
 )
 
