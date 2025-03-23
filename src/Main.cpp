@@ -748,6 +748,7 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
     std::cout << "3. Momentum\n";
     std::cout << "4. Breakout\n";
     std::cout << "5. Mean Reversion\n";
+    std::cout << "6. BollingerBandsStrategy\n";
     std::cout << "Enter your choice: ";
 
     int strategyChoice = getInput<int>("");

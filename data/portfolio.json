@@ -1,19 +1,19 @@
 {
-    "cashBalance": 1094365.6297404768,
-    "drawdown": 0.027270713263426793,
+    "cashBalance": 1126765.6297404768,
+    "drawdown": 0.02653512957990778,
     "peakValue": 9788145.33453945,
     "positions": {
         "AAPL": {
-            "averagePrice": 149.8019096759636,
-            "quantity": 55801
+            "averagePrice": 149.8022653075035,
+            "quantity": 55411
         },
         "GOOGL": {
             "averagePrice": 651.9530738577085,
             "quantity": 120
         },
         "MSFT": {
-            "averagePrice": 292.805577674935,
-            "quantity": 77
+            "averagePrice": 297.0533483030319,
+            "quantity": 188
         }
     },
     "profitLoss": [
@@ -4632,6 +4632,46 @@
             "sell_price": 180.5,
             "symbol": "AAPL",
             "timestamp": "2025-02-19T22:32:36"
+        },
+        {
+            "average_buy_price": 149.8019096759636,
+            "profit_loss": 569.80903240364,
+            "quantity": 100,
+            "sell_price": 155.5,
+            "symbol": "AAPL",
+            "timestamp": "2025-02-25T23:07:53"
+        },
+        {
+            "average_buy_price": 149.8019096759636,
+            "profit_loss": 3069.8090324036402,
+            "quantity": 100,
+            "sell_price": 180.5,
+            "symbol": "AAPL",
+            "timestamp": "2025-02-25T23:07:53"
+        },
+        {
+            "average_buy_price": 149.8022653075035,
+            "profit_loss": 17.79612232468594,
+            "quantity": 90,
+            "sell_price": 150.0,
+            "symbol": "AAPL",
+            "timestamp": "2025-03-23T22:48:15"
+        },
+        {
+            "average_buy_price": 149.8022653075035,
+            "profit_loss": 569.773469249651,
+            "quantity": 100,
+            "sell_price": 155.5,
+            "symbol": "AAPL",
+            "timestamp": "2025-03-23T22:54:44"
+        },
+        {
+            "average_buy_price": 149.8022653075035,
+            "profit_loss": 3069.773469249651,
+            "quantity": 100,
+            "sell_price": 180.5,
+            "symbol": "AAPL",
+            "timestamp": "2025-03-23T22:54:44"
         }
     ]
 }
