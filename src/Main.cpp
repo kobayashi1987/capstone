@@ -111,7 +111,8 @@ void displayMainMenu() {
     std::cout << "7. View Market Prices\n";
     std::cout << "8. Execute Trading Strategies\n";
     std::cout << "9. Save and Exit\n";
-    std::cout << "10. Generate P&L Report\n";
+    std::cout << "10. Execute ML Trading Strategy\n";
+    std::cout << "11. Generate P&L Report\n";
     std::cout << "Enter your choice: ";
 }
 
@@ -1008,79 +1009,79 @@ void generatePLReportFromFile(const std::string& plJsonPath, const std::string& 
 
 
 // Add a new function for ML strategy execution
-void executeMLStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
-    std::cout << "\n=== PyTorch ML Trading Strategy ===\n";
-
-    // Get user input for the ML model
-    std::string modelPath = getStringInput("Enter the path to the PyTorch model (e.g., python/model.pt): ");
-    std::string symbol = getStringInput("Enter the stock symbol for the strategy (e.g., AAPL): ");
-
-    try {
-        // Initialize the PyTorch bridge
-        PyTorchBridge mlBridge(modelPath);
-
-        if (!mlBridge.isReady()) {
-            std::cout << "Failed to initialize ML model. Please check the model path.\n";
-            return;
-        }
-
-        // Get market data for the selected symbol
-        double currentPrice = marketDataFeed.getPrice(symbol);
-
-        // Get historical data (in a real scenario, this would be actual historical data)
-        std::vector<double> historicalPrices;
-        for (int i = 30; i > 0; --i) {
-            // Simulating historical data with some noise
-            double noise = ((std::rand() % 200) - 100) / 1000.0;  // Random noise between -0.1 and +0.1
-            historicalPrices.push_back(currentPrice * (1 - i * 0.005 + noise));
-        }
-        historicalPrices.push_back(currentPrice);
-
-        // Prepare market data for the model
-        json marketData = {
-                {"symbol", symbol},
-                {"current_price", currentPrice},
-                {"prices", historicalPrices},
-                {"volume", 10000},  // Example volume
-                {"timestamp", std::time(nullptr)}
-        };
-
-        std::cout << "Sending market data to ML model for prediction...\n";
-
-        // Get prediction from the ML model
-        json prediction = mlBridge.predict(marketData);
-
-        if (prediction.contains("error")) {
-            std::cout << "Error: " << prediction["error"] << "\n";
-            return;
-        }
-
-        // Display prediction results
-        std::cout << "ML Model Signal: " << prediction["signal"] << "\n";
-        std::cout << "Confidence: " << std::fixed << std::setprecision(2)
-                  << prediction["confidence"].get<double>() * 100 << "%\n";
-
-        // Ask if user wants to place the order based on ML prediction
-        std::string placeOrder = getStringInput("Do you want to place an order based on this prediction? (y/n): ");
-
-        if (placeOrder == "y" || placeOrder == "Y") {
-            int quantity = getInput<int>("Enter quantity: ");
-
-            if (prediction["signal"] == "BUY") {
-                engine.userPlaceOrder(symbol, OrderType::Buy, OrderStyle::Market, quantity, currentPrice,/*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
-                                      marketDataFeed.getPrices());
-                std::cout << "Buy order placed for " << quantity << " shares of " << symbol << "\n";
-            } else {
-                engine.userPlaceOrder(symbol, OrderType::Sell, OrderStyle::Market, quantity, currentPrice,/*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
-                                      marketDataFeed.getPrices());
-                std::cout << "Sell order placed for " << quantity << " shares of " << symbol << "\n";
-            }
-        }
-
-    } catch (const std::exception& e) {
-        std::cout << "Error executing ML strategy: " << e.what() << "\n";
-    }
-}
+//void executeMLStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
+//    std::cout << "\n=== PyTorch ML Trading Strategy ===\n";
+//
+//    // Get user input for the ML model
+//    std::string modelPath = getStringInput("Enter the path to the PyTorch model (e.g., python/model.pt): ");
+//    std::string symbol = getStringInput("Enter the stock symbol for the strategy (e.g., AAPL): ");
+//
+//    try {
+//        // Initialize the PyTorch bridge
+//        PyTorchBridge mlBridge(modelPath);
+//
+//        if (!mlBridge.isReady()) {
+//            std::cout << "Failed to initialize ML model. Please check the model path.\n";
+//            return;
+//        }
+//
+//        // Get market data for the selected symbol
+//        double currentPrice = marketDataFeed.getPrice(symbol);
+//
+//        // Get historical data (in a real scenario, this would be actual historical data)
+//        std::vector<double> historicalPrices;
+//        for (int i = 30; i > 0; --i) {
+//            // Simulating historical data with some noise
+//            double noise = ((std::rand() % 200) - 100) / 1000.0;  // Random noise between -0.1 and +0.1
+//            historicalPrices.push_back(currentPrice * (1 - i * 0.005 + noise));
+//        }
+//        historicalPrices.push_back(currentPrice);
+//
+//        // Prepare market data for the model
+//        json marketData = {
+//                {"symbol", symbol},
+//                {"current_price", currentPrice},
+//                {"prices", historicalPrices},
+//                {"volume", 10000},  // Example volume
+//                {"timestamp", std::time(nullptr)}
+//        };
+//
+//        std::cout << "Sending market data to ML model for prediction...\n";
+//
+//        // Get prediction from the ML model
+//        json prediction = mlBridge.predict(marketData);
+//
+//        if (prediction.contains("error")) {
+//            std::cout << "Error: " << prediction["error"] << "\n";
+//            return;
+//        }
+//
+//        // Display prediction results
+//        std::cout << "ML Model Signal: " << prediction["signal"] << "\n";
+//        std::cout << "Confidence: " << std::fixed << std::setprecision(2)
+//                  << prediction["confidence"].get<double>() * 100 << "%\n";
+//
+//        // Ask if user wants to place the order based on ML prediction
+//        std::string placeOrder = getStringInput("Do you want to place an order based on this prediction? (y/n): ");
+//
+//        if (placeOrder == "y" || placeOrder == "Y") {
+//            int quantity = getInput<int>("Enter quantity: ");
+//
+//            if (prediction["signal"] == "BUY") {
+//                engine.userPlaceOrder(symbol, OrderType::Buy, OrderStyle::Market, quantity, currentPrice,/*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
+//                                      marketDataFeed.getPrices());
+//                std::cout << "Buy order placed for " << quantity << " shares of " << symbol << "\n";
+//            } else {
+//                engine.userPlaceOrder(symbol, OrderType::Sell, OrderStyle::Market, quantity, currentPrice,/*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
+//                                      marketDataFeed.getPrices());
+//                std::cout << "Sell order placed for " << quantity << " shares of " << symbol << "\n";
+//            }
+//        }
+//
+//    } catch (const std::exception& e) {
+//        std::cout << "Error executing ML strategy: " << e.what() << "\n";
+//    }
+//}
 
 
 int main() {
