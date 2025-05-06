@@ -6,8 +6,8 @@
 #include "MarketDataFeed.h"
 
 #include <stdexcept>
+#include <stdlib.h>
 #include <cstdlib> // For std::rand
-#include <chrono>
 #include <thread>
 #include <iostream>
 #include <string>
@@ -99,7 +99,7 @@ void MarketDataFeed::priceUpdateLoop() {
         // Update prices
         updatePrices();
 
-        // Sleep for 1 second before next update
+        // Sleep for 1 second before the next update
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }

@@ -1,0 +1,5 @@
+numpy
+pandas
+scikit-learn        # for quick baselines
+torch               # PyTorch for deep models
+joblib              # model serialization

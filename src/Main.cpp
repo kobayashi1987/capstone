@@ -134,9 +134,9 @@ void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataF
 void generatePLReportFromFile(const std::string& plJsonPath, const std::string& csvFilePath);
 void executeBollingerBandsStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
 
-void executeMLStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed); // 2025.04.28
 
-// BELOW IS NEWLY MOVED functions from main.cpp
+
+// BELOW ARE NEWLY MOVED functions from main.cpp
 // Function to view the portfolio
 void viewPortfolio(const TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
     std::cout << "\n=== Portfolio ===\n";
@@ -1008,80 +1008,6 @@ void generatePLReportFromFile(const std::string& plJsonPath, const std::string& 
 }
 
 
-// Add a new function for ML strategy execution
-//void executeMLStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed) {
-//    std::cout << "\n=== PyTorch ML Trading Strategy ===\n";
-//
-//    // Get user input for the ML model
-//    std::string modelPath = getStringInput("Enter the path to the PyTorch model (e.g., python/model.pt): ");
-//    std::string symbol = getStringInput("Enter the stock symbol for the strategy (e.g., AAPL): ");
-//
-//    try {
-//        // Initialize the PyTorch bridge
-//        PyTorchBridge mlBridge(modelPath);
-//
-//        if (!mlBridge.isReady()) {
-//            std::cout << "Failed to initialize ML model. Please check the model path.\n";
-//            return;
-//        }
-//
-//        // Get market data for the selected symbol
-//        double currentPrice = marketDataFeed.getPrice(symbol);
-//
-//        // Get historical data (in a real scenario, this would be actual historical data)
-//        std::vector<double> historicalPrices;
-//        for (int i = 30; i > 0; --i) {
-//            // Simulating historical data with some noise
-//            double noise = ((std::rand() % 200) - 100) / 1000.0;  // Random noise between -0.1 and +0.1
-//            historicalPrices.push_back(currentPrice * (1 - i * 0.005 + noise));
-//        }
-//        historicalPrices.push_back(currentPrice);
-//
-//        // Prepare market data for the model
-//        json marketData = {
-//                {"symbol", symbol},
-//                {"current_price", currentPrice},
-//                {"prices", historicalPrices},
-//                {"volume", 10000},  // Example volume
-//                {"timestamp", std::time(nullptr)}
-//        };
-//
-//        std::cout << "Sending market data to ML model for prediction...\n";
-//
-//        // Get prediction from the ML model
-//        json prediction = mlBridge.predict(marketData);
-//
-//        if (prediction.contains("error")) {
-//            std::cout << "Error: " << prediction["error"] << "\n";
-//            return;
-//        }
-//
-//        // Display prediction results
-//        std::cout << "ML Model Signal: " << prediction["signal"] << "\n";
-//        std::cout << "Confidence: " << std::fixed << std::setprecision(2)
-//                  << prediction["confidence"].get<double>() * 100 << "%\n";
-//
-//        // Ask if user wants to place the order based on ML prediction
-//        std::string placeOrder = getStringInput("Do you want to place an order based on this prediction? (y/n): ");
-//
-//        if (placeOrder == "y" || placeOrder == "Y") {
-//            int quantity = getInput<int>("Enter quantity: ");
-//
-//            if (prediction["signal"] == "BUY") {
-//                engine.userPlaceOrder(symbol, OrderType::Buy, OrderStyle::Market, quantity, currentPrice,/*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
-//                                      marketDataFeed.getPrices());
-//                std::cout << "Buy order placed for " << quantity << " shares of " << symbol << "\n";
-//            } else {
-//                engine.userPlaceOrder(symbol, OrderType::Sell, OrderStyle::Market, quantity, currentPrice,/*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
-//                                      marketDataFeed.getPrices());
-//                std::cout << "Sell order placed for " << quantity << " shares of " << symbol << "\n";
-//            }
-//        }
-//
-//    } catch (const std::exception& e) {
-//        std::cout << "Error executing ML strategy: " << e.what() << "\n";
-//    }
-//}
 
 
 int main() {
@@ -1126,7 +1052,7 @@ int main() {
 
     // MarketDataFeed marketDataFeed;
 
-    // Load existing portfolio if available
+    // Load the existing portfolio if available
     Portfolio loadedPortfolio(initialCapital);
     if (dataPersistence.loadPortfolio(loadedPortfolio)) {
         engine.setPortfolio(loadedPortfolio);
@@ -1237,7 +1163,12 @@ int main() {
                 break;
             }
 
-            case 10: { // Generate P&L Report from pl.json and Export to CSV
+//            case 10: { // Execute ML Strategy
+//                executeMLStrategy(engine, marketDataFeed);
+//                break;
+//            }
+
+            case 11: { // Generate P&L Report from pl.json and Export to CSV
                 generatePLReportFromFile("../data/pl.json", "../data/pl_report.csv");
                 break;
             }

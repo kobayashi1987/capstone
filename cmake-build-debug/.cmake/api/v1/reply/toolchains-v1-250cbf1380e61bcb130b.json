@@ -16,6 +16,7 @@
 					],
 					"linkDirectories" : 
 					[
+						"/opt/homebrew/opt/openssl@3/lib",
 						"/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib",
 						"/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/swift"
 					],
@@ -50,6 +51,7 @@
 					],
 					"linkDirectories" : 
 					[
+						"/opt/homebrew/opt/openssl@3/lib",
 						"/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib",
 						"/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/swift"
 					],

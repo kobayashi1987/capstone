@@ -6830,5 +6830,13 @@
         "sell_price": 188.0,
         "symbol": "AAPL",
         "timestamp": "2025-03-25T20:56:55"
+    },
+    {
+        "average_buy_price": 153.81919208488824,
+        "profit_loss": -29.870817144275293,
+        "quantity": 23,
+        "sell_price": 152.52046090470236,
+        "symbol": "AAPL",
+        "timestamp": "2025-05-06T17:43:52"
     }
 ]

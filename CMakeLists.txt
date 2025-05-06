@@ -30,6 +30,7 @@ set(SOURCE_FILES
         src/StrategyManager.cpp
         src/Utils.cpp
         src/BollingerBandsStrategy.cpp
+        src/PyTorchBridge.cpp  # Added this line
 
 )
 
@@ -77,3 +78,13 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(TradingApplication PRIVATE /W4)
 endif()
+
+
+
+## added on 2025.05.06
+#find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+#message(STATUS "Python3 found: ${Python3_EXECUTABLE}")
+#
+#target_compile_definitions(TradingApplication PRIVATE
+#        PYTHON_EXECUTABLE="${Python3_EXECUTABLE}")
+#

@@ -154,7 +154,7 @@
 					"value" : "CXX compiler"
 				}
 			],
-			"type" : "STRING",
+			"type" : "FILEPATH",
 			"value" : "/Library/Developer/CommandLineTools/usr/bin/c++"
 		},
 		{
@@ -250,7 +250,7 @@
 					"value" : "C compiler"
 				}
 			],
-			"type" : "STRING",
+			"type" : "FILEPATH",
 			"value" : "/Library/Developer/CommandLineTools/usr/bin/cc"
 		},
 		{
@@ -375,7 +375,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : ""
+			"value" : "-L/opt/homebrew/opt/openssl@3/lib"
 		},
 		{
 			"name" : "CMAKE_EXE_LINKER_FLAGS_DEBUG",
@@ -639,7 +639,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : ""
+			"value" : "-L/opt/homebrew/opt/openssl@3/lib"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS_DEBUG",
@@ -907,7 +907,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : ""
+			"value" : "-L/opt/homebrew/opt/openssl@3/lib"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS_DEBUG",
@@ -1146,6 +1146,18 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Python3",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding Python3"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[/Users/jack/Desktop/project/clion/cpp/project01/.venv/bin/python][/Library/Frameworks/Python.framework/Versions/3.13/include/python3.13][/Library/Frameworks/Python.framework/Versions/3.13/lib/libpython3.13.dylib][cfound components: Interpreter Development Development.Module Development.Embed ][v3.13.1()]"
+		},
+		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Threads",
 			"properties" : 
 			[
@@ -1156,6 +1168,30 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "[TRUE][v()]"
+		},
+		{
+			"name" : "Python3_EXECUTABLE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "No help, variable specified on the command line."
+				}
+			],
+			"type" : "UNINITIALIZED",
+			"value" : "/Users/jack/Desktop/project/clion/cpp/project01/.venv/bin/python"
+		},
+		{
+			"name" : "Python_EXECUTABLE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "No help, variable specified on the command line."
+				}
+			],
+			"type" : "UNINITIALIZED",
+			"value" : "/Users/jack/Desktop/project/clion/cpp/project01/.venv/bin/python"
 		},
 		{
 			"name" : "TradingApplication_BINARY_DIR",
@@ -1192,6 +1228,138 @@
 			],
 			"type" : "STATIC",
 			"value" : "/Users/jack/Desktop/project/clion/cpp/project01"
+		},
+		{
+			"name" : "_Python3_CONFIG",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a program."
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13-config"
+		},
+		{
+			"name" : "_Python3_Compiler_REASON_FAILURE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Compiler reason failure"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "_Python3_DEVELOPMENT_EMBED_SIGNATURE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "581763c6c0925b85df1bfb098ce49c4f"
+		},
+		{
+			"name" : "_Python3_DEVELOPMENT_MODULE_SIGNATURE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "6e20ed36b9d6395a620ea21caf9c4fbf"
+		},
+		{
+			"name" : "_Python3_Development_REASON_FAILURE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Development reason failure"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "_Python3_EXECUTABLE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/Users/jack/Desktop/project/clion/cpp/project01/.venv/bin/python"
+		},
+		{
+			"name" : "_Python3_INCLUDE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/Library/Frameworks/Python.framework/Versions/3.13/include/python3.13"
+		},
+		{
+			"name" : "_Python3_INTERPRETER_PROPERTIES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Python3 Properties"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "Python;3;13;1;64;<none>;cpython-313-darwin;abi3;/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13;/Users/jack/Desktop/project/clion/cpp/project01/.venv/lib/python3.13;/Users/jack/Desktop/project/clion/cpp/project01/.venv/lib/python3.13/site-packages;/Users/jack/Desktop/project/clion/cpp/project01/.venv/lib/python3.13/site-packages"
+		},
+		{
+			"name" : "_Python3_INTERPRETER_SIGNATURE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "838f7092742f5450ea5346b5395ed6e5"
+		},
+		{
+			"name" : "_Python3_LIBRARY_RELEASE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/Library/Frameworks/Python.framework/Versions/3.13/lib/libpython3.13.dylib"
+		},
+		{
+			"name" : "_Python3_NumPy_REASON_FAILURE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "NumPy reason failure"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
 		}
 	],
 	"kind" : "cache",
