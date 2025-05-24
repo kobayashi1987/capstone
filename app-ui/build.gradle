@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+dependencies {
+    // Add your dependencies here if needed
+}
+
+application {
+    mainClass = 'ui.MainWindow'
+}
+
+// Ensure the native library is loaded
+run {
+    systemProperty "java.library.path", "${projectDir}/lib"
+} 

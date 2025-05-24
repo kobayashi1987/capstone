@@ -1,0 +1,121 @@
+# code added on 2024.10.23
+
+#CMakeLists.txt
+
+cmake_minimum_required(VERSION 3.17)
+project(TradingApplication)
+
+# Set the C++ standard
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Set output directories
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+# Create variables for source files
+set(SOURCE_FILES
+        src/main.cpp
+        src/Order.cpp
+        src/Trade.cpp
+        src/OrderExecutor.cpp
+        src/Portfolio.cpp
+        src/TradingEngine.cpp
+        src/TradingStrategy.cpp
+        src/MarketDataFeed.cpp
+        src/MovingAverageCrossoverStrategy.cpp
+        src/RSIStrategy.cpp
+        src/MomentumStrategy.cpp
+        src/BreakoutStrategy.cpp
+        src/MeanReversionStrategy.cpp
+        src/DataPersistence.cpp
+        src/StrategyManager.cpp
+        src/Utils.cpp
+        src/BollingerBandsStrategy.cpp
+        app-ui/cpp/src/TradingServiceJNI.cpp
+)
+
+# Create variables for header files (optional, for IDEs)
+set(HEADER_FILES
+        include/Order.h
+        include/Trade.h
+        include/OrderExecutor.h
+        include/Portfolio.h
+        include/TradingEngine.h
+        include/TradingStrategy.h
+        include/MarketDataFeed.h
+        include/MovingAverageCrossoverStrategy.h
+        include/RSIStrategy.h
+        include/MomentumStrategy.h
+        include/BreakoutStrategy.h
+        include/MeanReversionStrategy.h
+        include/DataPersistence.h
+        include/StrategyManager.h
+        include/Utils.h
+        include/ProfitLoss.h
+        include/BollingerBandsStrategy.h
+        app-ui/cpp/include/service_TradingServiceJNI.h
+)
+
+# Add the shared library target
+add_library(trading SHARED ${SOURCE_FILES} ${HEADER_FILES})
+
+# Add the executable target
+add_executable(TradingApplication src/main.cpp)
+target_link_libraries(TradingApplication PRIVATE trading)
+
+# Set include directories for both targets
+target_include_directories(trading PRIVATE include)
+target_include_directories(TradingApplication PRIVATE include)
+
+# Find and link libraries if necessary (e.g., pthread)
+find_package(Threads REQUIRED)
+target_link_libraries(trading PRIVATE Threads::Threads)
+target_link_libraries(TradingApplication PRIVATE Threads::Threads)
+
+# Additional compiler options (optional)
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(trading PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(TradingApplication PRIVATE -Wall -Wextra -Wpedantic)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(trading PRIVATE /W4)
+    target_compile_options(TradingApplication PRIVATE /W4)
+endif()
+
+# added on 2025.05.06
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+message(STATUS "Python3 found: ${Python3_EXECUTABLE}")
+
+target_compile_definitions(trading PRIVATE
+        PYTHON_EXECUTABLE="${Python3_EXECUTABLE}")
+target_compile_definitions(TradingApplication PRIVATE
+        PYTHON_EXECUTABLE="${Python3_EXECUTABLE}")
+
+# Find Java / JNI
+find_package(Java REQUIRED)
+find_package(JNI REQUIRED)
+
+# Set Java home explicitly for macOS
+set(JAVA_HOME "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home")
+
+# Debug messages
+message(STATUS "JAVA_HOME: ${JAVA_HOME}")
+message(STATUS "JNI_INCLUDE_DIRS: ${JNI_INCLUDE_DIRS}")
+
+# Add JNI include directories
+target_include_directories(trading PRIVATE
+    ${JAVA_HOME}/include
+    ${JAVA_HOME}/include/darwin
+    ${JNI_INCLUDE_DIRS}
+    include
+    app-ui/cpp/include
+)
+
+target_include_directories(TradingApplication PRIVATE
+    ${JAVA_HOME}/include
+    ${JAVA_HOME}/include/darwin
+    ${JNI_INCLUDE_DIRS}
+    include
+    app-ui/cpp/include
+)
+
