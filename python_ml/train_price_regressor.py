@@ -34,7 +34,7 @@ def main(symbol: str, window: int = 20):
     X_train_s = scaler.transform(X_train)
     X_test_s  = scaler.transform(X_test)
 
-    # 4) Grid search for best params
+    # 4) Grid search for the best params
     param_grid = {
         'n_estimators': [100, 200],
         'max_depth': [3, 5, None],

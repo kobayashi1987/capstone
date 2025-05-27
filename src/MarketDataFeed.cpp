@@ -30,7 +30,8 @@ MarketDataFeed::MarketDataFeed(const std::string& apiKey, const std::string& dat
             {"AAPL", 150.0},
             {"GOOGL", 2800.0},
             {"MSFT", 300.0},
-            {"AMZN", 3500.0}
+            {"AMZN", 3500.0},
+
     };
     std::cout << "MarketDataFeed initialized with API Key: " << apiKey << " and Data Source: " << dataSource << "\n";
 }

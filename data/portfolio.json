@@ -1,19 +1,23 @@
 {
-    "cashBalance": 377110.2511637026,
-    "drawdown": 0.033130986538702764,
+    "cashBalance": 353840.2511637026,
+    "drawdown": 0.04747996388398944,
     "peakValue": 9852433.434818285,
     "positions": {
         "AAPL": {
-            "averagePrice": 153.81919208488824,
-            "quantity": 59190
+            "averagePrice": 153.75613871808815,
+            "quantity": 59288
+        },
+        "AMZN": {
+            "averagePrice": 350.0,
+            "quantity": 3
         },
         "GOOGL": {
-            "averagePrice": 651.9530738577085,
-            "quantity": 120
+            "averagePrice": 539.6139344877943,
+            "quantity": 170
         },
         "MSFT": {
-            "averagePrice": 297.31462278902757,
-            "quantity": 299
+            "averagePrice": 297.4182386299654,
+            "quantity": 296
         }
     },
     "profitLoss": [
@@ -6856,6 +6860,30 @@
             "sell_price": 152.52046090470236,
             "symbol": "AAPL",
             "timestamp": "2025-05-06T17:43:52"
+        },
+        {
+            "average_buy_price": 153.72841928663408,
+            "profit_loss": -384.0271865233101,
+            "quantity": 103,
+            "sell_price": 150.0,
+            "symbol": "AAPL",
+            "timestamp": "2025-05-27T21:55:30"
+        },
+        {
+            "average_buy_price": 297.4182386299654,
+            "profit_loss": 1538.726420550519,
+            "quantity": 15,
+            "sell_price": 400.0,
+            "symbol": "MSFT",
+            "timestamp": "2025-05-27T22:44:08"
+        },
+        {
+            "average_buy_price": 350.0,
+            "profit_loss": 600.0,
+            "quantity": 12,
+            "sell_price": 400.0,
+            "symbol": "AMZN",
+            "timestamp": "2025-05-27T22:55:50"
         }
     ]
 }

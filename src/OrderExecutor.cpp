@@ -8,7 +8,7 @@ std::vector<Trade> OrderExecutor::executeOrders(const std::vector<Order>& orders
     std::vector<Trade> trades;
     for (const auto& order : orders) {
         // In a real application, there would be logic to match orders.
-        // Here, we simulate immediate execution.
+        // Here, simulating immediate execution.
         trades.emplace_back(order);
     }
     return trades;

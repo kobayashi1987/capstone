@@ -1,215 +1,3 @@
-////
-//// Created by jack on 23/10/24.
-////
-//
-//#include "DataPersistence.h"
-//#include "Utils.h"      // For timePointToString and potentially parsing timestamps
-//#include "json.hpp"     // nlohmann/json library
-//#include <fstream>
-//#include <iostream>
-//#include <sstream>
-//#include <filesystem>   // C++17 filesystem library
-//#include <iomanip>      // For std::setw
-//
-//namespace fs = std::filesystem;
-//using json = nlohmann::json;
-//
-//// Constructor
-//DataPersistence::DataPersistence(const std::string& portfolioFilePath, const std::string& ordersFilePath)
-//        : portfolioFilePath_(portfolioFilePath), ordersFilePath_(ordersFilePath) {
-//    // Ensure that the data directory exists
-//    fs::path portfolioPath(portfolioFilePath_);
-//    fs::path ordersPath(ordersFilePath_);
-//    fs::path dataDir = portfolioPath.parent_path();
-//
-//    if (!fs::exists(dataDir)) {
-//        try {
-//            fs::create_directories(dataDir);
-//            std::cout << "Created data directory at: " << dataDir << "\n";
-//        }
-//        catch (const fs::filesystem_error& e) {
-//            std::cerr << "Error creating data directory: " << e.what() << "\n";
-//            throw; // Re-throw exception after logging
-//        }
-//    }
-//}
-//
-//// Load Portfolio from JSON file
-//bool DataPersistence::loadPortfolio(Portfolio& portfolio) const {
-//    std::ifstream inFile(portfolioFilePath_);
-//    if (!inFile.is_open()) {
-//        std::cout << "Portfolio file not found. Initializing with default values.\n";
-//        return false; // Indicate that loading failed
-//    }
-//
-//    json j;
-//    try {
-//        inFile >> j;
-//        portfolio.setCashBalance(j.at("cash_balance").get<double>());
-//        portfolio.setPeakValue(j.at("peak_value").get<double>());
-//        portfolio.setDrawdown(j.at("current_drawdown").get<double>());
-//
-//        const auto& positionsJson = j.at("positions");
-//        for (auto it = positionsJson.begin(); it != positionsJson.end(); ++it) {
-//            std::string symbol = it.key();
-//            int quantity = it.value().at("quantity").get<int>();
-//            double averagePrice = it.value().at("average_price").get<double>();
-//            portfolio.addPosition(symbol, quantity, averagePrice);
-//        }
-//    }
-//    catch (const std::exception& e) {
-//        std::cout << "Error parsing portfolio JSON: " << e.what() << "\n";
-//        return false;
-//    }
-//
-//    inFile.close();
-//    return true;
-//}
-//
-//// Save Portfolio to JSON file
-//bool DataPersistence::savePortfolio(const Portfolio& portfolio) const {
-//    json j;
-//    j["cash_balance"] = portfolio.getCashBalance();
-//    j["peak_value"] = portfolio.getPeakValue();
-//    j["current_drawdown"] = portfolio.getDrawdown();
-//
-//    json positionsJson;
-//    const auto& positions = portfolio.getPositions();
-//    for (const auto& [symbol, position] : positions) {
-//        positionsJson[symbol] = {
-//                {"quantity", position.quantity},
-//                {"average_price", position.averagePrice}
-//        };
-//    }
-//    j["positions"] = positionsJson;
-//
-//    std::ofstream outFile(portfolioFilePath_);
-//    if (!outFile.is_open()) {
-//        std::cout << "Failed to open portfolio file for writing: " << portfolioFilePath_ << "\n";
-//        return false;
-//    }
-//
-//    try {
-//        outFile << std::setw(4) << j << std::endl;
-//    }
-//    catch (const std::exception& e) {
-//        std::cout << "Error writing portfolio JSON: " << e.what() << "\n";
-//        return false;
-//    }
-//
-//    outFile.close();
-//    return true;
-//}
-//
-//// Load Orders from JSON file
-//bool DataPersistence::loadOrders(std::vector<Order>& orders) const {
-//    std::ifstream inFile(ordersFilePath_);
-//    if (!inFile.is_open()) {
-//        std::cout << "Orders file not found. Starting with no pending orders.\n";
-//        return false; // Indicate that loading failed
-//    }
-//
-//    json j;
-//    try {
-//        inFile >> j;
-//        for (const auto& orderJson : j) {
-//            OrderType type;
-//            std::string typeStr = orderJson.at("type").get<std::string>();
-//            if (typeStr == "Buy") {
-//                type = OrderType::Buy;
-//            }
-//            else if (typeStr == "Sell") {
-//                type = OrderType::Sell;
-//            }
-//            else {
-//                std::cout << "Unknown order type: " << typeStr << ". Skipping order.\n";
-//                continue; // Skip invalid orders
-//            }
-//
-//            OrderStyle style;
-//            std::string styleStr = orderJson.at("style").get<std::string>();
-//            if (styleStr == "Market") {
-//                style = OrderStyle::Market;
-//            }
-//            else if (styleStr == "Limit") {
-//                style = OrderStyle::Limit;
-//            }
-//            else {
-//                std::cout << "Unknown order style: " << styleStr << ". Skipping order.\n";
-//                continue; // Skip invalid orders
-//            }
-//
-//            std::string symbol = orderJson.at("symbol").get<std::string>();
-//            int quantity = orderJson.at("quantity").get<int>();
-//            double price = orderJson.at("price").get<double>();
-//            double stopLoss = orderJson.value("stop_loss", 0.0);
-//            double takeProfit = orderJson.value("take_profit", 0.0);
-//            std::string timestampStr = orderJson.at("timestamp").get<std::string>();
-//
-//            // Parse timestamp string to time_point
-//            std::tm tm = {};
-//            std::istringstream ss(timestampStr);
-//            ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-//            if (ss.fail()) {
-//                std::cout << "Failed to parse timestamp: " << timestampStr << ". Skipping order.\n";
-//                continue; // Skip orders with invalid timestamps
-//            }
-//            std::time_t tt = std::mktime(&tm);
-//            if (tt == -1) {
-//                std::cout << "Invalid time conversion for timestamp: " << timestampStr << ". Skipping order.\n";
-//                continue;
-//            }
-//            std::chrono::system_clock::time_point timestamp = std::chrono::system_clock::from_time_t(tt);
-//
-//            // Construct Order object
-//            Order order(type, style, symbol, quantity, price, stopLoss, takeProfit, timestamp);
-//            orders.emplace_back(order);
-//        }
-//    }
-//    catch (const std::exception& e) {
-//        std::cout << "Error parsing orders JSON: " << e.what() << "\n";
-//        return false;
-//    }
-//
-//    inFile.close();
-//    return true;
-//}
-//
-//// Save Orders to JSON file
-//bool DataPersistence::saveOrders(const std::vector<Order>& orders) const {
-//    json j = json::array();
-//    for (const auto& order : orders) {
-//        json orderJson;
-//        orderJson["type"] = (order.getType() == OrderType::Buy) ? "Buy" : "Sell";
-//        orderJson["style"] = (order.getStyle() == OrderStyle::Market) ? "Market" : "Limit";
-//        orderJson["symbol"] = order.getSymbol();
-//        orderJson["quantity"] = order.getQuantity();
-//        orderJson["price"] = order.getPrice();
-//        orderJson["stop_loss"] = order.getStopLoss();
-//        orderJson["take_profit"] = order.getTakeProfit();
-//        orderJson["timestamp"] = timePointToString(order.getTimestamp());
-//        j.push_back(orderJson);
-//    }
-//
-//    std::ofstream outFile(ordersFilePath_);
-//    if (!outFile.is_open()) {
-//        std::cout << "Failed to open orders file for writing: " << ordersFilePath_ << "\n";
-//        return false;
-//    }
-//
-//    try {
-//        outFile << std::setw(4) << j << std::endl;
-//    }
-//    catch (const std::exception& e) {
-//        std::cout << "Error writing orders JSON: " << e.what() << "\n";
-//        return false;
-//    }
-//
-//    outFile.close();
-//    return true;
-//}
-
-
 // File: src/DataPersistence.cpp
 
 #include "DataPersistence.h"
@@ -227,6 +15,7 @@ DataPersistence::DataPersistence(const std::string& portfolioFile, const std::st
         : portfolioFilePath_(portfolioFile),
           ordersFilePath_(ordersFile),
           plFilePath_(plFile) {}
+
 
 // Load Portfolio
 bool DataPersistence::loadPortfolio(Portfolio& portfolio) {
@@ -456,57 +245,7 @@ bool DataPersistence::saveOrders(const std::vector<Order>& orders) {
     return true;
 }
 
-//// Load Profit & Loss
-//bool DataPersistence::loadProfitLoss(std::vector<ProfitLoss>& plList) {
-//    std::ifstream inFile(plFilePath_);
-//    if (!inFile.is_open()) {
-//        std::cout << "Profit & Loss file not found at path: " << plFilePath_ << ". Starting with no P&L records.\n";
-//        return false;
-//    }
-//
-//    nlohmann::json j;
-//    try {
-//        inFile >> j;
-//    }
-//    catch (const nlohmann::json::parse_error& e) {
-//        std::cout << "Error parsing Profit & Loss file at path " << plFilePath_ << ": " << e.what() << "\n";
-//        inFile.close();
-//        return false;
-//    }
-//
-//    // Deserialize P&L entries
-//    if (j.is_array()) {
-//        try {
-//            plList = j.get<std::vector<ProfitLoss>>();
-//            // Optionally, validate each pl entry
-//            std::vector<ProfitLoss> validPlList;
-//            for (const auto& pl : plList) {
-//                if (!pl.symbol.empty() && pl.quantity > 0 && pl.sell_price > 0 &&
-//                    pl.average_buy_price > 0 && !pl.timestamp.empty()) {
-//                    validPlList.push_back(pl);
-//                }
-//                else {
-//                    std::cout << "Invalid ProfitLoss entry detected in pl.json. Skipping: " << nlohmann::json(pl).dump() << "\n";
-//                }
-//            }
-//            plList = validPlList;
-//        }
-//        catch (const nlohmann::json::type_error& e) {
-//            std::cout << "Error deserializing Profit & Loss entries from " << plFilePath_ << ": " << e.what() << "\n";
-//            inFile.close();
-//            return false;
-//        }
-//    }
-//    else {
-//        std::cout << "Profit & Loss file at path " << plFilePath_ << " is not a valid JSON array. Starting with no P&L records.\n";
-//        inFile.close();
-//        return false;
-//    }
-//
-//    inFile.close();
-//    std::cout << "Profit & Loss records loaded successfully from " << plFilePath_ << ".\n";
-//    return true;
-//}
+
 
 // Load Profit & Loss
 bool DataPersistence::loadProfitLoss(std::vector<ProfitLoss>& plList) {
@@ -585,4 +324,16 @@ bool DataPersistence::saveProfitLoss(const std::vector<ProfitLoss>& plList) {
     return true;
 }
 
+
+void exportPricesToCSV(const std::string& symbol,
+                       const std::vector<double>& prices,
+                       const std::string& outPath)
+{
+    std::ofstream out(outPath);
+    out << "price\n";
+    for (double p : prices) {
+        out << p << "\n";
+    }
+    out.close();
+}
 

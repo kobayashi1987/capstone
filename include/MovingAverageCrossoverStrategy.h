@@ -2,8 +2,6 @@
 // Created by jack on 7/10/24.
 //
 
-// include/MovingAverageCrossoverStrategy.h
-
 #ifndef MOVINGAVERAGECROSSOVERSTRATEGY_H
 #define MOVINGAVERAGECROSSOVERSTRATEGY_H
 

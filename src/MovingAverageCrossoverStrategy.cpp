@@ -5,10 +5,10 @@
 // src/MovingAverageCrossoverStrategy.cpp
 
 #include "MovingAverageCrossoverStrategy.h"
-#include "Portfolio.h" // Include this header , added 2024.11.02
+#include "Portfolio.h" // Include this header, added 2024.11.02
 #include "Order.h" // Include this header
 #include <numeric>  // For std::accumulate
-#include <stdexcept> // F
+#include <stdexcept>
 #include <vector>
 
 MovingAverageCrossoverStrategy::MovingAverageCrossoverStrategy(int shortWindow, int longWindow)
@@ -52,7 +52,7 @@ void MovingAverageCrossoverStrategy::generateSignals(const std::vector<double>& 
     }
 }
 
-// Newly added method to generate orders 2024 Oct 09
+
 std::vector<Order> MovingAverageCrossoverStrategy::generateOrders(const std::vector<double>& prices, const std::string& symbol) {
     generateSignals(prices);
     std::vector<Order> orders;

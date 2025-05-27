@@ -3,7 +3,7 @@
 
 #CMakeLists.txt
 
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.17)
 project(TradingApplication)
 
 # Set the C++ standard
@@ -30,7 +30,7 @@ set(SOURCE_FILES
         src/StrategyManager.cpp
         src/Utils.cpp
         src/BollingerBandsStrategy.cpp
-        src/PyTorchBridge.cpp  # Added this line
+
 
 )
 
@@ -55,9 +55,6 @@ set(HEADER_FILES
         include/ProfitLoss.h
         include/BollingerBandsStrategy.h
         include/BollingerBandsStrategy.h
-        include/PyTorchBridge.h
-
-
 )
 
 # Add the executable target
@@ -81,10 +78,9 @@ endif()
 
 
 
-## added on 2025.05.06
-#find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
-#message(STATUS "Python3 found: ${Python3_EXECUTABLE}")
-#
-#target_compile_definitions(TradingApplication PRIVATE
-#        PYTHON_EXECUTABLE="${Python3_EXECUTABLE}")
-#
+# added on 2025.05.06
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+message(STATUS "Python3 found: ${Python3_EXECUTABLE}")
+
+target_compile_definitions(TradingApplication PRIVATE
+        PYTHON_EXECUTABLE="${Python3_EXECUTABLE}")

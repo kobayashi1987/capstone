@@ -20,7 +20,6 @@
 #include <unistd.h>     // For getcwd
 #include <limits.h>     // For PATH_MAX
 
-//#include <Python.h> // For Python C API
 
 // For JSON parsing
 #include "json.hpp"
@@ -47,7 +46,6 @@ namespace fs = std::filesystem;
 #include "DataPersistence.h" // Assumed to handle JSON serialization
 #include "ProfitLoss.h" // Newly added
 #include "BollingerBandsStrategy.h" // Newly added
-#include "PyTorchBridge.h"
 
 
 
@@ -133,6 +131,7 @@ void updateMarketPrices(std::unordered_map<std::string, double>& marketPrices, M
 void executeTradingStrategies(TradingEngine& engine, MarketDataFeed& marketDataFeed);
 void generatePLReportFromFile(const std::string& plJsonPath, const std::string& csvFilePath);
 void executeBollingerBandsStrategy(TradingEngine& engine, const MarketDataFeed& marketDataFeed);
+
 
 
 
@@ -305,7 +304,7 @@ void executeMovingAverageCrossoverStrategy(TradingEngine& engine, const MarketDa
 
     auto strategy = std::make_unique<MovingAverageCrossoverStrategy>(shortPeriod, longPeriod);
 
-    // Generate dummy historical prices for testing
+    // Generate "dummy" historical prices for testing
     std::vector<double> prices(200);
     double currentPrice;
     try {
@@ -362,7 +361,8 @@ void executeMovingAverageCrossoverStrategy(TradingEngine& engine, const MarketDa
                               order.getPrice(), /*stopLossPrice=*/0.0, /*takeProfitPrice=*/0.0,
                               marketDataFeed.getPrices());
     }
-
+    exportPricesToCSV(symbol, prices, "../data/" + symbol + "_prices.csv");
+    std::cout << "Exported prices to ../data/" << symbol << "_prices.csv\n";
     std::cout << "\nMoving Average Crossover strategy executed.\n";
 }
 
@@ -668,23 +668,54 @@ void viewLivePrices(TradingEngine& engine, MarketDataFeed& marketDataFeed) {
     std::cout << "\nExiting Live Price Feed mode.\n";
 }
 
-// Function to view trade history
-void viewTradeHistory(const TradingEngine& engine) {
-    const auto& tradeHistory = engine.getPortfolio().getTradeHistory();
-    if (tradeHistory.empty()) {
-        std::cout << "No trade history available.\n";
-    }
-    else {
-        std::cout << "\n--- Trade History ---\n";
-        for (const auto& trade : tradeHistory) {
-            const Order& order = trade.getOrder();
-            std::cout << "Type: " << (order.getType() == OrderType::Buy ? "Buy" : "Sell")
-                      << ", Symbol: " << order.getSymbol()
-                      << ", Quantity: " << order.getQuantity()
-                      << ", Price: $" << order.getPrice()
-                      << ", Timestamp: " << timePointToString(order.getTimestamp())
-                      << "\n";
+
+void viewTradeHistory(const TradingEngine& engine)
+{
+    const auto& portfolio     = engine.getPortfolio();
+    const auto& tradeHistory  = portfolio.getTradeHistory();
+    const auto& pendingOrders = portfolio.getPendingOrders();
+
+    std::cout << "\n--- Trade History ---\n";
+
+    if (tradeHistory.empty())
+    {
+        std::cout << "No executed trades found.\n";
+        if (!pendingOrders.empty())
+        {
+            std::cout << pendingOrders.size()
+                      << " order(s) still pending (price not yet hit):\n";
+            for (const auto& ord : pendingOrders)
+            {
+                std::cout << "  "
+                          << (ord.getType() == OrderType::Buy ? "Buy " : "Sell")
+                          << ord.getQuantity() << ' ' << ord.getSymbol()
+                          << " @ $" << ord.getPrice() << '\n';
+            }
         }
+        return;
+    }
+
+    // Pretty header
+    std::cout << std::left
+              << std::setw(6)  << "Type"
+              << std::setw(8)  << "Symbol"
+              << std::setw(10) << "Qty"
+              << std::setw(12) << "Price"
+              << "Timestamp\n"
+              << std::string(50, '-') << '\n';
+
+    for (const auto& trade : tradeHistory)
+    {
+        const Order& ord = trade.getOrder();
+        std::cout << std::left
+                  << std::setw(6)
+                  << (ord.getType() == OrderType::Buy ? "Buy" : "Sell")
+                  << std::setw(8)  << ord.getSymbol()
+                  << std::setw(10) << ord.getQuantity()
+                  << std::setw(12) << std::fixed << std::setprecision(2)
+                  << ord.getPrice()
+                  << timePointToString(ord.getTimestamp())
+                  << '\n';
     }
 }
 
@@ -742,6 +773,8 @@ void executeBollingerBandsStrategy(TradingEngine& engine, const MarketDataFeed& 
                               order.getStopLoss(), order.getTakeProfit(),
                               marketDataFeed.getPrices());
     }
+
+
 }
 
 // Function to execute trading strategies
@@ -1022,9 +1055,7 @@ int main() {
     // Initialize file paths for data persistence
     std::string portfolioFile = "../data/portfolio.json";
     std::string ordersFile = "../data/orders.json";
-    std::string plFile = "../data/pl.json"; // Newly added
-    // Example: Using Absolute Path (Adjust accordingly)
-    // std::string plFile = "/Users/jack/Desktop/project/clion/cpp/project01/data/pl.json";
+    std::string plFile = "../data/pl.json";
 
     // Initialize DataPersistence
     DataPersistence dataPersistence(portfolioFile, ordersFile, plFile); // newly added
@@ -1040,7 +1071,8 @@ int main() {
             {"AAPL",  150.0},
             {"GOOGL", 280.0},
             {"MSFT",  300.0},
-            {"AMZN",  350.0}
+            {"AMZN",  350.0},
+
     };
 
     // Initialize MarketDataFeed with symbols and initial prices

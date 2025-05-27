@@ -26,13 +26,16 @@ void TradingEngine::placeOrder(const std::string& symbol, OrderType type, OrderS
 void TradingEngine::userPlaceOrder(const std::string& symbol, OrderType type, OrderStyle style, int quantity, double price,
                                    double stopLossPrice, double takeProfitPrice,
                                    const std::unordered_map<std::string, double>& marketPrices) {
-    // Create the Order object with specified quantity
+    // Create the Order object with a specified quantity
     Order order(type, style, symbol, quantity, price, stopLossPrice, takeProfitPrice);
 
     if (style == OrderStyle::Market) {
         // Execute Market Order Immediately
         try {
             portfolio_.executeTrade(order, marketPrices);
+
+            // Add the executed order to trade history
+            portfolio_.addTrade(Trade(order));
             std::cout << "Market Order executed successfully.\n";
         }
         catch (const std::exception& e) {
